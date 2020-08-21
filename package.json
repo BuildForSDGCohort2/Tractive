@@ -1,0 +1,26 @@
+{
+  "name": "tractive",
+  "version": "1.0.0",
+  "description": "This is an app aim to solve farmers' access to tractor challenge",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon ./server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuildForSDGCohort2/Tractive.git"
+  },
+  "author": "Zeeson and co.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BuildForSDGCohort2/Tractive/issues"
+  },
+  "homepage": "https://github.com/BuildForSDGCohort2/Tractive#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {}
+}
