@@ -1,3 +1,19 @@
-# Tractive
+Tractive project is aiming at making farmers' access to tractors and other implements an easier experience. 
+This will go along way to improve farm operations. 
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4db6ca36d61542f7865e4627c7e3c640)](https://app.codacy.com/gh/BuildForSDGCohort2/Tractive?utm_source=github.com&utm_medium=referral&utm_content=BuildForSDGCohort2/Tractive&utm_campaign=Badge_Grade_Settings)
+
+To contribute to this project:
+
+## Local Setup 
+###  Requirements 
+* Node ( v 12 is recommended)
+
+### Setup Steps 
+* Fork repo 
+* Clone your fork to your local environment
+* run `cd Tractive` in the terminal
+* run `git remote add upstream https://github.com/BuildForSDGCohort2/Tractive.git`
+* run `npm install` in the terminal
+* run `npm start` in the terminal
+* Before you push any code, always run `git pull upstream develop`
+

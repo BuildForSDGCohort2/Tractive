@@ -1,0 +1,30 @@
+{
+  "name": "tractive_be",
+  "version": "1.0.0",
+  "description": "Tractive ",
+  "main": "app.js",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.21",
+    "nodemon": "^2.0.4",
+    "passport": "^0.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuildForSDGCohort2/Tractive.git"
+  },
+  "author": "Ibrahim and co.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BuildForSDGCohort2/Tractive/issues"
+  },
+  "homepage": "https://github.com/BuildForSDGCohort2/Tractive#readme"
+}
