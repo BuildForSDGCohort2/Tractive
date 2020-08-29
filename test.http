@@ -1,18 +1,11 @@
-GET  http://localhost:6000/users/ HTTP/1.1
+GET http://localhost:6000/api/fleets HTTP/1.1
 Content-Type: application/json
 
 {
-     "title":"Mr.",
-        "address":"8, Buk road, Kano",
-        "town":"Gwarzo",
-        "state":"Kano",
-        "farmSize":"20 acrea",
-        "farmAddress": "Gwarzo road",
-        "crops":"Maize, Millet, Cassava",
-    "fullName": "Ibrahim Saliman",
-    "gender": "male",
-    "email": "DamiSalafi@yahoo.com",
-    "phone": "0803813",
-    "country": "nigeria",
-    "password": "damilola123"
+     "name":"Thresher AH520",
+        "description":"This implement is used to thresh",
+        "purpose":"To thresh",
+        "image":"fleet.jpg",
+        "availability":"Currently available"
+       
 }

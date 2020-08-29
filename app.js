@@ -17,7 +17,7 @@ app.listen(port, () => {
 
 
 app.use(express.json()); 
-app.use("/users", userUrl);
+app.use("/api", userUrl);
 
  
 
