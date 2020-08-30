@@ -1,11 +1,13 @@
-GET http://localhost:6000/api/fleets HTTP/1.1
+GET  http://localhost:6000/fleets/ HTTP/1.1
 Content-Type: application/json
 
 {
-     "name":"Thresher AH520",
-        "description":"This implement is used to thresh",
-        "purpose":"To thresh",
-        "image":"fleet.jpg",
-        "availability":"Currently available"
-       
+     
+     "name": " Triple Harvester ec520",
+  "description": "This implement is used to cultivate",
+  "purpose": "To cultivate",
+  "image": "fleet.jpg",
+
+  "availability": "Currently unavailable"
+  
 }

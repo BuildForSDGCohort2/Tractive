@@ -9,7 +9,7 @@ const fleetsModel  = new Schema({
         trim: true,
         required: [true, "Fullname is required"]
     },
-    description:{
+    desc:{
         type:String, 
         trim: true,
         required: [true, "Gender is required"]
@@ -30,7 +30,9 @@ const fleetsModel  = new Schema({
         enum: ["Currently available", "One week time", "Two weeks - Four weeks time ", "Currently unavailable"],
         trim: true,
         required: [true, "Crops grown is required"]
-    }
+    } 
+    }, {
+        timestamps: true
     
 })
 
