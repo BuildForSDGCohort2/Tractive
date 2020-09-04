@@ -1,19 +1,23 @@
-const mongoose = require('mongoose')
-
+const   mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 
 const ownersModel  = new Schema({
     title:{
         type:String, 
-        enum: ["Mr.", "Mrs.", "Miss.", "Dr.",  "Prof.", "Chief", "Prince", "Others"],
+        enum: ["Mr.", "Mrs.", "Alh.", "Miss.", "Dr.",  "Prof.", "Chief", "Prince", "Others"],
         trim: true,
         required: [true, "Fullname is required"]
     },
+
     fullName:{
         type:String, 
         trim: true,
         required: [true, "Fullname is required"]
+    },
+    username: {
+        type:String,
+        trim: true
     },
     gender:{
         type:String, 
@@ -69,6 +73,5 @@ const ownersModel  = new Schema({
     }
     
 })
-
 
 module.exports = mongoose.model('owner', ownersModel)

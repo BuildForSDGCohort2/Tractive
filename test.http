@@ -1,13 +1,20 @@
-GET  http://localhost:6000/fleets/ HTTP/1.1
+POST http://localhost:6000/farmers/signup HTTP/1.1
 Content-Type: application/json
 
 {
-     
-     "name": " Triple Harvester ec520",
-  "description": "This implement is used to cultivate",
-  "purpose": "To cultivate",
-  "image": "fleet.jpg",
-
-  "availability": "Currently unavailable"
-  
+"title": "Mr.", 
+"address": "75, Buk road", 
+"town": "kano", 
+"state": "kano", 
+ "fullName": "Dami lola",
+"gender": "female",  
+"phone": "080373636",  
+"country": "Nigeria", 
+"farmAddress": "8, olollau",
+"farmSize": "8, olollau",
+"crops": "8, olollau",
+  "email": "Damilola@ymail.com",
+  "password": "1234566yr",
+  "password2": "1234566yr"
+   
 }
