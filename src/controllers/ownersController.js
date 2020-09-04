@@ -1,10 +1,8 @@
-const express = require("express");
-const Owner = require("../models/ownersModel"); 
 const bcrypt = require("bcryptjs");
-const jwt       = require("jsonwebtoken"); 
-// const passport = require("passport"); 
+const passport = require('passport');
 
-const {signUp, signIn} = require("../middlewares/validation"); 
+// const Owner = require("../models/ownersModel"); 
+const Owner = require("../models/ownersModel")
 
 
 const getOwners = async (req, res, next) => {
@@ -14,83 +12,57 @@ const getOwners = async (req, res, next) => {
 };
 
 //   signup 
-const ownerApplication = async (req, res) => {    
-    const {error} = signUp(req.body) 
-    if (error) {
-        return res.status(400).send(error.details[0].message)
-    } 
-    const existingEmail = await User.findOne({email : req.body.email})
+const ownerApplication =  async  (req, res) => {    
 
-    if (existingEmail) {
-        return res.status(400).send('Email already exists')
-    }
-    const saltPassword = await bcrypt.genSalt(10)
-    const hashedPassword = await bcrypt.hash(req.body.password, saltPassword)
+const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress,  password, password2 } = req.body;
+  let errors = [];
 
-    const {title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password,  } = req.body
+  if (password.length < 6) {
+    errors.push({ msg: 'Password must be at least 6 characters' });
+  } else {
+    Owner.findOne({ email: email }).then(user => {
+      if (user) {
+        return res.status(400).send("Email already exists")
+      } else {
+        const newOwner= new Owner({
+          title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password,
+        });
 
-    const newOwner = new Owner({
-        title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress,
-        password: hashedPassword,
-        
-    })
-
-    newOwner
-    .save()
-    .then((data) =>{
-        res.json(data);
-    })
-    .catch((error) =>{
-        console.log(error); 
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newOwner.password, salt, (err, hash) => {
+            if (err) throw err;
+            newOwner.password = hash;
+            newOwner
+              .save()
+              .then(user => {
+              //   res.redirect('/users/login');
+                res.json(`${user.fullName}, successully registered`)
+              })
+              .catch(err => console.log(err));
+          });
+        });
+      }
     });
-};
+  }
+}
 
-// sign-in
-const ownerLogin = async (req, res, next) => {
-    const {error} = signIn(req.body) 
-    if (error) {
-        return res.status(400).send(error.details[0].message)
-    }
- 
-    const correctEmil = await Owner.findOne({email : req.body.email})
-    if(!correctEmil){
-        return res.status(400).send("Email not exist!")
-    }
-
-    const correctPassword = await bcrypt.compare(req.body.password, correctEmil.password)
-    if(!correctPassword){
-        return res.status(400).send("Incorrect Password")
-    }
-
-    const sessionToken = jwt.sign({_id:correctEmil.id}, process.env.MY_SECRET_TOKEN)
-
-    if(correctEmil && correctPassword){
-    // res.header('authentication-id', sessionToken).json(sessionToken)
-    res.json(`${correctEmil.fullName} signed in successfully`); 
-    }
-   
-};
-
-// logout
-const ownerLogout = async (req, res, next) => {
-    if (req.session) {
-        req.session.destroy((err) => {
-        if(err) {
-          return next(err);
-        } else {
-            res.json(`Logged out successfully`);
-        }
-      });
-    }
-  };
+// signin with passport 
+const ownerLogin = (req, res, next) => {
+    const name  = req.body.email
+    passport.authenticate("local", {
+    successRedirect: "/fleets",
+    failureRedirect: "/login"
+}),
+    res.json(`success, ${name} is successfully Logged in`); 
+}
 
 
 // logout with passport
-// const userLogout = async (req, res) => {
-//         req.logout();
-//         // res.redirect('/');
-//    res.json(`Logged out successfully`);
-// }
+const ownerLogout =  (req, res) => {
+        req.logout();
+        // res.redirect('/');
+   res.json(`Logged out successfully`);
+}
 
 
 module.exports = {
@@ -98,5 +70,4 @@ module.exports = {
     ownerApplication,
     getOwners, 
     ownerLogout
-}; 
-  
+}

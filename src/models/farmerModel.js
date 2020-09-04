@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const farmersModel  = new Schema({
     title:{
         type:String, 
-        enum: ["Mr.", "Mrs.", "Miss.", "Dr.", "Prof.", "Chief", "Prince", "Others"],
+        enum: ["Mr.", "Mrs.", "Alh.", "Miss.", "Dr.", "Prof.", "Chief", "Prince", "Others"],
         trim: true,
         required: [true, "Fullname is required"]
     },

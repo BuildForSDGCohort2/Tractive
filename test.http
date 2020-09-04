@@ -1,13 +1,9 @@
-GET  http://localhost:6000/fleets/ HTTP/1.1
+POST http://localhost:6000/agents/signin HTTP/1.1
 Content-Type: application/json
 
 {
-     
-     "name": " Triple Harvester ec520",
-  "description": "This implement is used to cultivate",
-  "purpose": "To cultivate",
-  "image": "fleet.jpg",
 
-  "availability": "Currently unavailable"
-  
+  "email": "Damilola@ymail.com",
+  "password": "1234566yr"
+   
 }

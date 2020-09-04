@@ -53,7 +53,7 @@ const agentsModel  = new Schema({
     },
     education: {
         type:String,
-        enum: ["O/Level", "Diploma", "Degree", "Masters", "Ph.d", "Others" ],
+        enum: ["O/Level", "diploma", "degree", "masters", "Ph.d", "others" ],
         trim: true,
         required: [true, "Role is required"]
     },
