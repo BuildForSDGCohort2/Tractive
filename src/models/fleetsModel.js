@@ -7,29 +7,27 @@ const fleetsModel  = new Schema({
     name:{
         type:String, 
         trim: true,
-        required: [true, "Fullname is required"]
+        required: [true, "Name is required"]
     },
     desc:{
         type:String, 
         trim: true,
-        required: [true, "Gender is required"]
+        required: [true, "Description is required"]
     },
     
     purpose: {
         type:String,
         trim: true,
-        required: [true, "Phone is required"]
+        required: [true, "Purpose is required"]
     },
     image:{
         type:String,
-        trim: true,
-        required: [true, "Email is required"]
+        trim: true
     },
     availability: {
         type:String,
         enum: ["Currently available", "One week time", "Two weeks - Four weeks time ", "Currently unavailable"],
-        trim: true,
-        required: [true, "Crops grown is required"]
+        trim: true
     } 
     }, {
         timestamps: true

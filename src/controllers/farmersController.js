@@ -1,10 +1,8 @@
 const bcrypt = require("bcryptjs");
 const passport = require('passport');
-
 const  Farmer = require("../models/farmerModel"); 
 
 // const jwt       = require("jsonwebtoken"); 
-
 
 
 const getFarmers = async (req, res, next) => {

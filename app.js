@@ -4,6 +4,8 @@ const passport = require("passport");
 const flash = require('express-flash');
 const session = require('express-session');
 const cors = require("cors"); 
+const morgan = require('morgan');
+// const dotenv = require("dotenv"); 
 
 const app = express();
 
@@ -46,8 +48,13 @@ app.use(express.json());
 // Express public
 app.use(express.static(path.join(__dirname, 'public')));
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
 
 // cors
+// app.use(cors()); 
+
 app.use(
     cors({
       origin: "http://localhost:3000", // <-- location of the react app were connecting to
@@ -61,7 +68,7 @@ app.use("/fleets", fleetUrl);
 app.use("/contacts", contactUrl);
 app.use("/owners", ownerUrl);
 app.use("/agents", agentUrl);
-
+app.use(morgan('tiny'));
 
 
 const port  = config.port
@@ -70,12 +77,6 @@ app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })
 
-// app.listen('2020' || process.env.PORT, err => { 
-//     database()
-//     if (err) 
-//         throw err 
-//     console.log('Server started now') 
-// }) 
 
 app.on('error', error => {
     console.log(`Error occured on the server ${error}`)

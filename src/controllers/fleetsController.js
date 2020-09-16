@@ -10,10 +10,10 @@ const path = require('path');
 
 // get all fleets 
 const getFleets = async (req, res, next) => {
-    Fleet.find()
-    .then(items =>
+   const fleets = Fleet.find({})
+    .then(fleets =>
         // res.render("index", { Images: Images }) 
-        res.json(items)
+        res.json(fleets)
         ) 
     .catch(error => res.status(400).json("Error: " + error)); 
 };
@@ -33,10 +33,10 @@ const postFleets =  async (req, res) => {
         desc, 
         purpose, 
         availability, 
-        image: {
-            data: fs.readFileSync(path.join(__dirname + '/public/products/' + req.file.filename)) 
-			// contentType: 'image/png' || 'image/jpg'  || 'image/jpeg' 
-        }
+        // image: {
+        //     data: fs.readFileSync(path.join(__dirname + '/public/products/' + req.file.filename)) 
+		// 	// contentType: 'image/png' || 'image/jpg'  || 'image/jpeg' 
+        // }
         
         
     })
@@ -53,8 +53,6 @@ const postFleets =  async (req, res) => {
     newFleet 
     .save()
     .then(() =>{
-        res.redirect('/fleets'); 
-        // res.json(data);
         return res.json("File Uploaded Successfully!"); 
     })
     .catch((error) =>{

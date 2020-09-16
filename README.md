@@ -15,6 +15,6 @@ To contribute to this project:
 * run `git remote add upstream https://github.com/BuildForSDGCohort2/Tractive.git`
 * run `npm install` in the terminal
 * create .env file and then copy the contents of env.test to the .env file created
-* run `npm start` in the terminal
+* run `npm run dev` in the terminal
 * Before you push any code, always run `git pull upstream develop`
 
