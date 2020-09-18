@@ -38,8 +38,6 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-// EJS
-app.set('view engine', 'ejs');
 
 // Express body parser
 app.use(express.urlencoded({ extended: true }));
@@ -61,6 +59,11 @@ app.use(
       credentials: true,
     })
   );
+
+  app.use('/', (req, res)=> {
+    res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
+
 
 // routes
 app.use("/farmers", farmerUrl);
