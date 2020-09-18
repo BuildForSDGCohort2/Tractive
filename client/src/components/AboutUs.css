@@ -1,0 +1,32 @@
+.way_work{
+	color: #EEEFFF;
+	font-weight: bold;
+font-size: 48px;
+line-height: 62px;
+
+}
+
+.aboutus_row1{
+	text-align: left;
+
+
+}
+
+.testimony{
+background-color: #84E917;
+margin-top: 50px; 
+}
+
+.team{
+	background-color: white;
+	text-align: left;
+}
+
+.team .user-testimony{
+	margin-top: 110px; 
+}
+
+.testimony .user-testimony {
+	margin-top: 110px; 
+
+}

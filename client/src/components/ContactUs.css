@@ -1,0 +1,52 @@
+.hero_contact  {
+  width: 100%;
+  height: 700px;
+  background: url("/images/hero1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+  background-attachment: fixed;
+
+}
+
+
+.contact{
+	background: #EFEEEE;
+	text-align: left;
+
+}
+
+.contactbtn{
+	  border: 0px solid white;
+        background: #84E917;
+        color: white;
+        padding: 15px 80px;
+        font-size: 22px;
+        cursor: pointer;
+        font-weight: bold; 
+        line-height: 32px;
+        margin-top: 20px;
+        
+}
+
+<<<<<<< HEAD
+.contact-formHeader{
+	color: #84E917 !important;
+}
+
+=======
+/*.contact-formHeader{
+	text-align: left;
+	margin-left: 265px;
+}
+*/
+>>>>>>> e933f3de718a7da8ab4d312a376fea378cd64b65
+
+@media (max-width: 979px) {
+	/*.contact-formHeader{
+	text-align: left;
+	margin-left: 35px;
+}
+*/
+   
+}

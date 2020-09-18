@@ -1,0 +1,25 @@
+.joinbtn{
+	  border: 3px solid #84E917;
+        background: white;
+        color: #84E917;
+        padding: 15px 140px;
+        font-size: 22px;
+        cursor: pointer;
+        font-weight: bold; 
+        line-height: 32px;
+        /*margin-top: 20px;*/
+        
+}
+
+.fleetjoinbtn{
+	  border: 3px solid #84E917;
+        background: white;
+        color: #84E917;
+        padding: 15px 110px;
+        font-size: 22px;
+        cursor: pointer;
+        font-weight: bold; 
+        line-height: 32px;
+        /*margin-top: 20px;*/
+        
+}

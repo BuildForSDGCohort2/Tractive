@@ -1,9 +1,11 @@
-POST http://localhost:6000/agents/signin HTTP/1.1
+GET  http://localhost:6000/fleets HTTP/1.1
 Content-Type: application/json
 
 {
 
-  "email": "Damilola@ymail.com",
-  "password": "1234566yr"
-   
+  "name": "tractor",
+  "desc": "this is tractor ",
+  "purpose": "to plough",
+  "availability": "Currently available"
+     
 }
