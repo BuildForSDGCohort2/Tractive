@@ -3,10 +3,105 @@
 import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
-import "./JoinUsPage.css";
+import axios from 'axios';
+// import "./JoinUsPage.css";
 
 export default class FarmerRegister extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+
+            title: "",
+            fullName: "",
+            gender: '',
+            email: "",
+            phone: "",
+            address: "",
+            town: "",
+            state: "",
+            country: "",
+            farmSize: "",
+            farmAddress: "",
+            crops: "",
+            password: "", 
+            showError: false, 
+            registerError: false,
+            loginError: false
+        
+        };
+
+        // this.handleTitleChange = this.handleTitleChange.bind(this);
+        // this.handleFullNameChange = this.handleFullNameChange.bind(this);
+        // this.handleGenderChange = this.handleGenderChange.bind(this);
+        // this.handleEmailChange = this.handleEmailChange.bind(this);
+        // this.handlePhoneChange = this.handlePhoneChange.bind(this);
+        // this.handleAddressChange = this.handleAddressChange.bind(this);
+        // this.handleTownChange = this.handleTownChange.bind(this);
+        // this.handleStateChange = this.handleStateChange.bind(this);
+        // this.handleCountryChange = this.handleCountryChange.bind(this);
+        // this.handleFarmSizeChange = this.handleFarmSizeChange.bind(this);
+        // this.handleFarmAddressChange = this.handleFarmAddressChange.bind(this);
+        // this.handleCropsChange = this.handleCropsChange.bind(this);
+        // this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    }
+
+    handleChange = farmer => (event) => {
+        this.setState({
+          [farmer]: event.target.value,
+        });
+      };
+
+    registerFarmer = async (e) => {
+        e.preventDefault(); 
+        const {
+            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password,
+        } = this.state; 
+            if(email === "" || password === ""){
+                this.setState({
+                    showError: true,
+                    loginError: false,
+                    registerError: true
+                });
+            } else {
+                try {
+                    const res = await axios.post(
+                        "http://localhost:2020/farmers/signup", 
+                    {
+                        title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password,
+                    },
+                    );
+                    this.setState({
+                        messageFromServer: res.data.message,
+                        showError: false,
+                        loginError: false,
+                        registerError: false,
+                    });
+                } catch (err) {
+                    console.error(err.res.data); 
+                }
+            }
+
+
+    }
+      
+
   render() {
+      const {
+        title,
+        fullName,
+        gender,
+        email,
+        phone,
+        address,
+        town,
+        state,
+        country,
+        farmSize,
+        farmAddress,
+        crops,
+        password, 
+      } = this.state;
+
     return (
             <div className="mb-5">
             {/* <section className="hero_contact">
@@ -28,8 +123,8 @@ export default class FarmerRegister extends Component {
              {/* <NavLink to="/farmer-register"> */}
                       <button className="btn btn-success btn-large joinbtn">Farmers</button>
             {/* </NavLink>  */}
-            <form className="m-4" id="contact-form" onSubmit={this.onSubmit} method="POST">
-                        <select required className='form-group form-control' > 
+            <form className="m-4" id="contact-form" onSubmit={this.registerFarmer} >
+                        <select required className='form-group form-control' onChange={this.handleChange("title")} value={title} > 
                             <option>Select Title</option>
                             <option>Mr.</option>
                             <option>Mrs.</option>
@@ -42,43 +137,43 @@ export default class FarmerRegister extends Component {
                             <option>Others</option>
                         </select>
                         <div className="form-group">
-                            <input type="text" className="form-control" placeholder="Full Name" />
+                            <input type="text" className="form-control" onChange={this.handleChange("fullName")} value={fullName} placeholder="Full Name" />
                         </div>
                         <div className="form-group">
-                            <input type="email" className="form-control" aria-describedby="emailHelp" placeholder="Email Address" />
+                            <input type="email" className="form-control" onChange={this.handleChange("email")} value={email} placeholder="Email Address" />
                         </div>
-                        <select required className='form-group form-control' > 
+                        <select required className='form-group form-control' onChange={this.handleChange("gender")} value={gender} > 
                             <option>Select Gender</option>
                             <option>male</option>
                             <option>female</option>
                             <option>others</option>
                         </select>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Phone Number" />
+                            <input type="text" className="form-control" onChange={this.handleChange("phone")} value={phone} placeholder="Phone Number" />
                         </div>
                         <div className="form-group">
-                            <textarea className="form-control" rows="2" placeholder="Address"></textarea>
+                            <textarea className="form-control" rows="2" onChange={this.handleChange("address")} value={address} placeholder="Address"></textarea>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Town" />
+                            <input type="text" className="form-control" onChange={this.handleChange("town")} value={town} placeholder="Town" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="State" />
+                            <input type="text" className="form-control" onChange={this.handleChange("state")} value={state} placeholder="State" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Country" />
+                            <input type="text" className="form-control" onChange={this.handleChange("country")} value={country} placeholder="Country" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Farm Size e.g 4 acre" />
+                            <input type="text" className="form-control" onChange={this.handleChange("farmSize")} value={farmSize} placeholder="Farm Size e.g 4 acre" />
                         </div>
                         <div className="form-group">
-                             <textarea className="form-control" rows="2" placeholder="Farm Address"></textarea>
+                             <textarea className="form-control" rows="2" onChange={this.handleChange("farmAddress")} value={farmAddress} placeholder="Farm Address"></textarea>
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Crops grown e.g Maize, Rice, Cassava etc" />
+                            <input type="text" className="form-control" onChange={this.handleChange("crops")} value={crops} placeholder="Crops grown e.g Maize, Rice, Cassava etc" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" aria-describedby="emailHelp" placeholder="Passwprd" />
+                            <input type="text" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Passwprd" />
                         </div>
                         <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Register</button>
                     </form>
