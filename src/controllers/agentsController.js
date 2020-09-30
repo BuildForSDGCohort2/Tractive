@@ -13,7 +13,7 @@ const getAgents = async (req, res, next) => {
 //   signup 
 const agentApplication = async (req, res) => {    
 
-    const {title, address, town, state,  role, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password,  } = req.body
+    const {title, address, town, state,  fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password,  } = req.body
     let errors = [];
 
     if (password.length < 6) {
@@ -24,7 +24,7 @@ const agentApplication = async (req, res) => {
           return res.status(400).send("Email already exists")
         } else {
           const newAgent = new Agent({
-            title, address, town, state,  role, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
+            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
           });
   
           bcrypt.genSalt(10, (err, salt) => {

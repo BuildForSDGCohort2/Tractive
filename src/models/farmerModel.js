@@ -8,7 +8,7 @@ const farmersModel  = new Schema({
         type:String, 
         enum: ["Mr.", "Mrs.", "Alh.", "Miss.", "Dr.", "Prof.", "Chief", "Prince", "Others"],
         trim: true,
-        required: [true, "Fullname is required"]
+        required: [true, "title is required"]
     },
     fullName:{
         type:String, 
@@ -59,12 +59,12 @@ const farmersModel  = new Schema({
     farmAddress: {
         type:String,
         trim: true,
-        required: [true, "Farm Address is required"]
+        // required: [true, "Farm Address is required"]
     },
     crops: {
         type:String,
         trim: true,
-        required: [true, "Crops grown is required"]
+        // required: [true, "Crops grown is required"]
     },
     password: {
         type:String,

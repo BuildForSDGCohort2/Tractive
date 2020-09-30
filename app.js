@@ -10,7 +10,10 @@ const morgan = require('morgan');
 const app = express();
 
 // Passport Config
-require("./src/config/passport")(passport);
+// require("./src/config/passport")(passport);
+require("./src/config/agentPassport");
+require("./src/config/ownerPassport");
+require("./src/config/passports");
 
 // routes URL
 const farmerUrl = require("./src/routes/farmerRoute");
@@ -47,7 +50,12 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  // app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, "client", "build")))
+
+  app.get('*',(req, res) => {
+      res.sendFile(path.join(__dirname,'client','build','index.html'));
+  })
 }
 
 // cors
@@ -60,15 +68,15 @@ app.use(
     })
   );
 
-  app.use('/', (req, res)=> {
-    res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-})
+//   app.use('/', (req, res)=> {
+//     res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+// })
 
 
 // routes
 app.use("/farmers", farmerUrl);
 app.use("/fleets", fleetUrl);
-app.use("/contacts", contactUrl);
+app.use("/contact-us", contactUrl);
 app.use("/owners", ownerUrl);
 app.use("/agents", agentUrl);
 app.use(morgan('tiny'));

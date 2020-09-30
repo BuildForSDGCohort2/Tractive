@@ -21,6 +21,7 @@ const postContact = (req, res) => {
       }; 
 
   contactModel.create(contacts)
+//   console.log(contacts)
     .then(contacts => res.json(contacts)) 
     .catch(error => res.status(400).json("Error: " + error)); 
 };

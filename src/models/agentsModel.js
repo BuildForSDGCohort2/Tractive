@@ -8,7 +8,7 @@ const agentsModel  = new Schema({
         type:String, 
         enum: ["Mr.", "Mrs.", "Miss.", "Dr.", "Prof.", "Chief", "Prince", "Others"],
         trim: true,
-        required: [true, "Fullname is required"]
+        required: [true, "Title is required"]
     },
     fullName:{
         type:String, 
@@ -53,19 +53,19 @@ const agentsModel  = new Schema({
     },
     education: {
         type:String,
-        enum: ["O/Level", "diploma", "degree", "masters", "Ph.d", "others" ],
+        enum: ["O/Level", "diploma/NCE", "degree", "masters", "Ph.D", "others" ],
         trim: true,
-        required: [true, "Role is required"]
+    
     },
     employmentStatus: {
         type: String,
-        enum: ['employed', 'unemployed', 'student'],
+        enum: ['employed', 'unemployed', 'self-employed', 'student'],
         default: 'unemployed'
       },
 
     cvLink: {
         type: String,
-        required: true,
+        // required: true,
         default: 'blank'
       },
    
