@@ -6,7 +6,7 @@ const  Farmer = require("../models/farmerModel");
 
 
 const getFarmers = async (req, res, next) => {
-    User.find()
+    Farmer.find()
     .then(data => res.json(data)) 
     .catch(error => res.status(400).json("Error: " + error)); 
 };
@@ -17,9 +17,10 @@ const farmerApplication = async (req, res) => {
     const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password, password2   } = req.body
   let errors = [];
 
-  if (password.length < 6) {
-    errors.push({ msg: 'Password must be at least 6 characters' });
-  } else {
+  // if (password.length < 6) {
+  //   errors.push({ msg: 'Password must be at least 6 characters' });
+  //   console.log(errors)
+  // } else {
     Farmer.findOne({ email: email }).then(user => {
       if (user) {
         return res.status(400).send("Email already exists")
@@ -30,7 +31,7 @@ const farmerApplication = async (req, res) => {
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newFarmer .password, salt, (err, hash) => {
-            if (err) throw err;
+            // if (err) throw err;
             newFarmer.password = hash;
             newFarmer 
               .save()
@@ -44,7 +45,7 @@ const farmerApplication = async (req, res) => {
       }
     });
   }
-};
+// };
 
 // sign-in
 const farmerLogin = async (req, res, next) => {
@@ -63,6 +64,7 @@ const farmerLogout = async (req, res) => {
         // res.redirect('/');
    res.json(`Logged out successfully`);
 }
+
 
 module.exports = {
     farmerLogin,

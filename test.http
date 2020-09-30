@@ -1,11 +1,13 @@
-GET http://localhost:2020/fleets HTTP/1.1
+GET http://localhost:2020/agents HTTP/1.1
 Content-Type: application/json
 
 {
 
-  "name": "tractor",
-  "desc": "this is tractor ",
-  "purpose": "to plough",
-  "availability": "Currently available"
+   "name": "Ibrahim",
+   "email": "testowner1@gmail.com", 
+   "subject": "testowner1@gmail.com", 
+   "message": "testowner1@gmail.com" 
+   
+  
      
 }

@@ -16,9 +16,19 @@ import OwnerRegister from "./components/OwnerRegister"
 import AgentRegister from "./components/AgentRegister"
 import PostFleet from "./components/PostFleet"
 import Fleets from "./components/Fleets"
-import Login from "./components/Login"
-import Profile from "./components/Profile"
+import LoginPage from "./components/LoginPage"
+import FarmerLogin from "./components/FarmerLogin"
+import OwnerLogin from "./components/OwnerLogin"
+import AgentLogin from "./components/AgentLogin"
+import ProfileFarmer from "./components/ProfileFarmer"
+import ProfileOwner from "./components/ProfileOwner"
+import ProfileAgent from "./components/ProfileAgent"
 import TermsAndConditions  from "./components/TermsAndCondition"
+import UpdateProfile from "./components/UpdateProfile"
+import ForgotPassword from "./components/ForgotPassword"
+import ResetPassword from "./components/ResetPassword"
+import UpdatePassword from "./components/UpdatePassword"
+import  Agents  from './components/Agents';
 
 
 // import EditUser from './components/EditUser';
@@ -39,10 +49,20 @@ class App extends Component {
           <Route path="/agent-register" exact component={AgentRegister}/>
           <Route path="/post-fleet" exact component={PostFleet}/>
           <Route path="/fleets" exact component={Fleets}/>
-          <Route path="/login" exact component={Login}/>
-          <Route path="/profile" exact component={Profile}/>
+          <Route path="/login" exact component={LoginPage}/>
+          <Route path="/login-farmer" exact component={FarmerLogin}/>
+          <Route path="/login-owner" exact component={OwnerLogin}/>
+          <Route path="/login-agent" exact component={AgentLogin}/>
+          <Route path="/profile-farmer/:email" exact component={ProfileFarmer}/>
+          <Route path="/profile-owner/:email" exact component={ProfileOwner}/>
+          <Route path="/profile-agent/:email" exact component={ProfileAgent}/>
           <Route path="/terms-and-conditions" exact component={TermsAndConditions }/>
+          <Route path="/update-profile" exact component={UpdateProfile }/>
+          <Route path="/forgot-password" exact component={ForgotPassword }/>
+          <Route path="/reset-password" exact component={ResetPassword }/>
+          <Route path="/update-password" exact component={UpdatePassword}/>
           <Route path="/owners/signup" exact strict component={Owner}/>
+          <Route path="/agents" exact strict component={Agents}/>
         </div>
         <Footer />
       </Router>

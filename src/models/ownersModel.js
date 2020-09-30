@@ -57,9 +57,14 @@ const ownersModel  = new Schema({
     },
     role: {
         type:String,
-        enum: ["Manager", "CEO", "others"],
+        enum: ["Owner", "Manager", "CEO", "others"],
         trim: true,
         required: [true, "Role is required"]
+    },
+    firmName: {
+        type:String,
+        trim: true,
+        // required: [true, "Firm name is required"]
     },
     firmAddress: {
         type:String,
