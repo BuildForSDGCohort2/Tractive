@@ -39,7 +39,7 @@ export default class Login extends Component {
           });
         } else {
           try {
-            const response = await axios.post('http://localhost:2020/owners/signin', {
+            const response = await axios.post('/owners/signin', {
               email,
               password,
             });

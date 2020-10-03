@@ -47,7 +47,7 @@ export default class ProfileOwner extends Component {
           });
         } else {
           try {
-            const response = await axios.get('http://localhost:2020/owners/find-user', {
+            const response = await axios.get('/owners/find-user', {
               params: {
                 email,
               },
@@ -95,7 +95,7 @@ export default class ProfileOwner extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('http://localhost:2020/owners/delete-user', {
+          const response = await axios.delete('/owners/delete-user', {
             params: {
               email,
             },

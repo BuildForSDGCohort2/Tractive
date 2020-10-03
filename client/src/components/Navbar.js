@@ -23,7 +23,6 @@ export default class MainNavbar extends Component {
     logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('JWT');
-      window.location = "/login"
     };
 
   
@@ -41,9 +40,12 @@ export default class MainNavbar extends Component {
             <Nav.Link className="text-light font-weight-bold"  href="/contact-us">Contact Us</Nav.Link>
             <Nav.Link className="text-light font-weight-bold"  href="/about">About Us</Nav.Link>
             <Nav.Link className="text-light font-weight-bold"  href="/post-fleet">Post Fleet</Nav.Link>
+
           {
             localStorage.JWT ? 
             <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+            // &&
+            // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
             :
             <NavDropdown className="text-white"  title="Login" id="basic-nav-dropdown">
               <NavDropdown.Item className="text-success font-weight-bold"  href="/login-farmer">Farmer</NavDropdown.Item>
@@ -52,9 +54,16 @@ export default class MainNavbar extends Component {
               {/* <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
             </NavDropdown>
+            &&
+            <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
+              <NavDropdown.Item className="text-success font-weight-bold"  href="/farmer-register">Farmer</NavDropdown.Item>
+              <NavDropdown.Item className="text-success font-weight-bold"  href="/owner-register">Fleet Owner</NavDropdown.Item>
+              <NavDropdown.Item className="text-success font-weight-bold" href="/agent-register">Agent</NavDropdown.Item>
+              {/* <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+            </NavDropdown>
           }
-           
-
+            
           </Nav>
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />

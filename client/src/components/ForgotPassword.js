@@ -36,7 +36,7 @@ export default class ForgotPassword extends Component {
         } else {
           try {
             const response = await axios.post(
-              'http://localhost:2020/farmers/forgot-password',
+              '/farmers/forgot-password',
               {
                 email,
               },

@@ -47,7 +47,7 @@ export default class ProfileAgent extends Component {
           });
         } else {
           try {
-            const response = await axios.get('http://localhost:2020/agents/find-user', {
+            const response = await axios.get('/agents/find-user', {
               params: {
                 email,
               },
@@ -95,7 +95,7 @@ export default class ProfileAgent extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('http://localhost:2020/agents/delete-user', {
+          const response = await axios.delete('/agents/delete-user', {
             params: {
               email,
             },

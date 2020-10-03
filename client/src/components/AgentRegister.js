@@ -53,7 +53,7 @@ export default class AgentRegister extends Component {
             } else {
                 try {
                     const response = await axios.post(
-                      'http://localhost:2020/agents/signup',
+                      '/agents/signup',
                       {
                         title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
                       },

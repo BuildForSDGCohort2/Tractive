@@ -35,7 +35,7 @@ export default class Agents extends Component {
     }
   
     componentDidMount() {
-        axios.get("http://localhost:2020/agents")
+        axios.get("/agents")
         .then(res => {
             console.log(res)
             this.setState({ 

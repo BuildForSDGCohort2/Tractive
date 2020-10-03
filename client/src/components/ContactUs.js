@@ -55,7 +55,7 @@ export default class ContactUs extends Component {
        };
        console.log(contact)
 
-       axios.post("http://localhost:2020/contact-us", contact)
+       axios.post("/contact-us", contact)
        .then(res => console.log(res.data));
        this.setState({ showMessage: true })
     //    window.flash('Message has been sent successfully!', 'success')

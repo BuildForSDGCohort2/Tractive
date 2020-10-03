@@ -59,7 +59,8 @@ export default class FarmerRegister extends Component {
                         title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password
                       },
                     );
-                    window.location = '/login-farmer';
+                    window.location = `/profile-farmer/${email}`
+                    // window.location = '/login-farmer';
                     this.setState({
                         messageFromServer: response.data.message,
                         showError: false,

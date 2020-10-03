@@ -51,7 +51,7 @@ export default class OwnerRegister extends Component {
             } else {
                 try {
                     const response = await axios.post(
-                      'http://localhost:2020/owners/signup',
+                      '/owners/signup',
                       {
                         title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password,
                       },
