@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import FlashMessage from 'react-flash-message';
+import { MDBContainer, MDBAlert } from 'mdbreact';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
+import Alert from 'react-bootstrap/Alert'
 import "./Login.css";
+import FlashState from "./FlashState"
+// import Navbar from './Navbar';
+import Footer from "./Footer"
 
 export default class Login extends Component {
 
@@ -16,8 +22,12 @@ export default class Login extends Component {
           loggedIn: false,
           showError: false,
           showNullError: false,
+          showMessage: false
         };
+         FlashState.set('message', 'Post published');
+        this.setState({ published: true });
       }
+     
     
       handleChange = name => (event) => {
         this.setState({
@@ -46,6 +56,7 @@ export default class Login extends Component {
               loggedIn: true,
               showError: false,
               showNullError: false,
+              showMessage: false
             });
           } catch (error) {
             console.error(error.response.data);
@@ -69,10 +80,11 @@ export default class Login extends Component {
         showError,
         loggedIn,
         showNullError,
+        showMessage
       } = this.state;
       if (!loggedIn) {
         return (
-                <div className="mb-5">
+                <div className="">
                     <div className="mt-5 ">
                         <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
                     </div>
@@ -93,7 +105,7 @@ export default class Login extends Component {
                                         <input type="checkbox" checked="checked" name="remember" placeholder="Remember me"  />
                                         <span className="m-2">Remember me </span>
                                         <NavLink to="/forgotPassword">
-                                              <span className="ml-5 text-success" href="/">Forgot Password?</span>
+                                              <span className="ml-5 text-success" >Forgot Password?</span>
                                         </NavLink>
                                         
                                     </div>
@@ -115,18 +127,29 @@ export default class Login extends Component {
                                     </div>
                                 )}
                                 <hr/>
-                            <div>
-                                <p className="h3">Dont have an account ?</p>
-                                <span className="ml-2 h2"><a className="text-success" href="/join-us">Join us</a></span>
+                            <div className="mb-3">
+                                <p className="h3 mb-3">Dont have an account ?</p>
+                                <NavLink to="/join-us">
+                                    <button className="btn h2 btn-success btn-large joinbtn">Join us</button>
+                                </NavLink> 
                             </div>
                         </div>
                     <div className="col-sm-12 col-md-12 col-lg-4"> </div>
 
                 </div>
-
+                <Footer />
             </div>
         );
       }
-      return <Redirect to={`/profile-agent/${email}`} />;
+     
+        return (
+          <Redirect
+            to={{
+              pathname: `/profile-agent/${email}`,
+              state: { message: 'Message from other page' }
+            }}
+          />
+        );
+      // return <Redirect to={`/profile-agent/${email}`}  />;
+          }
     }
-}

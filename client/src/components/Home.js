@@ -4,7 +4,8 @@ import "./Home.css";
 
 import Rows from "./Rows"
 // import Carousel from 'react-bootstrap/Carousel'
-
+// import Navbar from './Navbar';
+import Footer from "./Footer"
 
 // Animation
 
@@ -27,6 +28,7 @@ class Home extends Component {
       </div>
     </section>
     <Rows />
+    <Footer />
    </div>   
 
       // <Carousel>

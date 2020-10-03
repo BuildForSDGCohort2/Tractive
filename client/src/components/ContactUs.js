@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import FlashMessage from 'react-flash-message';
 import axios from "axios";
 import "./ContactUs.css";
+// import Navbar from './Navbar';
+import Footer from "./Footer"
 
 export default class ContactUs extends Component {
     constructor(props) {
@@ -65,7 +67,7 @@ export default class ContactUs extends Component {
           showMessage
     } = this.state
     return (
-            <div className="mb-5">
+            <div className="">
             <section className="hero_contact">
             <div className="container-fluid">
                 <div className="row">
@@ -133,6 +135,7 @@ export default class ContactUs extends Component {
                    </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
   }

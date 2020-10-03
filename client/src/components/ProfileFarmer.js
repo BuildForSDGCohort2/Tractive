@@ -4,6 +4,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
+import Footer from "./Footer"
 
 import "./Profile.css";
 
@@ -165,9 +166,9 @@ export default class ProfileFarmer extends Component {
     }
 
     return (
-        <div className="mt-5 mb-5" >
+        <div className="mt-5" >
           <div className="row mb-4">
-            <div className="col-2">
+            <div className="col-2 ">
                <h1 className='text-center text-success'>Welcome</h1> 
             </div>
             <div className="col-xm-3 col-sm-5 col-xl-4">
@@ -195,7 +196,7 @@ export default class ProfileFarmer extends Component {
               </NavLink>
             </div>
           </div>
-          <div className="d-flex justify-content-around profile-div">
+          <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
                  <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
                <form>
@@ -220,12 +221,20 @@ export default class ProfileFarmer extends Component {
                   <p>{phone}</p>
                   <p>{farmAddress}</p>
                   <NavLink
-               className="h5 text-success font-weight-bold" to="/agents">Contact nearby Agents
+               className="h5 mb-5 text-success font-weight-bold" to="/agents">Contact nearby Agents
              </NavLink> 
                </div>  
             </div> 
           </div>
+          {/* <div className="row text-center bg-success">
+            <div className="col-12 text-center">
+            <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
+            </div>
+        </div>  */}
+          <Footer />
         </div>
+        
+        
       );
     }
   }

@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import "./JoinUsPage.css";
+import Footer from "./Footer"
 
 export default class OwnerRegister extends Component {
     constructor(props) {
@@ -99,7 +100,7 @@ export default class OwnerRegister extends Component {
 
     if (messageFromServer === '') {
     return (
-            <div className="mb-5">
+            <div className="">
             <div className="mt-5 ">
                 <p className="h1 text-success contact-formHeader font-weight-bold">Get results. Join us today</p>
                 <p className="h4 text-success contact-formHeader font-weight-bold">You will never regret it.</p>
@@ -196,6 +197,7 @@ export default class OwnerRegister extends Component {
             </div>
 
             </div>
+            <Footer />
         </div>
     );
   }

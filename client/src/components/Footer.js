@@ -6,11 +6,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 export default class Footer extends Component {
+    constructor(props) {
+        super(props);
+  
+      this.state = {
+        loggedIn: false,
+        }
+      }
+      
+    //   componentDidMount() {
+    //     if (window.localStorage.getItem("JWT")) {
+    //       this.setState({ loggedIn: true })
+    //     }
+    //   }
 
   render() {
     return (
     <div className="container-fluid">
      <div className="row footer1">
+     { !this.state.loggedIn &&
+            // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="">Logout</Nav.Link>
+           
         <div className="col-sm-12 col-lg-6 text-center footer">
             <div className="row">
                 <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6">
@@ -19,6 +35,9 @@ export default class Footer extends Component {
                 </div>
             </div>
          </div>
+          }
+
+        { !this.state.loggedIn &&
         <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 footer">
         <form className="m-3 home-newsletter" onSubmit={this.onSubmit}>
             <div className="single">
@@ -60,8 +79,16 @@ export default class Footer extends Component {
 
         </div>
         </div>
-       
+       }
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+       <br/>
     </div>
+
     <div className="row text-center bg-success">
             <div className="col-12 text-center">
             <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
