@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import Carousel from 'react-bootstrap/Carousel'
 import "./AboutUs.css";
+// import Navbar from './Navbar';
+import Footer from "./Footer";
 
 export default class AboutUs extends Component {
   render() {
     return (
-            <div className="mb-5">
+            <div className="">
             <section className="hero_contact">
             <div className="container-fluid">
                 <div className="row">
@@ -199,7 +201,7 @@ export default class AboutUs extends Component {
         </Carousel.Item>
         
         <Carousel.Item>
-        <div className="row team">
+        <div className="row team mb-2">
             <div className="col-2"></div>
 
                 <div className="col-3 mt-5 justify-content-center">
@@ -230,6 +232,7 @@ export default class AboutUs extends Component {
     <div>
         
     </div>
+    <Footer />
 </div> 
 
     );

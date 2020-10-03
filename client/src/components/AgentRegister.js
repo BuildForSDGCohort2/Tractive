@@ -4,6 +4,8 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import "./JoinUsPage.css";
+// import Navbar from './Navbar';
+import Footer from "./Footer"
 
 export default class AgentRegister extends Component {
 
@@ -101,7 +103,7 @@ export default class AgentRegister extends Component {
       
     if (messageFromServer === '') {
     return (
-            <div className="mb-5">
+            <div className="">
             {/* <section className="hero_contact">
             <div className="container-fluid">
                 <div className="row">
@@ -216,6 +218,7 @@ export default class AgentRegister extends Component {
                     </div>
 
                 </div>
+                <Footer />
         </div>
         );
         }

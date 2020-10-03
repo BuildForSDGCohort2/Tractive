@@ -22,10 +22,10 @@ router.post('/signup', farmerApplication);
 router.post('/signin', farmerLogin);
 router.get('/find-user', findUser);
 router.get('/logout', farmerLogout);
-router.get('/forgot-password', forgotPassword);
-router.get('/reset-password', resetPassword);
-router.get('/update-password', updatePassword);
-router.get('/update-password-via-email', updatePasswordViaEmail);
+router.post('/forgot-password', forgotPassword);
+router.get('/reset', resetPassword);
+router.put('/update-password', updatePassword);
+router.put('/update-password-via-email', updatePasswordViaEmail);
 router.delete('/delete-user', deleteUser)
 router.put('/updateUser', updateUser)
 

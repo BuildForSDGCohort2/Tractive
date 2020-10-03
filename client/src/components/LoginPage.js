@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import "./JoinUsPage.css";
+// import Navbar from './Navbar';
+import Footer from "./Footer"
 
 export default class LoginPage extends Component {
   render() {
     return (
-            <div className="mb-5">
+            <div className="">
             {/* <section className="hero_contact">
             <div className="container-fluid">
                 <div className="row">
@@ -41,13 +43,15 @@ export default class LoginPage extends Component {
             </div>
         </div>
         <hr/>
-        <div>
-           <p className="h3">Dont have an account ?</p>
-           <span className="ml-2 h2"><a className="text-success" href="/join-us">Join us</a></span>
+        <div className="mb-5">
+           <p className="h2 mb-3 text-success">Dont have an account ?</p>
+           <NavLink to="/join-us">
+                      <button className="btn h2 btn-success btn-large joinbtn">Join us</button>
+            </NavLink> 
         </div>
 
-
-        </div>
+        <Footer />
+    </div>
     );
   }
 }

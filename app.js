@@ -5,10 +5,16 @@ const flash = require('express-flash');
 const session = require('express-session');
 const cors = require("cors"); 
 const morgan = require('morgan');
-// const dotenv = require("dotenv"); 
+const mongoose = require('mongoose')
+const dotenv = require("dotenv"); 
 
 const app = express();
 
+const PORT = process.env.PORT || 2020 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}); 
 // Passport Config
 // require("./src/config/passport")(passport);
 require("./src/config/agentPassport");
@@ -23,8 +29,8 @@ const agentUrl = require("./src/routes/agentRoute");
 const ownerUrl = require("./src/routes/ownerRoute");
 
 // db config and constants
-const config = require("./src/config/constant");
-const database = require("./src/config/database");
+// const config = require("./src/config/constant");
+// const database = require("./src/config/database");
 const { sessionKey } = require('./src/config/constant');
 
 // Express session
@@ -82,12 +88,15 @@ app.use("/agents", agentUrl);
 app.use(morgan('tiny'));
 
 
-const port  = config.port
-app.listen(port, () => {
-    database()
-    console.log(`Server listening on port ${port}`)
+// const port  = config.port
+app.listen(PORT, () => {
+    // database()
+    console.log(`Server listening on port ${PORT}`)
 })
 
+mongoose.connection.on("connected", () => {
+  console.log("Database Connected!!!"); 
+}); 
 
 app.on('error', error => {
     console.log(`Error occured on the server ${error}`)

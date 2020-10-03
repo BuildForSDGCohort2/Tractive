@@ -162,7 +162,7 @@ const findUser = async (req, res, next) => {
           res.status(403).send('email not found');
         } else {
           const token = crypto.randomBytes(20).toString('hex');
-          Farmer.update({
+          user.update({
             resetPasswordToken: token,
             resetPasswordExpires: Date.now() + 3600000,
           });
@@ -170,19 +170,19 @@ const findUser = async (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: `${process.env.EMAIL_ADDRESS}`,
-              pass: `${process.env.EMAIL_PASSWORD}`,
+              user: "ibrahim.saliman.zainab@gmail.com",
+              pass: "olalekan1",
             },
           });
   
           const mailOptions = {
-            from: 'olabrazanislam@gmail.com',
+            from: 'ibrahim.saliman.zainab@gmail.com',
             to: `${user.email}`,
             subject: 'Link To Reset Password',
             text:
               'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
               + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-              + `http://localhost:2020/reset/${token}\n\n`
+              + `http://localhost:3000/reset/${token}\n\n`
               + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
           };
   
@@ -203,10 +203,8 @@ const findUser = async (req, res, next) => {
   // reset password
   const resetPassword = async (req, res, next) => {
       Farmer.findOne({
-        where: {
           resetPasswordToken: req.query.resetPasswordToken,
-          resetPasswordExpires: Date.now(),
-        },
+          resetPasswordExpires:  Date.now() + 3600000,
       }).then((user) => {
         if (user == null) {
           console.error('password reset link is invalid or has expired');
@@ -261,11 +259,9 @@ const findUser = async (req, res, next) => {
   // update password via Email
   const updatePasswordViaEmail = async (req, res, next) => {
       Farmer.findOne({
-        where: {
           email: req.body.email,
           resetPasswordToken: req.body.resetPasswordToken,
           resetPasswordExpires:  Date.now(),
-        },
       }).then(user => {
         if (user == null) {
           console.error('password reset link is invalid or has expired');

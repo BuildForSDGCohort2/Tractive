@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Route } from "react-router-dom"; 
+import {BrowserRouter as Router, Route, Redirect } from "react-router-dom"; 
+import FlashMessage from 'react-flash-message';
 import "bootstrap/dist/css/bootstrap.min.css"; 
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -47,27 +48,52 @@ class App extends Component {
           <Route path="/farmer-register" exact component={FarmerRegister}/>
           <Route path="/owner-register" exact component={OwnerRegister}/>
           <Route path="/agent-register" exact component={AgentRegister}/>
-          <Route path="/post-fleet" exact component={PostFleet}/>
-          <Route path="/fleets" exact component={Fleets}/>
+
+          <AuthenticatedRoute path="/post-fleet" exact component={PostFleet}/>
+
+          <AuthenticatedRoute path="/fleets" exact component={Fleets}/>
           <Route path="/login" exact component={LoginPage}/>
           <Route path="/login-farmer" exact component={FarmerLogin}/>
           <Route path="/login-owner" exact component={OwnerLogin}/>
           <Route path="/login-agent" exact component={AgentLogin}/>
-          <Route path="/profile-farmer/:email" exact component={ProfileFarmer}/>
-          <Route path="/profile-owner/:email" exact component={ProfileOwner}/>
-          <Route path="/profile-agent/:email" exact component={ProfileAgent}/>
+
+          <AuthenticatedRoute path="/profile-farmer/:email" exact component={ProfileFarmer}/>
+          <AuthenticatedRoute path="/profile-owner/:email" exact component={ProfileOwner}/>
+          <AuthenticatedRoute path="/profile-agent/:email" exact component={ProfileAgent}/>
+
           <Route path="/terms-and-conditions" exact component={TermsAndConditions }/>
-          <Route path="/update-profile" exact component={UpdateProfile }/>
           <Route path="/forgot-password" exact component={ForgotPassword }/>
-          <Route path="/reset-password" exact component={ResetPassword }/>
-          <Route path="/update-password" exact component={UpdatePassword}/>
+          <Route path="/reset/:token" exact component={ResetPassword }/>
+          <Route path="/update-profile/:email" exact component={UpdateProfile }/>
+          <Route path="/update-password/:email" exact component={UpdatePassword}/>
           <Route path="/owners/signup" exact strict component={Owner}/>
           <Route path="/agents" exact strict component={Agents}/>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     );
   }
 }
+
+const AuthenticatedRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={props => (
+    localStorage.getItem('JWT') ? (
+      <Component {...props}/>
+    ) : (
+      <Redirect to={{
+        pathname: '/login',
+        state: { 
+          from: props.location.state,
+          message: 'Message from other page'
+
+        }
+        // state: 'Please sign in or register' 
+        
+      }}/>
+      
+    )
+  )}/>
+)
+
 
 export default App;

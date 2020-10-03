@@ -4,6 +4,7 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
+import Footer from "./Footer"
 
 import "./Profile.css";
 
@@ -165,7 +166,7 @@ export default class ProfileAgent extends Component {
     }
 
     return (
-        <div className="mt-5 mb-5" >
+        <div className="mt-5 " >
           <div className="row mb-4">
             <div className="col-3">
                <h1 className='text-center text-success'>Welcome</h1> 
@@ -193,7 +194,7 @@ export default class ProfileAgent extends Component {
               </NavLink>
             </div>
           </div>
-          <div className="d-flex justify-content-around profile-div">
+          <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
                  <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
                <form>
@@ -220,6 +221,7 @@ export default class ProfileAgent extends Component {
                </div>  
             </div> 
           </div>
+          <Footer />
         </div>
       );
     }
