@@ -164,7 +164,7 @@ export default class FarmerRegister extends Component {
                                     <input type="text" className="form-control" onChange={this.handleChange("crops")} value={crops} placeholder="Crops grown e.g Maize, Rice, Cassava etc" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Passwprd" />
+                                    <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                                 </div>
                                 <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Register</button>
                             </form>
@@ -203,17 +203,17 @@ export default class FarmerRegister extends Component {
             
              );
         }
-        if (messageFromServer === 'user created') {
-            return (
-              <div>
-                  <NavLink to="/login">
-                        {/* need a flash */}
-                         <h3>User successfully registered!</h3>
-                        <button className="ml-2 h2 text-success">Login</button>
-                  </NavLink>
+        // if (messageFromServer === 'user created') {
+        //     return (
+        //       <div>
+        //           <NavLink to="/login">
+        //                 {/* need a flash */}
+        //                  <h3>User successfully registered!</h3>
+        //                 <button className="ml-2 h2 text-success">Login</button>
+        //           </NavLink>
               
-              </div>
-            );
-        }
+        //       </div>
+            // );
+        // }
     }   
 }

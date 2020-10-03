@@ -50,7 +50,7 @@ export default class Login extends Component {
               showNullError: false,
             });
           } catch (error) {
-            console.error(error.response.data);
+            // console.error(error.response.data);
             if (
               error.response.data === 'Incorrect Email'
               || error.response.data === 'passwords do not match'
