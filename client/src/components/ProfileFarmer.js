@@ -48,7 +48,7 @@ export default class ProfileFarmer extends Component {
           });
         } else {
           try {
-            const response = await axios.get('http://localhost:2020/farmers/find-user', {
+            const response = await axios.get('/farmers/find-user', {
               params: {
                 email,
               },
@@ -97,7 +97,7 @@ export default class ProfileFarmer extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('http://localhost:2020/farmers/delete-user', {
+          const response = await axios.delete('/farmers/delete-user', {
             params: {
               email,
             },
