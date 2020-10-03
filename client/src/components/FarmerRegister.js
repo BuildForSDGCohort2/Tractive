@@ -54,7 +54,7 @@ export default class FarmerRegister extends Component {
             } else {
                 try {
                     const response = await axios.post(
-                      'http://localhost:2020/farmers/signup',
+                      '/farmers/signup',
                       {
                         title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password
                       },
