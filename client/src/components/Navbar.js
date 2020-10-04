@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios"; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
 
 export default class MainNavbar extends Component {
@@ -36,11 +36,11 @@ export default class MainNavbar extends Component {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link className="text-light font-weight-bold"  href="/">Home</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/fleets">Fleets</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/contact-us">Contact Us</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/about">About Us</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/post-fleet">Post Fleet</Nav.Link>
+            <Link className="text-light font-weight-bold"  to="/">Home</Link>
+            <Link className="text-light font-weight-bold"  to="/fleets">Fleets</Link>
+            <Link className="text-light font-weight-bold"  to="/contact-us">Contact Us</Link>
+            <Link className="text-light font-weight-bold"  to="/about">About Us</Link>
+            <Link className="text-light font-weight-bold"  to="/post-fleet">Post Fleet</Link>
 
           {
             localStorage.JWT ? 
