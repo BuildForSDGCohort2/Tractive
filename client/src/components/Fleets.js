@@ -32,6 +32,7 @@ export default class Fleets extends Component {
         axios.get("/fleets")
         .then(res => {
             console.log(res)
+            alert(res.data)
             this.setState({ 
                 // fleets: res.data,
                 // fleets: res.data[0].fleets,
