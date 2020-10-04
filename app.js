@@ -11,7 +11,7 @@ const mongoose = require('mongoose')
 const app = express();
 
 const PORT = process.env.PORT || 2020 
-mongoose.connect("mongodb://localhost/tractive_db", {
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }); 
