@@ -10,11 +10,11 @@ const mongoose = require('mongoose')
 
 const app = express();
 
-// const PORT = process.env.PORT || 2020 
-// mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// }); 
+const PORT = process.env.PORT || 2020 
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}); 
 
 // Passport Config
 // require("./src/config/passport")(passport);
@@ -30,8 +30,8 @@ const agentUrl = require("./src/routes/agentRoute");
 const ownerUrl = require("./src/routes/ownerRoute");
 
 // db config and constants
-const config = require("./src/config/constant");
-const database = require("./src/config/database");
+// const config = require("./src/config/constant");
+// const database = require("./src/config/database");
 const { sessionKey } = require('./src/config/constant');
 
 // Express session
@@ -89,9 +89,9 @@ app.use("/agents", agentUrl);
 app.use(morgan('tiny'));
 
 
-const PORT  = config.port
+// const PORT  = config.port
 app.listen(PORT, () => {
-    database()
+    // database()
     console.log(`Server listening on port ${PORT}`)
 })
 
