@@ -164,21 +164,18 @@ export default class ProfileOwner extends Component {
     }
 
     return (
-        <div className="mt-5" >
+      <div className="mt-5" >
+          <h1 className='text-center mb-5 text-success'>Welcome</h1> 
           <div className="row mb-4">
-            <div className="col-3">
-               <h1 className='text-center text-success'>Welcome</h1> 
+            <div className="">
+               {/* <h1 className='text-center text-success'>Welcome</h1>  */}
             </div>
-            <div className="col-xm-3 col-sm-5 col-xg-5">
-            <NavLink
-               className="text-success h3 font-weight-bold" to="/post-fleet">Post Fleet
-             </NavLink> 
-             <p className="text-dark h5">Get stream of clients as quick as possible</p>
-            </div>
-            <div className="col-3 logout d-flex ">
-            
+            <div className="col-sm-12 col-lg-6 d-flex logout justify-content-center">
+            {/* <NavLink
+               className="text-success font-weight-bold" to="/agents">Contact nearby Agents
+             </NavLink>  */}
               <p onClick={this.logout} className="mr-3 text-success">
-                <NavLink className="mr-3 text-success" to="/login-owner">
+                <NavLink className="mr-3 text-success" to="/login-farmer">
                     Logout
                 </NavLink>
               </p>
@@ -191,7 +188,18 @@ export default class ProfileOwner extends Component {
                 <p className="ml-3 text-success">Update Password</p>
               </NavLink>
             </div>
+            <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+            <NavLink
+               className="h5 btn btn-success  text-white font-weight-bold" to="/post-fleets">Post Fleets
+             </NavLink> 
+             {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
+
+             <NavLink
+               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Contact nearby Agents
+             </NavLink> 
+            </div>
           </div>
+
           <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
                  <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
@@ -212,17 +220,19 @@ export default class ProfileOwner extends Component {
             </div>
             <div>
                <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 
-               <p className="h4 font-weight-bold"> <span className="mr-3 ">Firm: </span> {firmName}</p> 
                <div>
                   <p>{email}</p>
                   <p>{phone}</p>
                   <p>{firmAddress}</p>
+                 
                </div>  
-               <NavLink
-               className="h5 text-success font-weight-bold" to="/agents">Contact nearby Agents
-             </NavLink> 
             </div> 
           </div>
+          {/* <div className="row text-center bg-success">
+            <div className="col-12 text-center">
+            <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
+            </div>
+        </div>  */}
           <Footer />
         </div>
       );

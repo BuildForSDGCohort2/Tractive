@@ -58,7 +58,11 @@ export default class MainNavbar extends Component {
              }
 
              {
-               !localStorage.JWT &&
+                !localStorage.JWT && 
+                // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+                // &&
+                // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
+                // :
                <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
                <NavDropdown.Item className="text-success font-weight-bold"  href="/farmer-register">Farmer</NavDropdown.Item>
                <NavDropdown.Item className="text-success font-weight-bold"  href="/owner-register">Fleet Owner</NavDropdown.Item>

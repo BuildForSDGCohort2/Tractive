@@ -165,17 +165,12 @@ export default class ProfileFarmer extends Component {
 
     return (
         <div className="mt-5" >
+          <h1 className='text-center mb-5 text-success'>Welcome</h1> 
           <div className="row mb-4">
-            <div className="col-2 ">
-               <h1 className='text-center text-success'>Welcome</h1> 
+            <div className="">
+               {/* <h1 className='text-center text-success'>Welcome</h1>  */}
             </div>
-            <div className="col-xm-3 col-sm-5 col-xl-4">
-            <NavLink
-               className="h3 text-success font-weight-bold" to="/fleets">See Fleets
-             </NavLink> 
-             <p className="text-dark h5">Get stream of fleets as fast as possible</p>
-            </div>
-            <div className="col-6 logout d-flex ">
+            <div className="col-sm-12 col-lg-6 d-flex logout justify-content-center">
             {/* <NavLink
                className="text-success font-weight-bold" to="/agents">Contact nearby Agents
              </NavLink>  */}
@@ -193,7 +188,18 @@ export default class ProfileFarmer extends Component {
                 <p className="ml-3 text-success">Update Password</p>
               </NavLink>
             </div>
+            <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+            <NavLink
+               className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">See Fleets
+             </NavLink> 
+             {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
+
+             <NavLink
+               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Contact nearby Agents
+             </NavLink> 
+            </div>
           </div>
+
           <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
                  <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
@@ -218,9 +224,7 @@ export default class ProfileFarmer extends Component {
                   <p>{email}</p>
                   <p>{phone}</p>
                   <p>{farmAddress}</p>
-                  <NavLink
-               className="h5 mb-5 text-success font-weight-bold" to="/agents">Contact nearby Agents
-             </NavLink> 
+                 
                </div>  
             </div> 
           </div>
