@@ -35,8 +35,9 @@ export default class Fleets extends Component {
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
-          .catch(() => {
-            alert('Error retrieving data!!!');
+          .catch((error) => {
+              console.log("error:" + error)
+            // alert('Error retrieving data!!!');
           });
       }  
 
@@ -44,7 +45,7 @@ export default class Fleets extends Component {
         this.setState({ searchedValue: event.target.value });
     }
 
-    
+
 
     // componentDidMount() {
     //     axios.get("/fleets")
