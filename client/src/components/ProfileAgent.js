@@ -47,7 +47,7 @@ export default class ProfileAgent extends Component {
           });
         } else {
           try {
-            const response = await axios.get('http://localhost:2020/agents/find-user', {
+            const response = await axios.get('/agents/find-user', {
               params: {
                 email,
               },
@@ -95,7 +95,7 @@ export default class ProfileAgent extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('http://localhost:2020/agents/delete-user', {
+          const response = await axios.delete('/agents/delete-user', {
             params: {
               email,
             },
@@ -166,63 +166,77 @@ export default class ProfileAgent extends Component {
     }
 
     return (
-        <div className="mt-5 " >
-          <div className="row mb-4">
-            <div className="col-3">
-               <h1 className='text-center text-success'>Welcome</h1> 
-            </div>
-            <div className="col-xm-3 col-sm-5 col-xg-5">
-            <NavLink
-               className="text-success h3 font-weight-bold" to="/fleets">See Fleets
-             </NavLink> 
-             <p className="text-dark h5">Help as many farmers and as many fleet owners get access to each other</p>
-            </div>
-            <div className="col-3 logout d-flex ">
-            
-              <p onClick={this.logout} className="mr-3 text-success">
-                <NavLink className="mr-3 text-success" to="/login-agent">
-                    Logout
-                </NavLink>
-              </p>
-  
-              <NavLink to={`/updateProfile/${email}`}>
-                <p className="ml-3 text-success">Update Profile</p>
-              </NavLink>
-              <NavLink to={`/updatePassword/${email}`}
-              >
-                <p className="ml-3 text-success">Update Password</p>
-              </NavLink>
-            </div>
-          </div>
-          <div className="d-flex mb-5 justify-content-around profile-div">
-            <div>
-                 <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
-               <form>
-                 <div>
-                  <label className="mr-4">Upload profile picture</label>
-                <div>
-                <input 
-                className="ml-5"
-                    type="file" 
-                    name="" 
-                    onChange={this.onChangeImage}
-                    />
-                </div>
-                 </div>
-              
-               </form>
-            </div>
-            <div>
-               <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 
-               <div>
-                  <p>{email}</p>
-                  <p>{phone}</p>
-                  <p>{address}</p>
-               </div>  
-            </div> 
-          </div>
-          <Footer />
+      <div className="mt-5" >
+      <h1 className='text-center mb-5 text-success'>Welcome</h1> 
+      <div className="row mb-4">
+        <div className="">
+           {/* <h1 className='text-center text-success'>Welcome</h1>  */}
         </div>
+        <div className="col-sm-12 col-lg-6 d-flex logout justify-content-center">
+        {/* <NavLink
+           className="text-success font-weight-bold" to="/agents">Contact nearby Agents
+         </NavLink>  */}
+          <p onClick={this.logout} className="mr-3 text-success">
+            <NavLink className="mr-3 text-success" to="/login-farmer">
+                Logout
+            </NavLink>
+          </p>
+
+          <NavLink to={`/updateProfile/${email}`}>
+            <p className="ml-3 text-success">Update Profile</p>
+          </NavLink>
+          <NavLink to={`/updatePassword/${email}`}
+          >
+            <p className="ml-3 text-success">Update Password</p>
+          </NavLink>
+        </div>
+        <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+        <NavLink
+           className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">See Fleets
+         </NavLink> 
+         {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
+
+         <NavLink
+           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Contact nearby Farmers
+         </NavLink> 
+        </div>
+      </div>
+
+      <div className="d-flex mb-5 justify-content-around profile-div">
+        <div>
+             <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
+           <form>
+             <div>
+              <label className="mr-4">Upload profile picture</label>
+            <div>
+            <input 
+            className="ml-5"
+                type="file" 
+                name="" 
+                onChange={this.onChangeImage}
+                />
+            </div>
+             </div>
+          
+           </form>
+        </div>
+        <div>
+           <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 
+           <div>
+              <p>{email}</p>
+              <p>{phone}</p>
+              <p>{address}</p>
+             
+           </div>  
+        </div> 
+      </div>
+      {/* <div className="row text-center bg-success">
+        <div className="col-12 text-center">
+        <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
+        </div>
+    </div>  */}
+      <Footer />
+    </div>
       );
     }
   }

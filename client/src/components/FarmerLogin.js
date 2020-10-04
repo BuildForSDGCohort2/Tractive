@@ -38,16 +38,18 @@ export default class Login extends Component {
           });
         } else {
           try {
-            const response = await axios.post('http://localhost:2020/farmers/signin', {
+            const response = await axios.post('/farmers/signin', {
               email,
               password,
             });
             localStorage.setItem('JWT', response.data.token);
+            window.location = `/profile-farmer/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
               showNullError: false,
             });
+
           } catch (error) {
             console.error(error.response.data);
             if (
@@ -131,6 +133,6 @@ export default class Login extends Component {
             </div>
         );
       }
-      return <Redirect to={`/profile-farmer/${email}`} />;
+      // return <Redirect to={`/profile-farmer/${email}`} />;
     }
 }

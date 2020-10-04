@@ -55,7 +55,7 @@ export default class ContactUs extends Component {
        };
        console.log(contact)
 
-       axios.post("http://localhost:2020/contact-us", contact)
+       axios.post("/contact-us", contact)
        .then(res => console.log(res.data));
        this.setState({ showMessage: true })
     //    window.flash('Message has been sent successfully!', 'success')
@@ -128,7 +128,7 @@ export default class ContactUs extends Component {
                             <p className="h5 mt-5">Our Newsletter</p>
                             <p className="mb-1">Exclusive offers and discounts</p>
                             <NavLink 
-                                className="text-success font-weight-bold" activeClassName="is-active" to="">SIGN UP HERE
+                                className="text-success font-weight-bold" activeClassName="is-active" to="/contact-us">SIGN UP HERE
                              </NavLink> 
                         </div>
                     </div>

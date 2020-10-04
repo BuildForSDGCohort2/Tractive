@@ -170,8 +170,8 @@ const findUser = async (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: "ibrahim.saliman.zainab@gmail.com",
-              pass: "olalekan1",
+              user: `${process.env.EMAIL_ADDRESS}`,
+              pass: `${process.env.EMAIL_PASSWORD}`,
             },
           });
   

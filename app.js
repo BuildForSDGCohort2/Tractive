@@ -6,7 +6,7 @@ const session = require('express-session');
 const cors = require("cors"); 
 const morgan = require('morgan');
 const mongoose = require('mongoose')
-const dotenv = require("dotenv"); 
+// const dotenv = require("dotenv"); 
 
 const app = express();
 
@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }); 
+
 // Passport Config
 // require("./src/config/passport")(passport);
 require("./src/config/agentPassport");
@@ -59,9 +60,9 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
   // app.use(express.static(path.join(__dirname, "client", "build")))
 
-  // app.get('*',(req, res) => {
-  //     res.sendFile(path.join(__dirname,'client','build','index.html'));
-  // })
+  app.get('*',(req, res) => {
+      res.sendFile(path.join(__dirname,'client','build','index.html'));
+  })
 }
 
 // cors
@@ -88,7 +89,7 @@ app.use("/agents", agentUrl);
 app.use(morgan('tiny'));
 
 
-// const port  = config.port
+// const PORT  = config.port
 app.listen(PORT, () => {
     // database()
     console.log(`Server listening on port ${PORT}`)

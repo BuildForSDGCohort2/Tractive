@@ -30,6 +30,7 @@ import ForgotPassword from "./components/ForgotPassword"
 import ResetPassword from "./components/ResetPassword"
 import UpdatePassword from "./components/UpdatePassword"
 import  Agents  from './components/Agents';
+import Farmers from "./components/Farmers"
 
 
 // import EditUser from './components/EditUser';
@@ -67,7 +68,8 @@ class App extends Component {
           <Route path="/update-profile/:email" exact component={UpdateProfile }/>
           <Route path="/update-password/:email" exact component={UpdatePassword}/>
           <Route path="/owners/signup" exact strict component={Owner}/>
-          <Route path="/agents" exact strict component={Agents}/>
+          <AuthenticatedRoute path="/agents" exact strict component={Agents}/>
+          <AuthenticatedRoute path="/farmers" exact component={Farmers}/>
         </div>
         {/* <Footer /> */}
       </Router>

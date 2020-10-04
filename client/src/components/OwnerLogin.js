@@ -39,7 +39,7 @@ export default class Login extends Component {
           });
         } else {
           try {
-            const response = await axios.post('http://localhost:2020/owners/signin', {
+            const response = await axios.post('/owners/signin', {
               email,
               password,
             });
@@ -50,7 +50,7 @@ export default class Login extends Component {
               showNullError: false,
             });
           } catch (error) {
-            console.error(error.response.data);
+            // console.error(error.response.data);
             if (
               error.response.data === 'Incorrect Email'
               || error.response.data === 'passwords do not match'

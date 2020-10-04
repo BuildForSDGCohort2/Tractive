@@ -40,14 +40,7 @@ const postFleets =  async (req, res) => {
         
         
     })
-    // sharp(__dirname + '/public/products/image.jpg').resize(200,200) 
-    // .jpeg({quality : 50}).toFile(__dirname  
-    //     + '/public/products/image_thumb.jpg'); 
   
-  
-    // sharp(__dirname + '/public/products/image.jpg').resize(640,480) 
-    // .jpeg({quality : 80}).toFile(__dirname  
-    //     + '/public/products/image_preview.jpg'); 
   
     
     newFleet 

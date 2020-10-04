@@ -54,12 +54,13 @@ export default class FarmerRegister extends Component {
             } else {
                 try {
                     const response = await axios.post(
-                      'http://localhost:2020/farmers/signup',
+                      '/farmers/signup',
                       {
                         title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password
                       },
                     );
-                    window.location = '/login-farmer';
+                    window.location = `/profile-farmer/${email}`
+                    // window.location = '/login-farmer';
                     this.setState({
                         messageFromServer: response.data.message,
                         showError: false,
@@ -109,11 +110,11 @@ export default class FarmerRegister extends Component {
                         <p className="h4 text-success contact-formHeader font-weight-bold">You will never regret it.</p>
                     </div>
                 <div className="row mt-5">
-                    <div className="col-sm-12 col-md-12 col-lg-4">
+                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-4">
                     {/* <NavLink to="/farmer-register"> */}
                             <button className="btn btn-success btn-large joinbtn">Farmers</button>
                     {/* </NavLink>  */}
-                    <form className="m-4 mb-4" id="contact-form" onSubmit={this.registerFarmer} >
+                    <form className="m-4" id="contact-form" onSubmit={this.registerFarmer} >
                                 <select required className='form-group form-control' onChange={this.handleChange("title")} value={title} > 
                                     <option>Select Title</option>
                                     <option>Mr.</option>
@@ -163,11 +164,22 @@ export default class FarmerRegister extends Component {
                                     <input type="text" className="form-control" onChange={this.handleChange("crops")} value={crops} placeholder="Crops grown e.g Maize, Rice, Cassava etc" />
                                 </div>
                                 <div className="form-group">
-                                    <input type="text" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Passwprd" />
+                                    <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                                 </div>
-                                <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Register</button>
+                                <div>
+                            <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 
+                           I have read and agree to the <span className="text-success" > <a className="text-success" href="/terms-and-conditions"> Terms and Conditions</a> 
+                            </span> and <span className="text-success"  href="/terms-and-conditions"> <a className="text-success" href="/terms-and-conditions">  Privacy Policy</a> </span>
+                        </div>
+                                <button type="submit" className="btn btn-lg btn-success contactbtn mb-2 ">Register</button>
+                                <p className="p mb-5">Already have an account ? <span className="text-success"><a className="text-success" href="/login-farmer"> Login</a> </span> </p>
+                                {/* <NavLink to="/login">
+                                            <button className="btn h2 btn-success">Login</button>
+                                </NavLink>  */}
                             </form>
-                            {showError === true && registerError === true && (
+                               
+                            
+                                {showError === true && registerError === true && (
                                 <div>
                                 <p className="text-success">All fields are required.</p>
                                 </div>
@@ -183,13 +195,13 @@ export default class FarmerRegister extends Component {
                         )}
                     </div>
                                 
-                    <div className="col-sm-12 col-md-12 col-lg-4">
+                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-4">
                     <NavLink to="/owner-register">
                             <button className="btn btn-success btn-large fleetjoinbtn">Fleet Owners</button>
                     </NavLink> 
                     <img className="m-3" src="/images/tractyJoin.png" alt="" />
                     </div>
-                    <div className="col-sm-12 col-md-12 col-lg-4">
+                    <div className="col-sm-12 col-md-12 col-lg-12 col-xl-4">
                     <NavLink to="/agent-register">
                             <button className="btn btn-success btn-large joinbtn">Agents</button>
                     </NavLink> 
@@ -202,17 +214,17 @@ export default class FarmerRegister extends Component {
             
              );
         }
-        if (messageFromServer === 'user created') {
-            return (
-              <div>
-                  <NavLink to="/login">
-                        {/* need a flash */}
-                         <h3>User successfully registered!</h3>
-                        <button className="ml-2 h2 text-success">Login</button>
-                  </NavLink>
+        // if (messageFromServer === 'user created') {
+        //     return (
+        //       <div>
+        //           <NavLink to="/login">
+        //                 {/* need a flash */}
+        //                  <h3>User successfully registered!</h3>
+        //                 <button className="ml-2 h2 text-success">Login</button>
+        //           </NavLink>
               
-              </div>
-            );
-        }
+        //       </div>
+            // );
+        // }
     }   
 }

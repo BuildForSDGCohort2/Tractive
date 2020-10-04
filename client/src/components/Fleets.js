@@ -28,7 +28,7 @@ export default class Fleets extends Component {
     }
 
     componentDidMount() {
-        axios.get("http://localhost:2020/fleets")
+        axios.get("/fleets")
         .then(res => {
             console.log(res)
             this.setState({ 

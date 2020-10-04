@@ -53,7 +53,7 @@ export default class PostFleet extends Component {
        };
        console.log(fleetPost)
 
-       axios.post("http://localhost:2020/fleets", fleetPost)
+       axios.post("/fleets", fleetPost)
        .then(res => console.log(res.data));
        window.location = '/fleets';
 
