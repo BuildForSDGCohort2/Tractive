@@ -9,8 +9,8 @@ const path = require('path');
 
 
 // get all fleets 
-const getFleets = async (req, res, next) => {
-   await Fleet.find({})
+const getFleets = (req, res, next) => {
+   Fleet.find({})
     .then(fleets =>
         // res.render("index", { Images: Images }) 
         res.json(fleets)
