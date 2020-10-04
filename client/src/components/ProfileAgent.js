@@ -197,7 +197,7 @@ export default class ProfileAgent extends Component {
          {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 
          <NavLink
-           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Contact nearby Farmers
+           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
          </NavLink> 
         </div>
       </div>

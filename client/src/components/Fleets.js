@@ -24,41 +24,22 @@ export default class Fleets extends Component {
         };
     }
 
-    componentDidMount = () => {
-        this.getFleetPost();
-      };
-
-    getFleetPost = () => {
-        axios.get('/fleets')
-          .then((response) => {
-            const data = response.data;
-            this.setState({ fleets: data });
-            console.log('Data has been received!!');
-          })
-          .catch((error) => {
-              console.log("error:" + error)
-            // alert('Error retrieving data!!!');
-          });
-      }  
-
     onSearch(event) {
         this.setState({ searchedValue: event.target.value });
     }
 
-
-
-    // componentDidMount() {
-    //     axios.get("/fleets")
-    //     .then(res => {
-    //         console.log(res)
-    //         this.setState({ 
-    //             // fleets: res.data,
-    //             // fleets: res.data[0].fleets,
-    //             fleets: res.data.map(fleet => fleet),
-    //             fleet: res.data[0]
-    //         })
-    //     });  
-    // }
+    componentDidMount() {
+        axios.get("/fleets")
+        .then(res => {
+            console.log(res)
+            this.setState({ 
+                // fleets: res.data,
+                // fleets: res.data[0].fleets,
+                fleets: res.data.map(fleet => fleet),
+                fleet: res.data[0]
+            })
+        });  
+    }
 
     render() {  
         const data = this.state.fleets.filter(
