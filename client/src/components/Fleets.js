@@ -33,7 +33,7 @@ export default class Fleets extends Component {
         .then(res => {
             console.log(res)
             const datas = res.data.map(fleet=>fleet.name)
-            alert(datas)
+            // alert(datas)
             this.setState({ 
                 // fleets: res.data,
                 // fleets: res.data[0].fleets,
