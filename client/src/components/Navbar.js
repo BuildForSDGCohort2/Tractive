@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios"; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
 
 export default class MainNavbar extends Component {
@@ -32,28 +32,61 @@ export default class MainNavbar extends Component {
       return (
         
         <Navbar bg="success" expand="lg" >
-        <Navbar.Brand className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" href="/">Tractive</Navbar.Brand>
+        {/* <Navbar.Brand className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" href="/">Tractive</Navbar.Brand> */}
+        <NavLink className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" to="/"> 
+            Tractive
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Link className="text-light font-weight-bold"  to="/">Home</Link>
-            <Link className="text-light font-weight-bold"  to="/fleets">Fleets</Link>
-            <Link className="text-light font-weight-bold"  to="/contact-us">Contact Us</Link>
-            <Link className="text-light font-weight-bold"  to="/about">About Us</Link>
-            <Link className="text-light font-weight-bold"  to="/post-fleet">Post Fleet</Link>
+        <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                    <NavLink
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/">Home
+                        <span class="sr-only">(current)</span>
+                    </NavLink>
+                </li>
+              <li className="nav-item">
+                    <NavLink
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleets">Fleets
+                        <span class="sr-only">(current)</span>
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink 
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/contact-us">Contact Us
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-light font-weight-bold " to="/about">About Us
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-light font-weight-bold" to="/post-fleet">Post Fleet
+                    </NavLink>               
+                </li>
 
-          {
-            localStorage.JWT ? 
-            <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+           {localStorage.JWT ? 
+            // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+            <li className="nav-item">
+                    <NavLink className="nav-link text-light font-weight-bold" onClick={this.logout}  to="/login">Logout
+                    </NavLink>               
+                </li>
             // &&
             // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
             :
             <NavDropdown className="text-white"  title="Login" id="basic-nav-dropdown">
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-farmer">Farmer</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-owner">Fleet Owner</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-agent">Agent</NavDropdown.Item>
-              {/* <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+              <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-farmer">Farmer
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-owner">Fleet Owner
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-agent">Agent
+                    </NavLink>               
+                </li>
             </NavDropdown>
              }
 
@@ -64,16 +97,24 @@ export default class MainNavbar extends Component {
                 // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
                 // :
                <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
-               <NavDropdown.Item className="text-success font-weight-bold"  href="/farmer-register">Farmer</NavDropdown.Item>
-               <NavDropdown.Item className="text-success font-weight-bold"  href="/owner-register">Fleet Owner</NavDropdown.Item>
-               <NavDropdown.Item className="text-success font-weight-bold" href="/agent-register">Agent</NavDropdown.Item>
-               {/* <NavDropdown.Divider />
-               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+               <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/farmer-register">Farmer
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/owner-register">Fleet Owner
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/agent-register">Agent
+                    </NavLink>               
+                </li>
              </NavDropdown>
 
              }
-            
-          </Nav>
+        </ul>
+          {/* <Nav className="mr-auto">
+          </Nav> */}
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
            {/* <NavLink> */}

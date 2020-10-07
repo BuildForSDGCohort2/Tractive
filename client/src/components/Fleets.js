@@ -31,8 +31,9 @@ export default class Fleets extends Component {
     componentDidMount() {
         axios.get("/fleets")
         .then(res => {
+            // alert(res)
             console.log(res)
-            const datas = res.data.map(fleet=>fleet.name)
+            // const datas = res.data.map(fleet=>fleet.name)
             // alert(datas)
             this.setState({ 
                 // fleets: res.data,
