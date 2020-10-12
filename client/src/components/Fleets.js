@@ -56,28 +56,12 @@ export default class Fleets extends Component {
     //     });  
     // }
 
+    displayFleets = (fleets) => {
 
-
-render() {  
-    const data = this.state.fleets; 
-        // const data = this.state.fleets.filter(
-        //     (fleet) => {
-        //         return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
-        //     }
-        //  ); 
-
-  return (
-    <>
-    <div className="container mt-5">
-        <p className="h2 text-success text-center mb-4">Search for fleets in matter of seconds</p>
-    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleets such as tractor, sprayer etc."/>
-        <div className="row d-flex justify-content-between ">
-
-        {data.length > 0 ? 
-                    data.map((fleet, i) => {                        
-                        return (
-
-                <Card style={style} key={fleet._id.toString()} className="mt-3">
+        if (!fleets.length) return null;
+    
+        return fleets.map((fleet, index) => (
+             <Card style={style} key={index} key={fleet._id.toString()} className="mt-3">
                     <CardImg
                     alt="..."
                     src={"/images/tractyJoin.png" }
@@ -97,15 +81,21 @@ render() {
                     </Button>
                     </CardBody>
                 </Card>
-            )}                       
-         ) : null} 
+        ));
+      }
 
+render() {  
+    // const data = this.state.fleets; 
+        // const data = this.state.fleets.filter(
+        //     (fleet) => {
+        //         return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
+        //     }
+        //  ); 
 
-        </div>
-
-    </div>
-      
-    </>
+  return (
+    <div className="">
+    {this.displayFleets(this.state.fleets)}
+  </div>
   );
 }
 }
