@@ -15,6 +15,9 @@ import {
 const style = { width: "14rem" };
 const search = { height: "60px"};
 
+// production error (fetching data from database) is due to build in the app file
+// i have spent more than 1 week debugging it
+
 export default class Fleets extends Component {
     constructor(props) {
         super(props);
