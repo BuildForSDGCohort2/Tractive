@@ -10,12 +10,16 @@ const path = require('path');
 
 // get all fleets 
 const getFleets = (req, res, next) => {
-   Fleet.find({})
-    .then(fleets =>
-        // res.render("index", { Images: Images }) 
-        res.json(fleets)
-        ) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+
+   Fleet.find({  })
+   .then((data) => {
+       console.log('Data: ', data);
+       res.json(data);
+   })
+   .catch((error) => {
+       console.log('error: ', error);
+   });
+
 };
 
 // New route: form to add new fleet

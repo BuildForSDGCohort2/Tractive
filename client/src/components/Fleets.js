@@ -27,24 +27,38 @@ export default class Fleets extends Component {
     onSearch(event) {
         this.setState({ searchedValue: event.target.value });
     }
+    
+    componentDidMount = () => {
+        this.getFleets();
+      };
 
-    componentDidMount() {
-        axios.get("/fleets")
-        .then(res => {
-            // alert(res)
-            console.log(res)
-            // const datas = res.data.map(fleet=>fleet.name)
-            // alert(datas)
-            this.setState({ 
-                // fleets: res.data,
-                // fleets: res.data[0].fleets,
-                fleets: res.data.map(fleet => fleet),
-                fleet: res.data[0]
-            })
-        });  
-    }
+    
+    getFleets = () => {
+        axios.get('/fleets')
+          .then((response) => {
+            const data = response.data;
+            this.setState({ fleets: data });
+            console.log('Data has been received!!');
+          })
+          .catch(() => {
+            alert('Error retrieving data!!!');
+          });
+      }
 
-    render() {  
+    // componentDidMount() {
+    //     axios.get("/fleets")
+    //     .then(res => {
+    //         console.log(res)
+    //         this.setState({ 
+    //             // fleets: res.data,
+    //             // fleets: res.data[0].fleets,
+    //             fleets: res.data.map(fleet => fleet),
+    //             fleet: res.data[0]
+    //         })
+    //     });  
+    // }
+
+render() {  
         const data = this.state.fleets.filter(
             (fleet) => {
                 return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
