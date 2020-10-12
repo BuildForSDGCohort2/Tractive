@@ -55,7 +55,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Express public
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
 // production error (fetching data from database) is due to build 
 // i have spent more than 1 week debugging it
