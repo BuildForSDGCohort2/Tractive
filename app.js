@@ -67,14 +67,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // cors
-// app.use(cors()); 
+app.use(cors()); 
 
-app.use(
-    cors({
-      origin: "http://localhost:3000", // <-- location of the react app were connecting to
-      credentials: true,
-    })
-  );
+
+// app.use(
+//     cors({
+//       origin: "http://localhost:3000", // <-- location of the react app were connecting to
+//       credentials: true,
+//     })
+//   );
 
 //   app.use('/', (req, res)=> {
 //     res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
