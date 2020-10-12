@@ -11,7 +11,6 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
-import { error } from "console";
 
 const style = { width: "14rem" };
 const search = { height: "60px"};
@@ -28,11 +27,9 @@ export default class Fleets extends Component {
     onSearch(event) {
         this.setState({ searchedValue: event.target.value });
     }
-    
     componentDidMount = () => {
         this.getFleets();
       };
-
     
     getFleets = () => {
         axios.get('/fleets')
@@ -41,8 +38,8 @@ export default class Fleets extends Component {
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
-          .catch((error) => {
-            alert('Error retrieving data!!!', + error);
+          .catch(() => {
+            alert('Error retrieving data!!!');
           });
       }
 
@@ -59,7 +56,10 @@ export default class Fleets extends Component {
     //     });  
     // }
 
+
+
 render() {  
+    const data = this.state.fleets; 
         // const data = this.state.fleets.filter(
         //     (fleet) => {
         //         return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
