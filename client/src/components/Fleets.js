@@ -11,6 +11,7 @@ import {
   CardTitle,
   CardText,
 } from "reactstrap";
+import { error } from "console";
 
 const style = { width: "14rem" };
 const search = { height: "60px"};
@@ -40,8 +41,8 @@ export default class Fleets extends Component {
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
-          .catch(() => {
-            alert('Error retrieving data!!!');
+          .catch((error) => {
+            alert('Error retrieving data!!!', + error);
           });
       }
 
@@ -59,11 +60,11 @@ export default class Fleets extends Component {
     // }
 
 render() {  
-        const data = this.state.fleets.filter(
-            (fleet) => {
-                return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
-            }
-         ); 
+        // const data = this.state.fleets.filter(
+        //     (fleet) => {
+        //         return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
+        //     }
+        //  ); 
 
   return (
     <>
