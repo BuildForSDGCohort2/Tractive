@@ -52,7 +52,7 @@ class App extends Component {
 
           <AuthenticatedRoute path="/post-fleet" exact component={PostFleet}/>
 
-          <AuthenticatedRoute path="/fleets" exact component={Fleets}/>
+          <Route path="/fleets" exact component={Fleets}/>
           <Route path="/login" exact component={LoginPage}/>
           <Route path="/login-farmer" exact component={FarmerLogin}/>
           <Route path="/login-owner" exact component={OwnerLogin}/>

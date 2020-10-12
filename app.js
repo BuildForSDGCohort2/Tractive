@@ -11,7 +11,8 @@ const mongoose = require('mongoose')
 const app = express();
 
 const PORT = process.env.PORT || 2020 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/tractive_db", {
+const dbURL = process.env.NODE_ENV==='production' ? process.env.MONGODB_URI : 'mongodb://localhost/tractive_db'
+mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }); 
@@ -50,7 +51,7 @@ app.use(passport.session());
 
 
 // Express body parser
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Express public
@@ -66,14 +67,15 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 // cors
-// app.use(cors()); 
+app.use(cors()); 
 
-app.use(
-    cors({
-      origin: "http://localhost:3000", // <-- location of the react app were connecting to
-      credentials: true,
-    })
-  );
+
+// app.use(
+//     cors({
+//       origin: "http://localhost:3000", // <-- location of the react app were connecting to
+//       credentials: true,
+//     })
+//   );
 
 //   app.use('/', (req, res)=> {
 //     res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))

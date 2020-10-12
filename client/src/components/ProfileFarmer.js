@@ -195,7 +195,7 @@ export default class ProfileFarmer extends Component {
              {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 
              <NavLink
-               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Contact nearby Agents
+               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Nearby Agents
              </NavLink> 
             </div>
           </div>
