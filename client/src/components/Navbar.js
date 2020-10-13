@@ -23,7 +23,8 @@ export default class MainNavbar extends Component {
     logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('JWT');
-      window.location = "/login"
+      // window.location = "/login"
+      return <Redirect to="/login" />;
     };
 
   
