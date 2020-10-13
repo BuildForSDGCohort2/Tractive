@@ -155,7 +155,7 @@ export default class ProfileFarmer extends Component {
 
     if (isLoading) {
       return (
-        <div className="text-success">Loading User Data...</div>
+        <div className="text-success m-5">Loading User Data...</div>
         
       );
     }
