@@ -57,14 +57,31 @@ app.use(express.json());
 // Express public
 app.use(express.static(path.join(__dirname, 'public')));
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  // app.use(express.static(path.join(__dirname, "client", "build")))
+// production error (fetching data from database) is due to build 
+// i have spent more than 1 week debugging it
+// coming back to make it work properly InsaAllah
 
-  app.get('*',(req, res) => {
-      res.sendFile(path.join(__dirname,'client','build','index.html'));
-  })
+
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static('client/build'));
+//   // app.use(express.static(path.join(__dirname, "client", "build")))
+
+//   app.get('*',(req, res) => {
+//       res.sendFile(path.join(__dirname,'client','build','index.html'));
+//   })
+// }
+
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname,  "client/build", "index.html"));
+  });
 }
+
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static('client/build', "index.html"));
+// }
 
 // cors
 app.use(cors()); 
