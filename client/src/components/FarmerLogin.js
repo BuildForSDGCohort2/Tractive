@@ -43,8 +43,7 @@ export default class Login extends Component {
               password,
             });
             localStorage.setItem('JWT', response.data.token);
-            // window.location = `/profile-farmer/${email}`
-            
+            window.location = `/profile-farmer/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
