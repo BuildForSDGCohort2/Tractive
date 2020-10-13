@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios"; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
 
 export default class MainNavbar extends Component {
