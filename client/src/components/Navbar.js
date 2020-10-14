@@ -23,10 +23,7 @@ export default class MainNavbar extends Component {
     logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('JWT');
-      // window.location = "/login"
-      return <Redirect to="/login" />;
     };
-
   
   render() {
     
@@ -68,9 +65,9 @@ export default class MainNavbar extends Component {
 
            {localStorage.JWT ? 
             // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
-            <li className="nav-item">
-                    <NavLink className="nav-link text-light font-weight-bold" onClick={this.logout}  to="/login">Logout
-                    </NavLink>               
+                <li onClick={this.logout}  className="nav-item">
+                      <NavLink className="nav-link text-light font-weight-bold" to="/login">Logout
+                      </NavLink>               
                 </li>
             // &&
             // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
