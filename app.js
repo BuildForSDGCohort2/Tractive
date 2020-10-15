@@ -7,7 +7,6 @@ const cors = require("cors");
 const morgan = require('morgan');
 const mongoose = require('mongoose')
 // const dotenv = require("dotenv"); 
-
 const app = express();
 
 const PORT = process.env.PORT || 2020 
@@ -15,6 +14,9 @@ const dbURL = process.env.NODE_ENV==='production' ? process.env.MONGODB_URI : 'm
 mongoose.connect(dbURL, {
   useNewUrlParser: true,
   useUnifiedTopology: true
+}); 
+mongoose.connection.on("connected", () => {
+  console.log("Database Connected!!!"); 
 }); 
 
 // Passport Config
@@ -61,15 +63,6 @@ app.use(express.json());
 // i have spent more than 1 week debugging it
 // coming back to make it work properly InsaAllah
 
-if (process.env.NODE_ENV === 'production') {
-  // app.use(express.static('./client/source/app.js'));
-  app.use(express.static('client/build'));
-  // app.use(express.static(path.join(__dirname, "client", "build"))); 
-  app.get('*',(req, res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-
-}
 
 
 
@@ -105,6 +98,17 @@ app.use("/fleets", fleetUrl);
 app.use("/contact-us", contactUrl);
 app.use("/owners", ownerUrl);
 app.use("/agents", agentUrl);
+
+if (process.env.NODE_ENV === 'production') {
+  // app.use(express.static('./client/source/app.js'));
+  app.use(express.static('client/build'));
+  // app.use(express.static(path.join(__dirname, "client", "build"))); 
+  app.get('*',(req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+
+}
+
 app.use(morgan('tiny'));
 
 
@@ -114,9 +118,6 @@ app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })
 
-mongoose.connection.on("connected", () => {
-  console.log("Database Connected!!!"); 
-}); 
 
 app.on('error', error => {
     console.log(`Error occured on the server ${error}`)
