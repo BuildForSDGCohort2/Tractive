@@ -38,11 +38,14 @@ export default class Fleets extends Component {
         axios.get('/fleets')
           .then((response) => {
             const data = response.data;
+            alert(response.data)
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
-          .catch(() => {
-            alert('Error retrieving data!!!');
+          .catch((error) => {
+            // alert('Error retrieving data!!!');
+            // alert(error)
+            console.log(error)
           });
       }
 
