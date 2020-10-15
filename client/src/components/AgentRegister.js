@@ -197,7 +197,7 @@ export default class AgentRegister extends Component {
                             <input type="file" className="form-control" onChange={this.handleChange("cvLink")} value={cvLink} placeholder="" />
                         </div>
                         <div className="form-group">
-                            <input type="text" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
+                            <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                         </div>
                         <div>
                             <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 

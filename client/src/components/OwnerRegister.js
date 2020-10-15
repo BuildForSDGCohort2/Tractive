@@ -170,7 +170,7 @@ export default class OwnerRegister extends Component {
                              <textarea className="form-control" rows="2" onChange={this.handleChange("firmAddress")} value={firmAddress} placeholder="Firm Address"></textarea>
                         </div>
                         <div className="form-group">
-                            <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Passwprd" />
+                            <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                         </div>
                         <div>
                             <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 
