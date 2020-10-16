@@ -192,7 +192,7 @@ export default class ProfileAgent extends Component {
         </div>
         <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
         <NavLink
-           className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">See Fleets
+           className="h5 btn btn-success  text-white font-weight-bold" to="/fleet">See Fleets
          </NavLink> 
          {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 

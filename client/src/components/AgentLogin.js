@@ -52,6 +52,7 @@ export default class Login extends Component {
               password,
             });
             localStorage.setItem('JWT', response.data.token);
+            window.location = `/profile-agent/${email}`
             this.setState({
               loggedIn: true,
               showError: false,

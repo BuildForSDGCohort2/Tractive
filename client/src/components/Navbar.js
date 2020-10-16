@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios"; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
 
 export default class MainNavbar extends Component {
@@ -25,7 +25,6 @@ export default class MainNavbar extends Component {
       localStorage.removeItem('JWT');
       window.location = "/login"
     };
-
   
   render() {
     
@@ -47,7 +46,7 @@ export default class MainNavbar extends Component {
                 </li>
               <li className="nav-item">
                     <NavLink
-                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleets">Fleets
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleet">Fleets
                         <span class="sr-only">(current)</span>
                     </NavLink>
                 </li>
@@ -67,9 +66,9 @@ export default class MainNavbar extends Component {
 
            {localStorage.JWT ? 
             // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
-            <li className="nav-item">
-                    <NavLink className="nav-link text-light font-weight-bold" onClick={this.logout}  to="/login">Logout
-                    </NavLink>               
+                <li onClick={this.logout}  className="nav-item">
+                      <NavLink className="nav-link text-light font-weight-bold" to="/login">Logout
+                      </NavLink>               
                 </li>
             // &&
             // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>

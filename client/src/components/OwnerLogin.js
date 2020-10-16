@@ -44,6 +44,7 @@ export default class Login extends Component {
               password,
             });
             localStorage.setItem('JWT', response.data.token);
+            window.location = `/profile-owner/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
@@ -132,6 +133,6 @@ export default class Login extends Component {
             </div>
         );
       }
-      return <Redirect to={`/profile-owner/${email}`} />;
+      // return <Redirect to={`/profile-owner/${email}`} />;
     }
 }
