@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import FlashMessage from 'react-flash-message';
 import "./JoinUsPage.css";
 import Footer from "./Footer"
 
@@ -23,7 +24,7 @@ export default class OwnerRegister extends Component {
             firmAddress: "",
             role: "",
             password: "", 
-            messageFromServer: '',
+            messageFromServerOwner: '',
             showError: false,
             registerError: false,
             loginError: false
@@ -56,9 +57,11 @@ export default class OwnerRegister extends Component {
                         title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password,
                       },
                     );
-                    window.location = '/login-owner';
+                    window.location = '/owner-success';
+                    window.FlashMessage('Message has been sent successfully!', 'success')
+
                     this.setState({
-                        messageFromServer: response.data.message,
+                        messageFromServerOwner: response.data.message,
                         showError: false,
                         loginError: false,
                         registerError: false,
@@ -92,13 +95,13 @@ export default class OwnerRegister extends Component {
         firmName,
         firmAddress,
         password, 
-        messageFromServer,
+        messageFromServerOwner,
         showError,
         registerError,
         loginError,
       } = this.state;
 
-    if (messageFromServer === '') {
+    if (messageFromServerOwner === '') {
     return (
             <div className="">
             <div className="mt-5 ">
@@ -209,7 +212,7 @@ export default class OwnerRegister extends Component {
         </div>
     );
   }
-  if (messageFromServer === 'user created') {
+  if (messageFromServerOwner === 'user created') {
     //   i need flash here
     return <Redirect to={`/userProfile/${email}`} />;
 }

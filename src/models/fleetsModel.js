@@ -20,6 +20,26 @@ const fleetsModel  = new Schema({
         trim: true,
         required: [true, "Purpose is required"]
     },
+    ownerNumber:{
+        type: String,
+        trim: true,
+        required: [true, "Number is required"]
+    },
+    ownerEmail:{
+        type: String,
+        trim: true,
+        required: [true, "Email is required"]
+        
+    },
+    ownerContact:{
+        type: String,
+        trim: true,
+        required: [true, "Contact is required"]
+    },
+    chargePerAcre:{
+        type:String,
+        trim: true
+    },
     image:{
         type:String,
         trim: true

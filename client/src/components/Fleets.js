@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios"; 
 import { Input } from 'reactstrap';
+import { NavLink} from "react-router-dom";
 
 // reactstrap components
 import {
@@ -38,7 +39,7 @@ export default class Fleets extends Component {
         axios.get('/fleets')
           .then((response) => {
             const data = response.data;
-            // alert(response.data)
+            alert(response.data)
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
@@ -93,13 +94,18 @@ render() {
                     <CardText>
                         {fleet.desc}
                     </CardText>
+                    <CardText>
+                        {fleet.availability}
+                    </CardText>
+                    <NavLink to={"/fleet/"+fleet._id}>
                     <Button
                         color="success"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
                     >
                         Contact the Owner
-                    </Button>
+                        </Button>
+                    </NavLink>
+                    
+                   
                     </CardBody>
                 </Card>
             )}                       

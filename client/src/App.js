@@ -29,9 +29,13 @@ import UpdateProfile from "./components/UpdateProfile"
 import ForgotPassword from "./components/ForgotPassword"
 import ResetPassword from "./components/ResetPassword"
 import UpdatePassword from "./components/UpdatePassword"
-import  Agents  from './components/Agents';
+import  Agents  from './components/Agents'
 import Farmers from "./components/Farmers"
-
+import ProtectRoute from "./components/ProtectRoute"
+import AgentSuccess from "./UtilityRoutes/AgentSuccess"
+import FarmerSuccess from "./UtilityRoutes/FarmerSuccess"
+import OwnerSuccess from "./UtilityRoutes/OwnerSuccess"
+import Fleet from "./components/ShowFleet"
 
 // import EditUser from './components/EditUser';
 
@@ -49,10 +53,16 @@ class App extends Component {
           <Route path="/farmer-register" exact component={FarmerRegister}/>
           <Route path="/owner-register" exact component={OwnerRegister}/>
           <Route path="/agent-register" exact component={AgentRegister}/>
+          <Route path="/protect-route" exact component={ProtectRoute} />
+          <Route path="/agent-success" exact component={AgentSuccess} />
+          <Route path="/farmer-success" exact component={FarmerSuccess} />
+          <Route path="/owner-success" exact component={OwnerSuccess} />
 
           <AuthenticatedRoute path="/post-fleet" exact component={PostFleet}/>
 
           <AuthenticatedRoute path="/fleet" exact component={Fleets}/>
+          <AuthenticatedRoute path="/fleet/:id" exact component={Fleet}/>
+
           <Route path="/login" exact component={LoginPage}/>
           <Route path="/login-farmer" exact component={FarmerLogin}/>
           <Route path="/login-owner" exact component={OwnerLogin}/>
@@ -83,16 +93,22 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => (
       <Component {...props}/>
     ) : (
       <Redirect to={{
-        pathname: '/login',
+        pathname: '/protect-route',
         state: { 
           from: props.location.state,
-          message: 'Message from other page'
+          message: 'Message from other page', 
+          flash: 'Message from other page', 
 
         }
+        
         // state: 'Please sign in or register' 
         
-      }}/>
-      
+      }
+  //     <FlashMessage duration={10000}>
+  //     <strong className="text-success h4">Please sign in or register, Thanks!</strong>
+  // </FlashMessage>
+    }/>
+     
     )
   )}/>
 )

@@ -6,6 +6,8 @@ import { Redirect } from 'react-router-dom';
 import "./Login.css";
 // import Navbar from './Navbar';
 import Footer from "./Footer"
+import messageFromServer from './FarmerRegister'
+import FlashMessage from 'react-flash-message';
 
 export default class Login extends Component {
 
@@ -35,6 +37,7 @@ export default class Login extends Component {
             showError: false,
             showNullError: true,
             loggedIn: false,
+            message: false
           });
         } else {
           try {
@@ -64,7 +67,13 @@ export default class Login extends Component {
           }
         }
       }
-      
+
+      componentDidMount() {
+        if (messageFromServer) {
+          this.setState({ message: true })
+        //   window.location = '/join-us'
+        }
+      }
     
   render() {
     const {
@@ -72,13 +81,26 @@ export default class Login extends Component {
         password,
         showError,
         loggedIn,
+        message,
         showNullError,
       } = this.state;
+      
+      // if(message){
+      //   return(
+          // <div className="mt-5">
+          //   <FlashMessage duration={10000}>
+          //       <strong className="text-success h4">Congratulation, You have successfully registered!</strong>
+          //   </FlashMessage>
+          // </div>
+      //   )
+      // }
+      
       if (!loggedIn) {
         return (
+           
                 <div className="">
                     <div className="mt-5 ">
-                        <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
+                     <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
                     </div>
                         <div className="row text-center mt-2">
                             <div className="col-sm-12 col-md-12 col-lg-4"> </div>

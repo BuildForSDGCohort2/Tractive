@@ -70,8 +70,6 @@ export default class MainNavbar extends Component {
                       <NavLink className="nav-link text-light font-weight-bold" to="/login">Logout
                       </NavLink>               
                 </li>
-            // &&
-            // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
             :
             <NavDropdown className="text-white"  title="Login" id="basic-nav-dropdown">
               <li className="nav-item">

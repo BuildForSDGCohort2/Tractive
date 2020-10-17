@@ -1,5 +1,3 @@
-
-
 import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
@@ -7,7 +5,6 @@ import axios from 'axios';
 // import "./JoinUsPage.css";
 // import Navbar from './Navbar';
 import Footer from "./Footer"
-
 export default class FarmerRegister extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +23,7 @@ export default class FarmerRegister extends Component {
             farmAddress: "",
             crops: "",
             password: "", 
-            messageFromServer: '',
+            messageFromServerFarmer: '',
             showError: false,
             registerError: false,
             loginError: false
@@ -59,14 +56,19 @@ export default class FarmerRegister extends Component {
                         title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password
                       },
                     );
-                    window.location = `/profile-farmer/${email}`
-                    // window.location = '/login-farmer';
+                    
+                     alert(response.data.message)
+                     window.location = '/farmer-success'
+                     
                     this.setState({
-                        messageFromServer: response.data.message,
+                        messageFromServerFarmer: response.data.message,
                         showError: false,
                         loginError: false,
                         registerError: false,
                       });
+                    
+                   
+
                     } catch (error) {
                         console.error(error.response.data);
                         if (error.response.data === 'email already taken') {
@@ -96,13 +98,13 @@ export default class FarmerRegister extends Component {
         farmAddress,
         crops,
         password, 
-        messageFromServer,
+        messageFromServerFarmer,
         showError,
         registerError,
         loginError,
       } = this.state;
 
-        if (messageFromServer === '') {
+        if (messageFromServerFarmer === '') {
             return (
                 <div className="m">
                     <div className="mt-5 ">
@@ -181,12 +183,12 @@ export default class FarmerRegister extends Component {
                             
                                 {showError === true && registerError === true && (
                                 <div>
-                                <p className="text-success">All fields are required.</p>
+                                <p className="text-danger">All fields are required.</p>
                                 </div>
                             )}
                              {showError === true && loginError === true && (
                             <div>
-                            <p className="text-success">
+                            <p className="text-danger">
                                 That email is already taken. Please choose another
                                 or login.
                             </p>
@@ -214,7 +216,7 @@ export default class FarmerRegister extends Component {
             
              );
         }
-        // if (messageFromServer === 'user created') {
+        // if (messageFromServerFarmer === 'user created') {
         //     return (
         //       <div>
         //           <NavLink to="/login">
