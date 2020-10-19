@@ -63,7 +63,7 @@ const agentApplication = async (req, res, next) => {
               })
               .then(() => {
                 console.log('user created in db');
-                res.status(200).send({ message: `${user.fullName}, successully registered`});
+                res.status(200).send({ message: `${user.fullName}, successully registered as an agent`});
               });
           });
         });

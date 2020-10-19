@@ -25,7 +25,7 @@ export default class AgentRegister extends Component {
             employmentStatus: "", 
             cvLink: "",
             password: "", 
-            messageFromServer: '',
+            messageFromServerAgent: '',
             showError: false,
             registerError: false,
             loginError: false
@@ -58,9 +58,9 @@ export default class AgentRegister extends Component {
                         title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
                       },
                     );
-                    window.location = '/login-agent';
+                    window.location = '/agent-success';
                     this.setState({
-                        messageFromServer: response.data.message,
+                        messageFromServerAgent: response.data.message,
                         showError: false,
                         loginError: false,
                         registerError: false,
@@ -95,13 +95,13 @@ export default class AgentRegister extends Component {
         employmentStatus, 
         cvLink, 
         password, 
-        messageFromServer,
+        messageFromServerAgent,
         showError,
         registerError,
         loginError,
       } = this.state;
       
-    if (messageFromServer === '') {
+    if (messageFromServerAgent === '') {
     return (
             <div className="">
             {/* <section className="hero_contact">
@@ -229,7 +229,7 @@ export default class AgentRegister extends Component {
         </div>
         );
         }
-        else if(messageFromServer === 'user created') {
+        else if(messageFromServerAgent === 'user created') {
             //   i need flash here
             return <Redirect to={`/userProfile/${email}`} />;
         }

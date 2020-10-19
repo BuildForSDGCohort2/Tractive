@@ -22,20 +22,20 @@ const getFleets = (req, res, next) => {
 
 };
 
-// New route: form to add new fleet
-const getNewFleet = async (req, res, next) => {
-    res.render("new"); 
-    }
 
 //   post fleets
 const postFleets =  async (req, res) => {    
 
-    const { name, desc, purpose, image, availability } = req.body
+    const { name, desc, purpose, ownerNumber, ownerEmail, ownerContact, chargePerAcre, image, availability } = req.body
 
     const newFleet = new Fleet({
         name, 
         desc, 
         purpose, 
+        ownerNumber,
+        ownerEmail,
+        ownerContact,
+        chargePerAcre,
         availability, 
         // image: {
         //     data: fs.readFileSync(path.join(__dirname + '/public/products/' + req.file.filename)) 
@@ -44,9 +44,7 @@ const postFleets =  async (req, res) => {
         
         
     })
-  
-  
-    
+      
     newFleet 
     .save()
     .then(() =>{
@@ -64,14 +62,16 @@ const showFleet = async (req, res, next) => {
       .catch(err => res.status(400).json('Error: ' + err));
   };
 
+
 // edit route
 const editFleet = async (req, res, next) => {
     Fleet.findById(req.params.id, (err, foundFleet) =>{
         if(err){
             // res.redirect("/fleets")
+            console.log(err)
         } else{
             // res.render("edit", {fleet: foundFleet})
-            
+            res.json(foundFleet)
         }
     });
 };
@@ -79,11 +79,14 @@ const editFleet = async (req, res, next) => {
   //   update fleet
   const updateFleet = (req, res, next) => {
     Fleet.findById(req.params.id)
-
       .then(fleet => {  
         fleet.name = req.body.name 
         fleet.description = req.body.description
         fleet.purpose = req.body.purpose
+        fleet.ownerNumber = req.body.ownerNumber
+        fleet.ownerContact = req.body.ownerContact
+        fleet.ownerEmail = req.body.ownerEmail
+        fleet.chargePerAcre = req.body.chargePerAcre
         fleet.image = req.body.image
         fleet.availability = req.body.availability    
   
@@ -96,7 +99,7 @@ const editFleet = async (req, res, next) => {
 
 //   delete 
 const deleteFleet = async (req, res, next) => {
-    Fleet.findByIdAndDelete(req.params.id)
+    Fleet.findByIdAndRemove(req.params.id)
       .then(() => res.json(`${req.params.id}: deleted`))
       .catch(err => res.status(400).json('Error: ' + err));
   };
@@ -104,7 +107,6 @@ const deleteFleet = async (req, res, next) => {
 
 module.exports = {
     postFleets,
-    getNewFleet,
     getFleets,
     showFleet,
     editFleet,

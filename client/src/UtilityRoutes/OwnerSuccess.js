@@ -1,54 +1,55 @@
 import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
-import "./JoinUsPage.css";
+// import "./JoinUsPage.css";
 // import Navbar from './Navbar';
-import Footer from "./Footer"
-import AuthenticatedRoute from "../App"
-import FlashMessage from 'react-flash-message';
+import messageFromServerOwner from '../components/OwnerRegister'
 
-export default class LoginPage extends Component {
+import { Redirect } from 'react-router-dom';
+
+export default class OwnerSuccess extends Component {
     constructor(props) {
         super(props);
   
       this.state = {
-        message: false,
+        messageOwner: false,
         }
       }
       
-      componentDidMount() {
-        if (AuthenticatedRoute) {
-          this.setState({ message: true })
-        //   window.location = '/join-us'
-        }
-      }
+    //   componentDidMount = () => {
+    //     this.routes();
+    //   };
+    
+    // routes = () => {
+    //    if (AuthenticatedRoute) {
+    //     this.setState({ message: true })
+    //    } else if (messageFromServerFarmer ) {
+    //     this.setState({ messageFarmer: true })
+    //    }else if (messageFromServerAgent) {
+    //     this.setState({ messageAgent: true })
+    //    }        
+    //     else if (messageFromServerOwner) {
+    //       this.setState({ messageOwner: true })
+    //     }
+    //   }
 
   render() {
-//     const {
-//         message
-//   } = this.state
-
-//   if (message) {
-//     return (
-//          <div className="mt-5">
-//                <div className="mt-5" >
-//             {/* <FlashMessage duration={10000}> */}
-//                 <strong className="text-danger h4">Please sign in or register, Thanks!</strong>
-//             {/* </FlashMessage> */}
-//             </div>
-//           <div className="mt-5">
-//               <NavLink
-//                 className="h5 btn btn-success  text-white font-weight-bold" to="/login">Login
-//               </NavLink> 
-          
-//               <NavLink
-//                 className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/join-us">Register
-//               </NavLink> 
-//           </div>
-//          </div>
-      
-//     );
-//   }
+  if(messageFromServerOwner){
+    return(
+      <>
+      <div className="mt-5">
+        {/* <FlashMessage duration={10000}> */}
+            <strong className="text-danger h4">Congratulation, You have successfully registered!</strong>
+        {/* </FlashMessage> */}
+      </div>
+      {/* <Redirect to="login-farmer" />; */}
+      <NavLink to="/login-owner">
+            <button className="btn btn-lg btn-success contactbtn mb-2 ">Login</button>
+        </NavLink>
+      </>
+    )
+  } 
+ 
     return (
             <div className="">
             {/* <section className="hero_contact">
@@ -91,8 +92,6 @@ export default class LoginPage extends Component {
                       <button className="btn h2 btn-success btn-large joinbtn">Join us</button>
             </NavLink> 
         </div>
-
-        <Footer />
     </div>
     );
   }

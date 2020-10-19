@@ -8,11 +8,10 @@ const {
 
 // fleet routes
 router.get("/", getFleets);
-router.get("/new", getNewFleet);
 router.post("/", upload.single('image'), postFleets);
 router.get("/:id", showFleet);
 router.get("/:id/edit", editFleet);
 router.post("/:id", updateFleet);
-router.delete("/:id/delete", deleteFleet);
+router.delete("/delete/:id", deleteFleet);
 
 module.exports = router; 
