@@ -63,6 +63,7 @@ export default class PostFleet extends Component {
     this.setState({availability: e.target.value})
    }
 
+
    postFleet(event) {
        event.preventDefault();
        const fleetPost = {
@@ -76,12 +77,14 @@ export default class PostFleet extends Component {
            image: this.state.image,
            availability: this.state.availability
        };
+
        console.log(fleetPost)
 
        axios.post("/fleets", fleetPost)
-       .then(res => console.log(res.data));
+       .then(res => console.log(res.data));   
        window.location = '/fleets';
        }
+
 
   render() {
     return (

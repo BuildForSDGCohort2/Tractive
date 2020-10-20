@@ -41,9 +41,9 @@ const fleetsModel  = new Schema({
         trim: true
     },
     image:{
-        type:String,
-        trim: true
+        type:String
     },
+
     availability: {
         type:String,
         enum: ["Currently available", "One week time", "Two weeks - Four weeks time ", "Currently unavailable"],
