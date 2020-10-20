@@ -62,9 +62,7 @@ app.use(express.json());
 // production error (fetching data from database) is due to build 
 // i have spent more than 1 week debugging it
 // coming back to make it work properly InsaAllah
-app.use((req, res) => {
-  res.status(404).send('Page not found');
-})
+
 
 
 // cors
@@ -111,6 +109,13 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(morgan('tiny'));
 
+app.use((req, res) => {
+  res.status(404).send('Page not found');
+})
+
+app.use((req, res) => {
+  res.status(404).send('Page not found');
+})
 
 // const PORT  = config.port
 app.listen(PORT, () => {
