@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import FlashMessage from 'react-flash-message';
+import { MDBContainer, MDBAlert } from 'mdbreact';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
-import "./Login.css";
+import Alert from 'react-bootstrap/Alert'
+import "../components/Login.css";
+import FlashState from "../components/FlashState"
 // import Navbar from './Navbar';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 
 export default class Login extends Component {
 
@@ -18,8 +22,12 @@ export default class Login extends Component {
           loggedIn: false,
           showError: false,
           showNullError: false,
+          showMessage: false
         };
+         FlashState.set('message', 'Post published');
+        this.setState({ published: true });
       }
+     
     
       handleChange = name => (event) => {
         this.setState({
@@ -30,8 +38,8 @@ export default class Login extends Component {
       loginUser = async (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-
-       if (email === '' || password === '') {
+        
+        if (email === '' || password === '') {
           this.setState({
             showError: false,
             showNullError: true,
@@ -39,19 +47,20 @@ export default class Login extends Component {
           });
         } else {
           try {
-            const response = await axios.post('/owners/signin', {
+            const response = await axios.post('/agents/signin', {
               email,
               password,
             });
             localStorage.setItem('JWT', response.data.token);
-            window.location = `/profile-owner/${email}`
+            window.location = `/profile-agent/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
               showNullError: false,
+              showMessage: false
             });
           } catch (error) {
-            // console.error(error.response.data);
+            console.error(error.response.data);
             if (
               error.response.data === 'Incorrect Email'
               || error.response.data === 'passwords do not match'
@@ -72,6 +81,7 @@ export default class Login extends Component {
         showError,
         loggedIn,
         showNullError,
+        showMessage
       } = this.state;
       if (!loggedIn) {
         return (
@@ -107,8 +117,7 @@ export default class Login extends Component {
                                     </div>
                                 )}
                                  {showError && (
-                                    <div
-                                    >
+                                    <div>
                                     <p className="text-danger font-weight-bold">
                                         That email or password isn&apos;t recognized. Please try
                                         again or register now.
@@ -133,6 +142,15 @@ export default class Login extends Component {
             </div>
         );
       }
-      // return <Redirect to={`/profile-owner/${email}`} />;
+     
+        return (
+          <Redirect
+            to={{
+              pathname: `/profile-agent/${email}`,
+              state: { message: 'Message from other page' }
+            }}
+          />
+        );
+      // return <Redirect to={`/profile-agent/${email}`}  />;
+          }
     }
-}

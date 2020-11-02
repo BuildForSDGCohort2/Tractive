@@ -1,26 +1,49 @@
+const multer = require('multer');
 const Fleet = require("../models/fleetsModel"); 
+const jwt = require("jsonwebtoken");
+const jwtSecret = require("../config/jwtConfig"); 
 // const { upload } = require("../utility/multer"); 
-const responseHandler = require('../utility/responseHandler');
+// const responseHandler = require('../utility/responseHandler');
 const fs = require('fs'); 
 const path = require('path'); 
 // const sharp = require('sharp'); 
    
 
-
-
 // get all fleets 
 const getFleets = (req, res, next) => {
-
-   Fleet.find({  })
+   Fleet.find()
    .then((data) => {
-       console.log('Data: ', data);
-       res.json(data);
-   })
-   .catch((error) => {
-       console.log('error: ', error);
-   });
-
+    jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the fleets route');
+            res.sendStatus(403);
+        } else {
+            //If token is successfully verified, we can send the autorized data 
+            res.status(200).json(
+                // message: '',
+                // authorizedData,
+                data,
+            );
+            console.log('SUCCESS: Connected to fleets');
+        }
+    })
+});
 };
+
+// image upload 
+// const postImage = (req, res) => {
+//     upload(req, res, function (err) {
+//         if (err instanceof multer.MulterError) {
+//             return res.status(500).json(err)
+//         } else if (err) {
+//             return res.status(500).json(err)
+//         }
+//    return res.status(200).send(req.file)
+
+//  })
+// }
+
 
 
 //   post fleets

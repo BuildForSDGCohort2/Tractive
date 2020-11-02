@@ -27,25 +27,34 @@ export default class Agents extends Component {
             agents: [], 
             searchedValue: ''
         }
-       
     }
 
     onSearch(event) {
         this.setState({ searchedValue: event.target.value });
     }
   
-    componentDidMount() {
-        axios.get("/agents")
-        .then(res => {
-            console.log(res)
-            this.setState({ 
-                // agents: res.data
-                // fleets: res.data[0].fleets,
-                agents: res.data.map(agent => agent),
-                agent: res.data[0]
-            })
-        });  
-    }
+    componentDidMount = () => {
+        this.getAgents();
+      };
+    
+    getAgents = () => {
+        axios.get('/agents', {
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
+            }
+        })
+          .then((response) => {
+            const data = response.data;
+            // alert(response.data)
+            this.setState({ agents: data });
+            console.log('Data has been received!!');
+          })
+          .catch((error) => {
+            // alert('Error retrieving data!!!');
+            // alert(error)
+            console.log(error)
+          });
+      }
 
     render() {  
         let data = this.state.agents.filter(

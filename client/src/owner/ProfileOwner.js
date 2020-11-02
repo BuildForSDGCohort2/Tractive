@@ -4,11 +4,11 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 
-import "./Profile.css";
+import "../components/Profile.css";
 
-export default class ProfileAgent extends Component {
+export default class ProfileOwner extends Component {
       constructor() {
         super();
 
@@ -22,9 +22,9 @@ export default class ProfileAgent extends Component {
             town: "",
             state: "",
             country: "",
-            education: "",
-            employmentStatus: "", 
-            cvLink: "", 
+            firmName: "",
+            firmAddress: "",
+            role: "",
             password: "", 
             isLoading: true,
             deleted: false,
@@ -47,11 +47,14 @@ export default class ProfileAgent extends Component {
           });
         } else {
           try {
-            const response = await axios.get('/agents/find-user', {
+            const response = await axios.get('/owners/find-user', {
               params: {
                 email,
               },
-              headers: { Authorization: `JWT ${accessString}` },
+              headers:{
+                "Authorization": `Bearer ${accessString}`
+            },
+              // headers: { Authorization: `JWT ${accessString}` },
             });
             this.setState({
               title: response.data.title,
@@ -63,9 +66,9 @@ export default class ProfileAgent extends Component {
               town: response.data.town,
               state: response.data.state,
               country: response.data.country,
-              education: response.data.education,
-              employmentStatus: response.data.employmentStatus, 
-              cvLink: response.data.cvLink, 
+              firmName: response.data.firmName,
+              firmAddress: response.data.firmAddress,
+              role: response.data.crops,
               password: response.data.password,
               isLoading: false,
               error: false,
@@ -95,7 +98,7 @@ export default class ProfileAgent extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('/agents/delete-user', {
+          const response = await axios.delete('/owners/delete-user', {
             params: {
               email,
             },
@@ -127,13 +130,13 @@ export default class ProfileAgent extends Component {
       gender,
       email,
       phone,
-      education,
-      employmentStatus, 
-      cvLink, 
       address,
       town,
       state,
       country,
+      firmName,
+      firmAddress,
+      role,
       password, 
       isLoading,
       deleted,
@@ -146,11 +149,9 @@ export default class ProfileAgent extends Component {
           <div className="mt-5">
            <h5>Problem fetching user data. Please login again.</h5> 
           </div>
-          <NavLink to="/login-agent">
+          <NavLink to="/login-owner">
               <button className="ml-2 h2 bg-success text-white">Login</button>
            </NavLink>
-           <br/>
-           <br/>
         </div>
       );
     }
@@ -167,81 +168,84 @@ export default class ProfileAgent extends Component {
 
     return (
       <div className="mt-5" >
-      <h1 className='text-center mb-5 text-success'>Welcome</h1> 
-      <div className="row mb-4">
-        <div className="">
-           {/* <h1 className='text-center text-success'>Welcome</h1>  */}
-        </div>
-        <div className="col-sm-12 col-lg-6 d-flex logout justify-content-center">
-        {/* <NavLink
-           className="text-success font-weight-bold" to="/agents">Contact nearby Agents
-         </NavLink>  */}
-          <p onClick={this.logout} className="mr-3 text-success">
-            <NavLink className="mr-3 text-success" to="/login-farmer">
-                Logout
-            </NavLink>
-          </p>
-
-          <NavLink to={`/updateProfile/${email}`}>
-            <p className="ml-3 text-success">Update Profile</p>
-          </NavLink>
-          <NavLink to={`/updatePassword/${email}`}
-          >
-            <p className="ml-3 text-success">Update Password</p>
-          </NavLink>
-        </div>
-        <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
-        <NavLink
-           className="h5 btn btn-success  text-white font-weight-bold" to="/fleet">See Fleets
-         </NavLink> 
-         {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
-
-         <NavLink
-           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
-         </NavLink> 
-        </div>
-      </div>
-
-      <div className="d-flex mb-5 justify-content-around profile-div">
-        <div>
-             <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
-           <form>
-             <div>
-              <label className="mr-4">Upload profile picture</label>
-            <div>
-            <input 
-            className="ml-5"
-                type="file" 
-                name="" 
-                onChange={this.onChangeImage}
-                />
+          <h1 className='text-center mb-5 text-success'>Welcome</h1> 
+          <div className="row mb-4">
+            <div className="">
+               {/* <h1 className='text-center text-success'>Welcome</h1>  */}
             </div>
-             </div>
-          
-           </form>
+            <div className="col-sm-12 col-lg-6 d-flex logout justify-content-center">
+            {/* <NavLink
+               className="text-success font-weight-bold" to="/agents">Contact nearby Agents
+             </NavLink>  */}
+              <p onClick={this.logout} className="mr-3 text-success">
+                <NavLink className="mr-3 text-success" to="/login-farmer">
+                    Logout
+                </NavLink>
+              </p>
+  
+              <NavLink to={`/updateProfile/${email}`}>
+                <p className="ml-3 text-success">Update Profile</p>
+              </NavLink>
+              <NavLink to={`/updatePassword/${email}`}
+              >
+                <p className="ml-3 text-success">Update Password</p>
+              </NavLink>
+            </div>
+            <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
+            <NavLink
+               className="h5 btn btn-success  text-white font-weight-bold" to="/post-fleet">Post Fleets
+             </NavLink> 
+             {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
+
+             <NavLink
+               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Nearby Agents
+             </NavLink> 
+             <NavLink
+                className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
+            </NavLink> 
+            </div>
+          </div>
+
+          <div className="d-flex mb-5 justify-content-around profile-div">
+            <div>
+                 <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
+               <form>
+                 <div>
+                  <label className="mr-4">Upload profile picture</label>
+                <div>
+                <input 
+                className="ml-5"
+                    type="file" 
+                    name="" 
+                    onChange={this.onChangeImage}
+                    />
+                </div>
+                 </div>
+              
+               </form>
+            </div>
+            <div>
+               <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 
+               <div>
+                  <p>{email}</p>
+                  <p>{phone}</p>
+                  <p>{firmAddress}</p>
+                 
+               </div>  
+            </div> 
+          </div>
+          {/* <div className="row text-center bg-success">
+            <div className="col-12 text-center">
+            <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
+            </div>
+        </div>  */}
+          <Footer />
         </div>
-        <div>
-           <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 
-           <div>
-              <p>{email}</p>
-              <p>{phone}</p>
-              <p>{address}</p>
-             
-           </div>  
-        </div> 
-      </div>
-      {/* <div className="row text-center bg-success">
-        <div className="col-12 text-center">
-        <p className=" text-white font-weight-bold mt-3 "> Copyright &copy; 2020 | Tractive Nigeria</p>
-        </div>
-    </div>  */}
-      <Footer />
-    </div>
       );
     }
   }
 
-  ProfileAgent.propTypes = {
+  ProfileOwner.propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
         email: PropTypes.string.isRequired,

@@ -14,9 +14,24 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 
 const getFarmers = async (req, res, next) => {
-    Farmer.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+  Farmer.find()
+  .then((data) => {
+   jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+       if(err){
+           //If error send Forbidden (403)
+           console.log('ERROR: Could not connect to the fleets route');
+           res.sendStatus(403);
+       } else {
+           //If token is successfully verified, we can send the autorized data 
+           res.status(200).json(
+               // message: '',
+               // authorizedData,
+               data,
+           );
+           console.log('SUCCESS: Connected to fleets');
+       }
+   })
+});
 };
 
 // register 
@@ -118,7 +133,7 @@ const findUser = async (req, res, next) => {
     } else if (user.email === req.query.email) {
       Farmer.findOne({
           email: req.query.email,
-      }).then((userInfo) => {
+      }).then((userInfo) =>  {
         if (userInfo != null) {
           console.log('user found in db from findUsers');
           res.status(200).send({

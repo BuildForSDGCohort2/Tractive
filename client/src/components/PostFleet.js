@@ -16,7 +16,7 @@ export default class PostFleet extends Component {
             ownerEmail: "",
             ownerContact: "",
             chargePerAcre: "",
-            image: "",
+            // image: null,
             availability: ""
         }
         this.handleNameChange = this.handleNameChange.bind(this);
@@ -26,7 +26,7 @@ export default class PostFleet extends Component {
         this.handleOwnerEmailChange = this.handleOwnerEmailChange.bind(this);
         this.handleOwnerContactChange = this.handleOwnerContactChange.bind(this);
         this.handleChargePerAcreChange = this.handleChargePerAcreChange.bind(this); 
-        this.handleImageChnage = this.handleImageChnage.bind(this); 
+        // this.handleImageChange = this.handleImageChange.bind(this); 
         this.handleAvailabilityChange = this.handleAvailabilityChange.bind(this);
         this.postFleet = this.postFleet.bind(this);
     }
@@ -55,14 +55,33 @@ export default class PostFleet extends Component {
    handleChargePerAcreChange(e) {
        this.setState({chargePerAcre: e.target.value})
    }
-   handleImageChnage(e) {
-    this.setState({image: e.target.value})
-   }
+//    handleImageChange(e) {
+//     this.setState({image: e.target.value})
+//    }
 
    handleAvailabilityChange(e) {
     this.setState({availability: e.target.value})
    }
 
+//    image handler
+//    onChangeHandler=event=>{
+//     this.setState({
+//       image: event.target.files[0],
+//       loaded: 0,
+//     })
+//   }
+
+// //   click sumbit handler
+// onClickHandler = () => {
+//     const data = new FormData()
+//     data.append('file', this.state.selectedFile)
+//     axios.post("/fleets/upload", data, { 
+//        // receive two    parameter endpoint url ,form data
+//    })
+//  .then(res => { // then print response status
+//      console.log(res.statusText)
+//   })
+//  }
 
    postFleet(event) {
        event.preventDefault();
@@ -130,7 +149,8 @@ export default class PostFleet extends Component {
                         </div>
                         <div className="form-group">
                             <label>Click "Choose File" button to upload a picture of the fleet. THIS IS OPTIONAL</label>
-                                <input className="form-control" type="file" id="myFile" value={this.state.image} onChange={this.handleImageChnage} />
+                                <input className="form-control" type="file" id="myFile" onChange={this.onChangeHandler} />
+                                {/* <input type="file" name="file" onChange={this.onChangeHandler}/> */}
                         </div>
                         <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Post</button>
                     </form>

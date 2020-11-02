@@ -3,11 +3,9 @@ import axios from 'axios';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
-import "./Login.css";
+import "../components/Login.css";
 // import Navbar from './Navbar';
-import Footer from "./Footer"
-import messageFromServer from './FarmerRegister'
-import FlashMessage from 'react-flash-message';
+import Footer from "../components/Footer"
 
 export default class Login extends Component {
 
@@ -32,29 +30,28 @@ export default class Login extends Component {
       loginUser = async (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-        if (email === '' || password === '') {
+
+       if (email === '' || password === '') {
           this.setState({
             showError: false,
             showNullError: true,
             loggedIn: false,
-            message: false
           });
         } else {
           try {
-            const response = await axios.post('/farmers/signin', {
+            const response = await axios.post('/owners/signin', {
               email,
               password,
             });
             localStorage.setItem('JWT', response.data.token);
-            window.location = `/profile-farmer/${email}`
+            window.location = `/profile-owner/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
               showNullError: false,
             });
-
           } catch (error) {
-            console.error(error.response.data);
+            // console.error(error.response.data);
             if (
               error.response.data === 'Incorrect Email'
               || error.response.data === 'passwords do not match'
@@ -66,14 +63,7 @@ export default class Login extends Component {
             }
           }
         }
-      }
-
-      componentDidMount() {
-        if (messageFromServer) {
-          this.setState({ message: true })
-        //   window.location = '/join-us'
-        }
-      }
+      };
     
   render() {
     const {
@@ -81,26 +71,13 @@ export default class Login extends Component {
         password,
         showError,
         loggedIn,
-        message,
         showNullError,
       } = this.state;
-      
-      // if(message){
-      //   return(
-          // <div className="mt-5">
-          //   <FlashMessage duration={10000}>
-          //       <strong className="text-success h4">Congratulation, You have successfully registered!</strong>
-          //   </FlashMessage>
-          // </div>
-      //   )
-      // }
-      
       if (!loggedIn) {
         return (
-           
                 <div className="">
                     <div className="mt-5 ">
-                     <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
+                        <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
                     </div>
                         <div className="row text-center mt-2">
                             <div className="col-sm-12 col-md-12 col-lg-4"> </div>
@@ -118,7 +95,7 @@ export default class Login extends Component {
                                     <div className="form-group ml-3 remember_forgot">
                                         <input type="checkbox" checked="checked" name="remember" placeholder="Remember me"  />
                                         <span className="m-2">Remember me </span>
-                                        <NavLink to="/forgot-password">
+                                        <NavLink to="/forgotPassword">
                                               <span className="ml-5 text-success" >Forgot Password?</span>
                                         </NavLink>
                                         
@@ -130,7 +107,8 @@ export default class Login extends Component {
                                     </div>
                                 )}
                                  {showError && (
-                                    <div>
+                                    <div
+                                    >
                                     <p className="text-danger font-weight-bold">
                                         That email or password isn&apos;t recognized. Please try
                                         again or register now.
@@ -141,7 +119,7 @@ export default class Login extends Component {
                                     </div>
                                 )}
                                 <hr/>
-                             <div className="mb-3">
+                            <div className="mb-3">
                                 <p className="h3 mb-3">Dont have an account ?</p>
                                 <NavLink to="/join-us">
                                     <button className="btn h2 btn-success btn-large joinbtn">Join us</button>
@@ -155,6 +133,6 @@ export default class Login extends Component {
             </div>
         );
       }
-      // return <Redirect to={`/profile-farmer/${email}`} />;
+      // return <Redirect to={`/profile-owner/${email}`} />;
     }
 }

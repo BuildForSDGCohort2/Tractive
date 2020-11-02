@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 // import "./JoinUsPage.css";
 // import Navbar from './Navbar';
-import messageFromServerOwner from '../components/OwnerRegister'
+import messageFromServerOwner from '../owner/OwnerRegister'
 
 import { Redirect } from 'react-router-dom';
 

@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
-import "./JoinUsPage.css";
+import "../components/JoinUsPage.css";
 // import Navbar from './Navbar';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 
 export default class AgentRegister extends Component {
 

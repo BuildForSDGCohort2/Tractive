@@ -34,21 +34,33 @@ export default class Farmers extends Component {
         this.setState({ searchedValue: event.target.value });
     }
   
-    componentDidMount() {
-        axios.get("/farmers")
-        .then(res => {
-            console.log(res)
-            this.setState({ 
-                // agents: res.data
-                // fleets: res.data[0].fleets,
-                farmers: res.data.map(farmer => farmer),
-                farmer: res.data[0]
-            })
-        });  
-    }
+    componentDidMount = () => {
+        this.getFarmers();
+      };
+    
+    getFarmers = () => {
+        axios.get('/farmers', {
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
+            }
+            
+        })
+          .then((response) => {
+            const data = response.data;
+            // alert(response.data)
+            this.setState({ farmers: data });
+            console.log('Data has been received!!');
+          })
+          .catch((error) => {
+            // alert('Error retrieving data!!!');
+            // alert(error)
+            console.log(error)
+          });
+      }
 
     render() {  
-        let data = this.state.farmers.filter(
+        // const data = this.state.fleets; 
+        const data = this.state.farmers.filter(
             (farmer) => {
                 return farmer.state.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
             }
@@ -61,7 +73,7 @@ export default class Farmers extends Component {
         <div className="row d-flex justify-content-between ">
 
         {data.length > 0 ? 
-                    data.map((farmer) => {                        
+                    data.map((farmer, i) => {                        
             return (
                 
                 <Card style={style} key={farmer._id.toString()} className="mt-2 mr-1 mb-3">

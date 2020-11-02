@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 // import "./JoinUsPage.css";
 // import Navbar from './Navbar';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 export default class FarmerRegister extends Component {
     constructor(props) {
         super(props);

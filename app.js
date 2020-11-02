@@ -5,19 +5,22 @@ const flash = require('express-flash');
 const session = require('express-session');
 const cors = require("cors"); 
 const morgan = require('morgan');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const multer = require('multer')
 // const dotenv = require("dotenv"); 
 const app = express();
 
-const PORT = process.env.PORT || 2020 
-const dbURL = process.env.NODE_ENV==='production' ? process.env.MONGODB_URI : 'mongodb://localhost/tractive_db'
-mongoose.connect(dbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}); 
-mongoose.connection.on("connected", () => {
-  console.log("Database Connected!!!"); 
-}); 
+// const PORT = process.env.PORT || 2020 
+
+// const dbURL = process.env.NODE_ENV==='production' ? process.env.MONGODB_URI : 'mongodb://localhost/tractive_db'
+
+// mongoose.connect(dbURL, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// }); 
+// mongoose.connection.on("connected", () => {
+//   console.log("Database Connected!!!"); 
+// }); 
 
 // Passport Config
 // require("./src/config/passport")(passport);
@@ -33,8 +36,8 @@ const agentUrl = require("./src/routes/agentRoute");
 const ownerUrl = require("./src/routes/ownerRoute");
 
 // db config and constants
-// const config = require("./src/config/constant");
-// const database = require("./src/config/database");
+const config = require("./src/config/constant");
+const database = require("./src/config/database");
 const { sessionKey } = require('./src/config/constant');
 
 // Express session
@@ -78,17 +81,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(
-//     cors({
-//       origin: "http://localhost:3000", // <-- location of the react app were connecting to
-//       credentials: true,
-//     })
-//   );
-
-//   app.use('/', (req, res)=> {
-//     res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-// })
-
 
 // routes
 app.use("/farmers", farmerUrl);
@@ -113,13 +105,13 @@ app.use((req, res) => {
   res.status(404).send('Page not found');
 })
 
-app.use((req, res) => {
-  res.status(404).send('Page not found');
-})
+// app.use((req, res) => {
+//   res.status(404).send('Page not found');
+// })
 
-// const PORT  = config.port
+const PORT  = config.port
 app.listen(PORT, () => {
-    // database()
+    database()
     console.log(`Server listening on port ${PORT}`)
 })
 

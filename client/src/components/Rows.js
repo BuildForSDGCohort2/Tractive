@@ -1,15 +1,19 @@
-import React, { Component } from 'react';
+import React, { useEffect }  from 'react';
 import { Link } from 'react-router-dom';
 import "./Rows.css"
+import aos from 'aos';
+import "aos/dist/aos.css"; 
 
 // rows after heroSection in the homePage
-class Rows extends Component {
-  render() {
+const Rows = () => {
+    useEffect(() => {
+        aos.init({duration: 2000})
+    }, [])
     return (
         <div>
             <div className="container-fluid font-weight-bold text-center text-white">
-            <p className="h2 mt-5 font-weight-bold why">Why Tractive ?</p>
-                <div className="row">
+                 <p data-aos="flip-right" className="h2 mt-5 font-weight-bold why">Why Tractive ?</p>
+                <div data-aos="fade-left" className="row">
                 <div className="col-sm-12 col-md-4 pro">
                     <p className="h4 font-weight-bold mt-5">The Problem</p>
                     <p>Smallholder farmers don’t have the 
@@ -34,7 +38,7 @@ class Rows extends Component {
                 </div> 
             </div>
             </div>
-    <div className="container-fluid mt-5">
+    <div data-aos="fade-right" className="container-fluid mt-5">
         <div className="row">
             <div className="col-sm-12 col-md-10 col-lg-10 col-xl-5">
                 <div className="row">
@@ -64,9 +68,9 @@ class Rows extends Component {
         </div>
     </div>
     <img className="mt-5" src="/images/line1.png" alt="" />
-    <p className="h2 font-weight-bold">What We Offer</p>
+    <p data-aos="flip-right" className="h2 font-weight-bold">What We Offer</p>
      <div className="container-fluid mt-5">
-         <div className="row">
+         <div data-aos="fade-left" className="row">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 m-4">
                     <img className="ml-5 farmer01" src="/images/01.png" alt="" />
                     <p className="h3 mt-5 font-weight-bold">For Farmers </p>
@@ -87,7 +91,7 @@ class Rows extends Component {
             {/* <div className="col-1"></div>              */}
         </div>
     </div>
-    <div className="container-fluid mt-5 row2">
+    <div data-aos="fade-left" className="container-fluid mt-5 row2">
      <div className="row">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 m-4">
                     <img className="ml-5 farmer01" src="/images/02.png" alt="" />
@@ -113,7 +117,7 @@ class Rows extends Component {
             </div>
         </div>
     </div>
-    <div className="container-fluid mt-5">
+    <div data-aos="fade-right"  className="container-fluid mt-5">
      <div className="row">
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 m-4">
                     <img className="ml-5 farmer01" src="/images/03.png" alt="" />
@@ -142,7 +146,7 @@ class Rows extends Component {
     <div className="container-fluid mt-5">
         <div className="row">
            <div className="col-sm-12 col-md-12 col-lg-12 col-xl-4 mt-5">
-                <p className="h3 font-weight-bold">Why Choose Us <span> <img src="images/line1.png" alt="" /></span> </p>
+                <p data-aos="flip-left"  className="h3 font-weight-bold">Why Choose Us <span> <img src="images/line1.png" alt="" /></span> </p>
                 <p>We share same passion with you, we love what you love and most importantly, we care for you, your business and your endervor.</p>
                 <p>Agriculture and all businesses around it, have what joined us together. 
                     We want our farmers to smile always as we get them access to modern machines and equipment. 
@@ -179,7 +183,7 @@ class Rows extends Component {
             <div className="col-12 text-center GetInTouch">
                 <p className="h3 text-white font-weight-bold touch mt-5">Get In Touch</p>
                 <p className="text-white mt-3">Join us as we harness the power of mechanization in the transformation of our agricultural sector.</p>
-                <Link to="/join-us">
+                <Link to="/contact-us">
                       <button className="btn btn-success btn-large morebtn">Get In Touch »</button>
                 </Link> 
             </div>
@@ -191,6 +195,5 @@ class Rows extends Component {
 
     )
   }
-}
 
 export default Rows; 
