@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkToken = require("../middlewares/verifyToken")
 
 // const { 
 //     farmerLogin, farmerApplication, getFarmers, farmerLogout
@@ -17,7 +18,7 @@ const {
 
 
 // user routes farmersControllers
-router.get('/', getFarmers);
+router.get('/', checkToken, getFarmers);
 router.post('/signup', farmerApplication);
 router.post('/signin', farmerLogin);
 router.get('/find-user', findUser);

@@ -1,7 +1,7 @@
 const passport = require("passport")
 const crypto = require('crypto');
 const bcrypt = require("bcrypt");
-
+const config = require("../config/constant")
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../config/jwtConfig"); 
 const Agent = require("../models/agentsModel");
@@ -13,8 +13,21 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 const getAgents = async (req, res, next) => {
     Agent.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+    .then(data => {
+      jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the agents route');
+            res.sendStatus(403);
+        } else {
+            //If token is successfully verified, we can send the autorized data 
+            res.json({
+                data,
+            });
+            console.log('SUCCESS: Connected to agents');
+        }
+    })
+    }); 
 };
 
 // register 
@@ -90,7 +103,7 @@ const agentLogin = async (req, res, next) => {
                 email: req.body.email,
             }).then(user => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
-                expiresIn: 60 * 60,
+                expiresIn: '1h' 
               });
               res.status(200).send({
                 auth: true,
@@ -158,8 +171,12 @@ const findUser = async (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: `${process.env.EMAIL_ADDRESS}`,
-              pass: `${process.env.EMAIL_PASSWORD}`,
+              // user: `${process.env.EMAIL_ADDRESS}`,
+              // user: `${config.email}`,
+              user: config.email,
+              // pass: `${process.env.EMAIL_PASSWORD}`,
+              // pass: `${config.password}`,
+              pass: config.password,
             },
           });
   

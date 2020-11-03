@@ -19,11 +19,11 @@ const search = { height: "60px"};
 // production error (fetching data from database) is due to build in the app file
 // i have spent more than 1 week debugging it
 
-export default class Fleets extends Component {
+export default class Owners extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            fleets: [],
+            owners: [],
             searchedValue: ''
         };
     }
@@ -32,11 +32,11 @@ export default class Fleets extends Component {
         this.setState({ searchedValue: event.target.value });
     }
     componentDidMount = () => {
-        this.getFleets();
+        this.getOwners();
       };
     
-    getFleets = () => {
-        axios.get('/fleets', {
+    getOwners = () => {
+        axios.get('/owners', {
             headers:{
                 "Authorization": `Bearer ${localStorage.getItem('JWT')}`
             }
@@ -45,7 +45,7 @@ export default class Fleets extends Component {
           .then((response) => {
             const data = response.data;
             // alert(response.data)
-            this.setState({ fleets: data });
+            this.setState({ owners: data });
             console.log('Data has been received!!');
           })
           .then(res => {
@@ -61,44 +61,44 @@ export default class Fleets extends Component {
 
 render() {  
     // const data = this.state.fleets; 
-        const data = this.state.fleets.filter(
-            (fleet) => {
-                return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
+        const data = this.state.owners.filter(
+            (owner) => {
+                return owner.fullName.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
             }
          ); 
 
   return (
     <>
     <div className="container mt-5">
-        <p className="h2 text-success text-center mb-4">Search for fleets in matter of seconds</p>
-    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleets such as tractor, sprayer etc."/>
+        <p className="h2 text-success text-center mb-4">Search for Fleet owners in matter of seconds</p>
+    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleet owners"/>
         <div className="row d-flex justify-content-between ">
 
         {data.length > 0 ? 
-                    data.map((fleet, i) => {                        
+                    data.map((owner, i) => {                        
                         return (
 
-                <Card style={style} key={fleet._id.toString()} className="mt-3">
+                <Card style={style} key={owner._id.toString()} className="mt-3">
                     <CardImg
                     alt="..."
-                    src={"/images/tractyJoin.png" }
+                    src={"/images/userC.png" }
                     top
                     ></CardImg>
                     <CardBody>
-                    <CardTitle>{fleet.name}</CardTitle>
+                    <CardTitle>{owner.fullName}</CardTitle>
                     <CardText>
-                        {fleet.desc}
+                        {owner.email}
                     </CardText>
                     <CardText>
-                        {fleet.availability}
+                        {owner.phone}
                     </CardText>
-                    <NavLink to={"/fleet/"+fleet._id}>
+                    {/* <NavLink to={"/fleet/"+fleet._id}>
                     <Button
                         color="success"
                     >
-                        Contact the Owner
+                        Contact Owner
                         </Button>
-                    </NavLink>
+                    </NavLink> */}
                     
                    
                     </CardBody>

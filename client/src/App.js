@@ -7,35 +7,45 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 import Navbar from './components/Navbar';
 import Home from './components/Home';
-import Owner from './components/Owner';
+
 import Footer from "./components/Footer"
 import ContactUs from "./components/ContactUs"
 import AboutUs from "./components/AboutUs"
 import JoinUs from "./components/JoinUsPage"
-import FarmerRegister from "./components/FarmerRegister"
-import OwnerRegister from "./components/OwnerRegister"
-import AgentRegister from "./components/AgentRegister"
+
+
+import AgentRegister from "./agent/AgentRegister"
+import AgentLogin from "./agent/AgentLogin"
+import ProfileAgent from "./agent/ProfileAgent"
+import  Agents  from './agent/Agents'
+
 import PostFleet from "./components/PostFleet"
 import Fleets from "./components/Fleets"
 import LoginPage from "./components/LoginPage"
-import FarmerLogin from "./components/FarmerLogin"
-import OwnerLogin from "./components/OwnerLogin"
-import AgentLogin from "./components/AgentLogin"
-import ProfileFarmer from "./components/ProfileFarmer"
-import ProfileOwner from "./components/ProfileOwner"
-import ProfileAgent from "./components/ProfileAgent"
+
+import FarmerRegister from "./farmer/FarmerRegister"
+import FarmerLogin from "./farmer/FarmerLogin"
+import ProfileFarmer from "./farmer/ProfileFarmer"
+import Farmers from "./farmer/Farmers"
+
+import OwnerRegister from "./owner/OwnerRegister"
+import OwnerLogin from "./owner/OwnerLogin"
+import ProfileOwner from "./owner/ProfileOwner"
+import Owners from "./owner/Owners"
+import Owner from './owner/Owner';
+
 import TermsAndConditions  from "./components/TermsAndCondition"
 import UpdateProfile from "./components/UpdateProfile"
 import ForgotPassword from "./components/ForgotPassword"
 import ResetPassword from "./components/ResetPassword"
 import UpdatePassword from "./components/UpdatePassword"
-import  Agents  from './components/Agents'
-import Farmers from "./components/Farmers"
+
 import ProtectRoute from "./components/ProtectRoute"
 import AgentSuccess from "./UtilityRoutes/AgentSuccess"
 import FarmerSuccess from "./UtilityRoutes/FarmerSuccess"
 import OwnerSuccess from "./UtilityRoutes/OwnerSuccess"
 import Fleet from "./components/ShowFleet"
+
 
 // import EditUser from './components/EditUser';
 
@@ -60,8 +70,9 @@ class App extends Component {
 
           <AuthenticatedRoute path="/post-fleet" exact component={PostFleet}/>
 
-          <AuthenticatedRoute path="/fleet" exact component={Fleets}/>
+          <AuthenticatedRoute path="/fleets" exact component={Fleets}/>
           <AuthenticatedRoute path="/fleet/:id" exact component={Fleet}/>
+          <AuthenticatedRoute path="/owners" exact component={Owners}/>
 
           <Route path="/login" exact component={LoginPage}/>
           <Route path="/login-farmer" exact component={FarmerLogin}/>
@@ -98,9 +109,7 @@ const AuthenticatedRoute = ({ component: Component, ...rest }) => (
           from: props.location.state,
           message: 'Message from other page', 
           flash: 'Message from other page', 
-
         }
-        
         // state: 'Please sign in or register' 
         
       }

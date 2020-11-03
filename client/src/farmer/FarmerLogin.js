@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import FlashMessage from 'react-flash-message';
-import { MDBContainer, MDBAlert } from 'mdbreact';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import { Redirect } from 'react-router-dom';
-import Alert from 'react-bootstrap/Alert'
-import "./Login.css";
-import FlashState from "./FlashState"
+import "../components/Login.css";
 // import Navbar from './Navbar';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
+import messageFromServer from './FarmerRegister'
+import FlashMessage from 'react-flash-message';
 
 export default class Login extends Component {
 
@@ -22,12 +20,8 @@ export default class Login extends Component {
           loggedIn: false,
           showError: false,
           showNullError: false,
-          showMessage: false
         };
-         FlashState.set('message', 'Post published');
-        this.setState({ published: true });
       }
-     
     
       handleChange = name => (event) => {
         this.setState({
@@ -38,27 +32,32 @@ export default class Login extends Component {
       loginUser = async (e) => {
         e.preventDefault();
         const { email, password } = this.state;
-        
         if (email === '' || password === '') {
           this.setState({
             showError: false,
             showNullError: true,
             loggedIn: false,
+            message: false
           });
         } else {
           try {
-            const response = await axios.post('/agents/signin', {
+            const response = await axios.post('/farmers/signin', {
               email,
               password,
-            });
+            })
+          //   .then(res => {
+          //     localStorage.setItem('authorization', response.token);
+          //     console.log(res);
+          // })
             localStorage.setItem('JWT', response.data.token);
-            window.location = `/profile-agent/${email}`
+            // localStorage.setItem('authorization', response.token);
+            window.location = `/profile-farmer/${email}`
             this.setState({
               loggedIn: true,
               showError: false,
               showNullError: false,
-              showMessage: false
             });
+
           } catch (error) {
             console.error(error.response.data);
             if (
@@ -72,7 +71,14 @@ export default class Login extends Component {
             }
           }
         }
-      };
+      }
+
+      componentDidMount() {
+        if (messageFromServer) {
+          this.setState({ message: true })
+        //   window.location = '/join-us'
+        }
+      }
     
   render() {
     const {
@@ -80,14 +86,26 @@ export default class Login extends Component {
         password,
         showError,
         loggedIn,
+        message,
         showNullError,
-        showMessage
       } = this.state;
+      
+      // if(message){
+      //   return(
+          // <div className="mt-5">
+          //   <FlashMessage duration={10000}>
+          //       <strong className="text-success h4">Congratulation, You have successfully registered!</strong>
+          //   </FlashMessage>
+          // </div>
+      //   )
+      // }
+      
       if (!loggedIn) {
         return (
+           
                 <div className="">
                     <div className="mt-5 ">
-                        <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
+                     <p className="h2 text-success contact-formHeader font-weight-bold">Login and continue to enjoy our unique services</p>
                     </div>
                         <div className="row text-center mt-2">
                             <div className="col-sm-12 col-md-12 col-lg-4"> </div>
@@ -105,7 +123,7 @@ export default class Login extends Component {
                                     <div className="form-group ml-3 remember_forgot">
                                         <input type="checkbox" checked="checked" name="remember" placeholder="Remember me"  />
                                         <span className="m-2">Remember me </span>
-                                        <NavLink to="/forgotPassword">
+                                        <NavLink to="/forgot-password">
                                               <span className="ml-5 text-success" >Forgot Password?</span>
                                         </NavLink>
                                         
@@ -128,7 +146,7 @@ export default class Login extends Component {
                                     </div>
                                 )}
                                 <hr/>
-                            <div className="mb-3">
+                             <div className="mb-3">
                                 <p className="h3 mb-3">Dont have an account ?</p>
                                 <NavLink to="/join-us">
                                     <button className="btn h2 btn-success btn-large joinbtn">Join us</button>
@@ -142,15 +160,6 @@ export default class Login extends Component {
             </div>
         );
       }
-     
-        return (
-          <Redirect
-            to={{
-              pathname: `/profile-agent/${email}`,
-              state: { message: 'Message from other page' }
-            }}
-          />
-        );
-      // return <Redirect to={`/profile-agent/${email}`}  />;
-          }
+      // return <Redirect to={`/profile-farmer/${email}`} />;
     }
+}

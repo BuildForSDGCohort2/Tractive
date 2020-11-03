@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React, { useEffect }  from 'react';
 import { Link } from 'react-router-dom';
+import Aos from "aos";
+import "aos/dist/aos.css"; 
 import "./Home.css";
 
 import Rows from "./Rows"
@@ -9,10 +11,14 @@ import Footer from "./Footer"
 
 // Animation
 
-class Home extends Component {
-  render() {
+const Home = () => {
+
+  useEffect(() => {
+    Aos.init({duration: 2000});
+
+  }, [])
+  // render() {
     return (
-      
       <div>
     <section className="hero">
       <div className="container-fluid">
@@ -81,6 +87,6 @@ class Home extends Component {
       // </Carousel>
 
     )
-  }
+  // }
 }
 export default Home; 

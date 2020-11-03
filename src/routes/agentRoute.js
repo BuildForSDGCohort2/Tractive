@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const checkToken = require("../middlewares/verifyToken")
 
 // const {
 //     agentLogin,
@@ -27,10 +28,10 @@ const { agentLogin,
 // router.get('/logout', agentLogout);
 
 // owners routes ownersControllers
-router.get('/', getAgents);
+router.get('/', checkToken, getAgents);
 router.post('/signup', agentApplication);
 router.post('/signin', agentLogin);
-router.get('/find-user', findUser);
+router.get('/find-user', checkToken, findUser);
 router.get('/forgot-password', forgotPassword);
 router.get('/reset-password', resetPassword);
 router.get('/update-password', updatePassword);

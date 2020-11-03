@@ -4,11 +4,11 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
-import Footer from "./Footer"
+import Footer from "../components/Footer"
 
-import "./Profile.css";
+import "../components/Profile.css";
 
-export default class ProfileOwner extends Component {
+export default class ProfileFarmer extends Component {
       constructor() {
         super();
 
@@ -22,10 +22,11 @@ export default class ProfileOwner extends Component {
             town: "",
             state: "",
             country: "",
-            firmName: "",
-            firmAddress: "",
-            role: "",
+            farmSize: "",
+            farmAddress: "",
+            crops: "",
             password: "", 
+            image: null,
             isLoading: true,
             deleted: false,
             error: false,
@@ -47,10 +48,13 @@ export default class ProfileOwner extends Component {
           });
         } else {
           try {
-            const response = await axios.get('/owners/find-user', {
+            const response = await axios.get('/farmers/find-user', {
               params: {
                 email,
               },
+            //   headers:{
+            //     "Authorization": `Bearer ${accessString}`
+            // },
               headers: { Authorization: `JWT ${accessString}` },
             });
             this.setState({
@@ -63,9 +67,9 @@ export default class ProfileOwner extends Component {
               town: response.data.town,
               state: response.data.state,
               country: response.data.country,
-              firmName: response.data.firmName,
-              firmAddress: response.data.firmAddress,
-              role: response.data.crops,
+              farmSize: response.data.farmSize,
+              farmAddress: response.data.farmSize,
+              crops: response.data.crops,
               password: response.data.password,
               isLoading: false,
               error: false,
@@ -78,6 +82,25 @@ export default class ProfileOwner extends Component {
           } 
         } 
       }
+//    image handler
+onChangeHandler=event=>{
+  this.setState({
+    image: event.target.files[0],
+    loaded: 0,
+  })
+}
+
+//   click sumbit handler
+onClickHandler = () => {
+  const data = new FormData()
+  data.append('file', this.state.selectedFile)
+  axios.post("/fleets/upload", data, { 
+     // receive two    parameter endpoint url ,form data
+ })
+.then(res => { // then print response status
+   console.log(res.statusText)
+})
+}
 
       deleteUser = async (e) => {
         const accessString = localStorage.getItem('JWT');
@@ -95,7 +118,7 @@ export default class ProfileOwner extends Component {
     
         e.preventDefault();
         try {
-          const response = await axios.delete('/owners/delete-user', {
+          const response = await axios.delete('/farmers/delete-user', {
             params: {
               email,
             },
@@ -131,9 +154,9 @@ export default class ProfileOwner extends Component {
       town,
       state,
       country,
-      firmName,
-      firmAddress,
-      role,
+      farmSize,
+      farmAddress,
+      crops,
       password, 
       isLoading,
       deleted,
@@ -146,7 +169,7 @@ export default class ProfileOwner extends Component {
           <div className="mt-5">
            <h5>Problem fetching user data. Please login again.</h5> 
           </div>
-          <NavLink to="/login-owner">
+          <NavLink to="/login-farmer">
               <button className="ml-2 h2 bg-success text-white">Login</button>
            </NavLink>
         </div>
@@ -155,7 +178,7 @@ export default class ProfileOwner extends Component {
 
     if (isLoading) {
       return (
-        <div className="text-success">Loading User Data...</div>
+        <div className="text-success m-5">Loading User Data...</div>
         
       );
     }
@@ -164,7 +187,7 @@ export default class ProfileOwner extends Component {
     }
 
     return (
-      <div className="mt-5" >
+        <div className="mt-5" >
           <h1 className='text-center mb-5 text-success'>Welcome</h1> 
           <div className="row mb-4">
             <div className="">
@@ -190,16 +213,13 @@ export default class ProfileOwner extends Component {
             </div>
             <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
             <NavLink
-               className="h5 btn btn-success  text-white font-weight-bold" to="/post-fleet">Post Fleets
+               className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">Fleets
              </NavLink> 
              {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 
              <NavLink
                className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Nearby Agents
              </NavLink> 
-             <NavLink
-                className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
-            </NavLink> 
             </div>
           </div>
 
@@ -214,11 +234,11 @@ export default class ProfileOwner extends Component {
                 className="ml-5"
                     type="file" 
                     name="" 
-                    onChange={this.onChangeImage}
+                    onChange={this.onChangeHandler}
                     />
                 </div>
                  </div>
-              
+                 <button onClick={this.onClickHandler} type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Uplod</button>
                </form>
             </div>
             <div>
@@ -226,7 +246,7 @@ export default class ProfileOwner extends Component {
                <div>
                   <p>{email}</p>
                   <p>{phone}</p>
-                  <p>{firmAddress}</p>
+                  <p>{farmAddress}</p>
                  
                </div>  
             </div> 
@@ -238,11 +258,13 @@ export default class ProfileOwner extends Component {
         </div>  */}
           <Footer />
         </div>
+        
+        
       );
     }
   }
 
-  ProfileOwner.propTypes = {
+  ProfileFarmer.propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
         email: PropTypes.string.isRequired,

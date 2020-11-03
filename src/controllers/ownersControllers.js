@@ -12,9 +12,24 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 
 const getOwners = async (req, res, next) => {
-    Owner.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+  Owner.find()
+  .then((data) => {
+   jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+       if(err){
+           //If error send Forbidden (403)
+           console.log('ERROR: Could not connect to the owners route');
+           res.sendStatus(403);
+       } else {
+           //If token is successfully verified, we can send the autorized data 
+           res.status(200).json(
+               // message: '',
+               // authorizedData,
+               data,
+           );
+           console.log('SUCCESS: Connected to owners');
+       }
+   })
+});
 };
 
 // register 

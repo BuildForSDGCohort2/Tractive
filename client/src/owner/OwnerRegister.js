@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import FlashMessage from 'react-flash-message';
-import "./JoinUsPage.css";
-import Footer from "./Footer"
+import "../components/JoinUsPage.css";
+import Footer from "../components/Footer"
 
 export default class OwnerRegister extends Component {
     constructor(props) {

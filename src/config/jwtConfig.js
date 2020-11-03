@@ -1,4 +1,8 @@
+const config = require("./constant")
+
 module.exports = {
-    secret: 'jwt-secret',
+    secret: config.publicKey,
   };
+  
+
   

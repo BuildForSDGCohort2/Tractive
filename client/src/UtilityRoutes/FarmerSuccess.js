@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 // import "./JoinUsPage.css";
 // import Navbar from './Navbar';
 import FlashMessage from 'react-flash-message';
-import messageFromServerFarmer from '../components/FarmerRegister'
+import messageFromServerFarmer from '../farmer/FarmerRegister'
 import { Redirect } from 'react-router-dom';
 
 export default class FarmerSuccess extends Component {

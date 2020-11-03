@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import FlashMessage from 'react-flash-message';
-import messageFromServerAgent from '../components/AgentRegister'
+import messageFromServerAgent from '../agent/AgentRegister'
 
 import { Redirect } from 'react-router-dom';
 
