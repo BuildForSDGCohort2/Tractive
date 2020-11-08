@@ -1,14 +1,31 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const checkToken = require("../middlewares/verifyToken")
+const checkToken = require('../middlewares/verifyToken');
 
-// const { 
+// const {
 //     farmerLogin, farmerApplication, getFarmers, farmerLogout
-// } = require("../controllers/farmersController"); 
+// } = require("../controllers/farmersController");
 
 const {
-    farmerLogin, farmerApplication, forgotPassword, resetPassword, updatePassword, updatePasswordViaEmail, getFarmers, findUser, deleteUser, updateUser, farmerLogout
-} = require("../controllers/farmersControllers")
+  farmerLogin,
+  farmerApplication,
+  forgotPassword,
+  resetPassword,
+  updatePassword,
+  updatePasswordViaEmail,
+  getFarmers,
+  findUser,
+  deleteUser,
+  updateUser,
+  farmerLogout,
+} = require('../controllers/farmersControllers');
+
+//new comment
+// const getOwners=(Entity)=>{
+//     return async (req, res, next) => {
+//   Entity.find()
+//     }
+//   }
 
 // user routes farmersController
 // router.get('/', getFarmers);
@@ -16,8 +33,9 @@ const {
 // router.post('/signin', farmerLogin);
 // router.get('/logout', farmerLogout);
 
-
 // user routes farmersControllers
+// new comment
+// router.get('/', checkToken, getOwners(Owner));
 router.get('/', checkToken, getFarmers);
 router.post('/signup', farmerApplication);
 router.post('/signin', farmerLogin);
@@ -27,8 +45,7 @@ router.post('/forgot-password', forgotPassword);
 router.get('/reset', resetPassword);
 router.put('/update-password', updatePassword);
 router.put('/update-password-via-email', updatePasswordViaEmail);
-router.delete('/delete-user', deleteUser)
-router.put('/updateUser', updateUser)
+router.delete('/delete-user', deleteUser);
+router.put('/updateUser', updateUser);
 
-
-module.exports = router; 
+module.exports = router;
