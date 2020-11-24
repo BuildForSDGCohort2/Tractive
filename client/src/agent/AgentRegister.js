@@ -4,11 +4,13 @@ import { NavLink } from "react-router-dom";
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import "../components/JoinUsPage.css";
-// import Navbar from './Navbar';
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+toast.configure()
+
 
 export default class AgentRegister extends Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -25,13 +27,29 @@ export default class AgentRegister extends Component {
             employmentStatus: "", 
             cvLink: "",
             password: "", 
+            image: null,
             messageFromServerAgent: '',
             showError: false,
             registerError: false,
-            loginError: false
+            loginError: false,
+            showMessage: false
         
         };
     }
+    handleUpload=e=>{
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'zeeson1')
+        this.setState({imageLoading:true})
+        axios.post('https://api.cloudinary.com/v1_1/zeeson-info-tech-and-innovations/image/upload',data)
+        .then(res=>{
+          this.setState({
+            image:res.data.secure_url,
+            imageLoading:false
+          })
+        })
+       }
 
     handleChange = agent => (event) => {
         this.setState({
@@ -42,29 +60,55 @@ export default class AgentRegister extends Component {
     registerAgent = async (e) => {
         e.preventDefault(); 
         const {
-            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
+            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, image, password,
         } = this.state; 
             if(email === "" || password === ""){
                 this.setState({
                     showError: true,
                     loginError: false,
-                    registerError: true
+                    registerError: true,
+                    showMessage: toast.error("Error! Username or Password field empty", {
+                        
+                    }),
                 });
+            } if(email === "" || password === "" || title === "" || address === "" || state === "" || education === "") {
+                this.setState({
+                    showMessage: toast.warning("All fields are required", {
+                        
+                    }),
+                })
             } else {
                 try {
                     const response = await axios.post(
                       '/agents/signup',
                       {
-                        title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password
+                        title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, image, password,
                       },
                     );
-                    window.location = '/agent-success';
-                    this.setState({
-                        messageFromServerAgent: response.data.message,
-                        showError: false,
-                        loginError: false,
-                        registerError: false,
-                      });
+                    if(response.data.message){
+                        this.setState({
+                            showMessage: toast.success("SUCCESS", {
+                               autoClose: 8000, 
+                            }),
+                            messageFromServerOwner: response.data.message,
+                            showError: false,
+                            loginError: false,
+                            registerError: false,
+    
+                          });
+                     window.location = '/login-agent';
+                    } else{
+                        this.setState({
+                            showMessage: toast.warning(`${response.data.err}`, {
+
+                            }),
+                            messageFromServerOwner: response.data.message,
+                            showError: false,
+                            loginError: false,
+                            registerError: false,
+    
+                        });
+                    }
                     } catch (error) {
                         console.error(error.response.data);
                         if (error.response.data === 'email already taken') {
@@ -72,7 +116,7 @@ export default class AgentRegister extends Component {
                             showError: true,
                             loginError: true,
                          registerError: false,
-                });
+            });
         }
     }
   }
@@ -95,10 +139,12 @@ export default class AgentRegister extends Component {
         employmentStatus, 
         cvLink, 
         password, 
+        image,
         messageFromServerAgent,
         showError,
         registerError,
         loginError,
+        showMessage,
       } = this.state;
       
     if (messageFromServerAgent === '') {
@@ -199,31 +245,37 @@ export default class AgentRegister extends Component {
                         <div className="form-group">
                             <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                         </div>
+                        <div className="form-group">
+                               <label>Click "Choose File" button to upload your profile picture</label>
+                               <input className="form-control" type="file" name="image" onChange={this.handleUpload} />
+                        </div>
                         <div>
                             <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 
                            I have read and agree to the <span className="text-success" > <a className="text-success" href="/terms-and-conditions"> Terms and Conditions</a> 
                             </span> and <span className="text-success"  href="/terms-and-conditions"> <a className="text-success" href="/terms-and-conditions">  Privacy Policy</a> </span>
                         </div>
-                        <button type="submit" className="btn btn-lg btn-success contactbtn mb-2 ">Register</button>
+                        <div>
+                            <button type="submit" className="btn btn-lg btn-success contactbtn mb-2 "  onClick={() => showMessage} >Register</button>
+                        </div>
                         <p className="p mb-5">Already have an account ? <span className="text-success"><a className="text-success" href="/login-farmer"> Login</a> </span> </p>
                                
                     </form>
-                      {showError === true && registerError === true && (
+                      {/* {showError === true && registerError === true && (
                                 <div>
                                 <p className="text-success">All fields are required.</p>
                                 </div>
-                            )}
+                            )} */}
                              {showError === true && loginError === true && (
                             <div>
-                            <p className="text-danger">
+                            <p className="text-danger h5">
                                 That email is already taken. Please choose another
                                 or login.
                             </p>
                             <span className="mt-5 h2"><a className="text-success" href="/login">Login</a></span>
                             </div>
                         )}
-                    </div>
 
+                    </div>
                 </div>
                 <Footer />
         </div>

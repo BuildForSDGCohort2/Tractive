@@ -31,20 +31,6 @@ const getFleets = (req, res, next) => {
 });
 };
 
-// image upload 
-// const postImage = (req, res) => {
-//     upload(req, res, function (err) {
-//         if (err instanceof multer.MulterError) {
-//             return res.status(500).json(err)
-//         } else if (err) {
-//             return res.status(500).json(err)
-//         }
-//    return res.status(200).send(req.file)
-
-//  })
-// }
-
-
 
 //   post fleets
 const postFleets =  async (req, res) => {    
@@ -52,6 +38,7 @@ const postFleets =  async (req, res) => {
     const { name, desc, purpose, ownerNumber, ownerEmail, ownerContact, chargePerAcre, image, availability } = req.body
 
     const newFleet = new Fleet({
+        image,
         name, 
         desc, 
         purpose, 
@@ -59,13 +46,7 @@ const postFleets =  async (req, res) => {
         ownerEmail,
         ownerContact,
         chargePerAcre,
-        availability, 
-        // image: {
-        //     data: fs.readFileSync(path.join(__dirname + '/public/products/' + req.file.filename)) 
-		// 	// contentType: 'image/png' || 'image/jpg'  || 'image/jpeg' 
-        // }
-        
-        
+        availability  
     })
       
     newFleet 

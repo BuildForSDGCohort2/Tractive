@@ -76,7 +76,7 @@ export default class Agents extends Component {
                 <Card style={style} key={agent._id.toString()} className="mt-2 mr-1 mb-3">
                     <CardImg
                     alt="..."
-                    src={"/images/userC.png" }
+                    src={agent.image?agent.image:"/images/userC.png" }
                     top
                     ></CardImg>
                     <CardBody>

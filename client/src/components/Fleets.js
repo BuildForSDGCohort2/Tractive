@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios"; 
 import { Input } from 'reactstrap';
 import { NavLink} from "react-router-dom";
-
 // reactstrap components
 import {
   Button,
@@ -15,9 +14,6 @@ import {
 
 const style = { width: "14rem" };
 const search = { height: "60px"};
-
-// production error (fetching data from database) is due to build in the app file
-// i have spent more than 1 week debugging it
 
 export default class Fleets extends Component {
     constructor(props) {
@@ -44,17 +40,13 @@ export default class Fleets extends Component {
         })
           .then((response) => {
             const data = response.data;
-            // alert(response.data)
             this.setState({ fleets: data });
             console.log('Data has been received!!');
           })
           .then(res => {
-            // localStorage.setItem('authorization', res.token);
             console.log(res);
         })
           .catch((error) => {
-            // alert('Error retrieving data!!!');
-            // alert(error)
             console.log(error)
           });
       }
@@ -81,7 +73,7 @@ render() {
                 <Card style={style} key={fleet._id.toString()} className="mt-3">
                     <CardImg
                     alt="..."
-                    src={"/images/tractyJoin.png" }
+                    src={fleet.image?fleet.image:"/images/tractyJoin.png" }
                     top
                     ></CardImg>
                     <CardBody>
@@ -99,8 +91,6 @@ render() {
                         Contact the Owner
                         </Button>
                     </NavLink>
-                    
-                   
                     </CardBody>
                 </Card>
             )}                       

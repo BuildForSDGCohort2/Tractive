@@ -2,14 +2,15 @@ import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
 import axios from 'axios';
-// import "./JoinUsPage.css";
-// import Navbar from './Navbar';
-import Footer from "../components/Footer"
+import Footer from "../components/Footer";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+toast.configure()
+
 export default class FarmerRegister extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
             title: "",
             fullName: "",
             gender: '',
@@ -22,15 +23,32 @@ export default class FarmerRegister extends Component {
             farmSize: "",
             farmAddress: "",
             crops: "",
-            password: "", 
+            password: "",
+            image: null, 
             messageFromServerFarmer: '',
             showError: false,
             registerError: false,
-            loginError: false
+            loginError: false,
+            showMessage: false,
         
         };
     }
 
+    handleUpload=e=>{
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'zeeson1')
+        this.setState({imageLoading:true})
+        axios.post('https://api.cloudinary.com/v1_1/zeeson-info-tech-and-innovations/image/upload',data)
+        .then(res=>{
+          this.setState({
+            image:res.data.secure_url,
+            imageLoading:false
+          })
+        })
+       }
+    
     handleChange = farmer => (event) => {
         this.setState({
           [farmer]: event.target.value,
@@ -40,35 +58,58 @@ export default class FarmerRegister extends Component {
     registerFarmer = async (e) => {
         e.preventDefault(); 
         const {
-            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password,
+            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, image, password,
         } = this.state; 
+        const theState = {
+            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, image, password,
+        }
             if(email === "" || password === ""){
-                this.setState({
+               return  this.setState({
                     showError: true,
                     loginError: false,
-                    registerError: true
+                    registerError: true,
+                    showMessage: toast.error("Error! Username or Password field empty", {
+                        // autoClose: 10000,
+                    }),
                 });
+            } if(title === "" || address === "" || state === "" || farmSize === "") {
+                this.setState({
+                    showMessage: toast.error("All fields are required", {
+
+                    }),
+                })
             } else {
                 try {
                     const response = await axios.post(
                       '/farmers/signup',
                       {
-                        title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password
+                        title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, image, password
                       },
-                    );
-                    
-                     alert(response.data.message)
-                     window.location = '/farmer-success'
-                     
-                    this.setState({
-                        messageFromServerFarmer: response.data.message,
-                        showError: false,
-                        loginError: false,
-                        registerError: false,
-                      });
-                    
-                   
+                    );                  
+                    if(response.data.message){
+                         this.setState({
+                            showMessage: toast.success("SUCCESS", {
+                                autoClose: 10000,
+                            }),
+                            messageFromServerOwner: response.data.message,
+                            showError: false,
+                            loginError: false,
+                            registerError: false,
+    
+                        });
+                    } else{
+                        this.setState({
+                            showMessage: toast.warning(`${response.data.err}`, {
 
+                            }),
+                            messageFromServerOwner: response.data.message,
+                            showError: false,
+                            loginError: false,
+                            registerError: false,
+    
+                          });
+                    }
+                    window.location = '/login-farmer';
                     } catch (error) {
                         console.error(error.response.data);
                         if (error.response.data === 'email already taken') {
@@ -76,7 +117,7 @@ export default class FarmerRegister extends Component {
                             showError: true,
                             loginError: true,
                          registerError: false,
-                });
+            });
         }
     }
   }
@@ -97,11 +138,13 @@ export default class FarmerRegister extends Component {
         farmSize,
         farmAddress,
         crops,
-        password, 
+        password,
+        image, 
         messageFromServerFarmer,
         showError,
         registerError,
         loginError,
+        showMessage,
       } = this.state;
 
         if (messageFromServerFarmer === '') {
@@ -168,27 +211,31 @@ export default class FarmerRegister extends Component {
                                 <div className="form-group">
                                     <input type="password" className="form-control" onChange={this.handleChange("password")} value={password} placeholder="Password" />
                                 </div>
+                                <div className="form-group">
+                                     <label>Click "Choose File" button to upload your profile picture</label>
+                                    <input className="form-control" type="file" name="image" onChange={this.handleUpload} />
+                                 </div>
                                 <div>
-                            <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 
-                           I have read and agree to the <span className="text-success" > <a className="text-success" href="/terms-and-conditions"> Terms and Conditions</a> 
-                            </span> and <span className="text-success"  href="/terms-and-conditions"> <a className="text-success" href="/terms-and-conditions">  Privacy Policy</a> </span>
-                        </div>
-                                <button type="submit" className="btn btn-lg btn-success contactbtn mb-2 ">Register</button>
+                                    <input className="mr-2" type="checkbox" name="checkbox" value="check" id="agree" /> 
+                                    I have read and agree to the <span className="text-success" > <a className="text-success" href="/terms-and-conditions"> Terms and Conditions</a> 
+                                    </span> and <span className="text-success"  href="/terms-and-conditions"> <a className="text-success" href="/terms-and-conditions">  Privacy Policy</a> </span>
+                                </div>
+                                <div>
+                                    <button type="submit" className="btn btn-lg btn-success contactbtn mb-2 "  onClick={() => showMessage} >Register</button>
+                                </div>
                                 <p className="p mb-5">Already have an account ? <span className="text-success"><a className="text-success" href="/login-farmer"> Login</a> </span> </p>
                                 {/* <NavLink to="/login">
                                             <button className="btn h2 btn-success">Login</button>
                                 </NavLink>  */}
                             </form>
-                               
-                            
-                                {showError === true && registerError === true && (
+                                {/* {showError === true && registerError === true && (
                                 <div>
-                                <p className="text-danger">All fields are required.</p>
+                                <p className="text-danger h5">All fields are required.</p>
                                 </div>
-                            )}
+                            )} */}
                              {showError === true && loginError === true && (
                             <div>
-                            <p className="text-danger">
+                            <p className="text-danger font-weight-bold">
                                 That email is already taken. Please choose another
                                 or login.
                             </p>

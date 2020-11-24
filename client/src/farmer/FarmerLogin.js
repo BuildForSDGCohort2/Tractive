@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 // import Button from 'react-bootstrap/Button';
 import { NavLink } from "react-router-dom";
-import { Redirect } from 'react-router-dom';
 import "../components/Login.css";
 // import Navbar from './Navbar';
 import Footer from "../components/Footer"
 import messageFromServer from './FarmerRegister'
-import FlashMessage from 'react-flash-message';
+import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
 
 export default class Login extends Component {
 
@@ -20,6 +19,7 @@ export default class Login extends Component {
           loggedIn: false,
           showError: false,
           showNullError: false,
+          showMessage: false,
         };
       }
     
@@ -45,17 +45,14 @@ export default class Login extends Component {
               email,
               password,
             })
-          //   .then(res => {
-          //     localStorage.setItem('authorization', response.token);
-          //     console.log(res);
-          // })
             localStorage.setItem('JWT', response.data.token);
-            // localStorage.setItem('authorization', response.token);
             window.location = `/profile-farmer/${email}`
             this.setState({
+              showMessage: ToastsStore.warning("You are successfully logged in", 5000, "toast"),
               loggedIn: true,
               showError: false,
               showNullError: false,
+             
             });
 
           } catch (error) {
@@ -88,17 +85,8 @@ export default class Login extends Component {
         loggedIn,
         message,
         showNullError,
+        showMessage,
       } = this.state;
-      
-      // if(message){
-      //   return(
-          // <div className="mt-5">
-          //   <FlashMessage duration={10000}>
-          //       <strong className="text-success h4">Congratulation, You have successfully registered!</strong>
-          //   </FlashMessage>
-          // </div>
-      //   )
-      // }
       
       if (!loggedIn) {
         return (
@@ -119,7 +107,10 @@ export default class Login extends Component {
                                     <div className="form-group">
                                         <input type="password" className="form-control" value={password} onChange={this.handleChange('password')} placeholder="Password" />
                                     </div>
-                                        <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 ">Login</button>
+                                    <div>
+                                      <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 "  onClick={() => showMessage} >Login</button>
+                                      <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore} />
+                                    </div>
                                     <div className="form-group ml-3 remember_forgot">
                                         <input type="checkbox" checked="checked" name="remember" placeholder="Remember me"  />
                                         <span className="m-2">Remember me </span>

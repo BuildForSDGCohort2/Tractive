@@ -35,9 +35,9 @@ const Owner = require("../models/ownersModel");
               });
             }
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
-                const {  title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password,  } = req.body
+                const {  title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password, image, } = req.body
               Owner.create({
-                title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress,
+                title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image,
                 password: hashedPassword,
                 email: req.body.email,
               }).then(user => {

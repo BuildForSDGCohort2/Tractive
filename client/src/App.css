@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+/* all toast across all components */
+.toast{
+  background-color: rgba(0,0,0,0) !important;
+  font-size: 20px !important;
+  font-weight: bold !important;
+  color: yellow !important; 
+  border: 0px solid !important;
+  width: auto !important;
+  height: 220px !important;
+}
+
+#toast-container{
+  top:30px !important;
+  right: 20px !important;
+  left: auto !important;
+}
+
+
+.material-icons:hover{
+  cursor: pointer;
+}

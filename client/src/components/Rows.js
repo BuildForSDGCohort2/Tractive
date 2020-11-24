@@ -12,7 +12,7 @@ const Rows = () => {
     return (
         <div>
             <div className="container-fluid font-weight-bold text-center text-white">
-                 <p data-aos="flip-right" className="h2 mt-5 font-weight-bold why">Why Tractive ?</p>
+                 <p data-aos="flip-right" className="h2 mt-5 font-weight-bold why">Why TractiveEngine ?</p>
                 <div data-aos="fade-left" className="row">
                 <div className="col-sm-12 col-md-4 pro">
                     <p className="h4 font-weight-bold mt-5">The Problem</p>
@@ -48,11 +48,11 @@ const Rows = () => {
                         <br/>
                         <br/>
                     <p className="h2 mt-5 mb-4 font-weight-bold mission_text">Our Mission</p>
-                        <p>To make all farmers irrespective of the location or region get access to tractors and other implement with ease and at the right time</p>
+                        <p className="font-weight-bold">To make all farmers irrespective of the location, education or region get access to farm Merchineries and Market with ease and at the right time</p>
                         <br/>
-                        <p>To make agriculture a world calss bussiness for all farmers of Sub-Sahara Africa and beyound</p>
+                        <p className="font-weight-bold">To make agriculture a world class bussiness for all farmers of Sub-Sahara Africa and beyound</p>
                         <br/>
-                        <p>To create a massive business opportunities in the agricultural sectors of Sub-Sahara Africa and beyound</p>
+                        <p className="font-weight-bold">To create a massive business opportunities in the agricultural sector of Sub-Sahara Africa and beyound</p>
                     </div>
                     <div className="col-md-2"> </div>
                 </div>
@@ -74,19 +74,19 @@ const Rows = () => {
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 m-4">
                     <img className="ml-5 farmer01" src="/images/01.png" alt="" />
                     <p className="h3 mt-5 font-weight-bold">For Farmers </p>
-                    <p> Farmers are our friends, they produce what we eat at our homes and use at our industries, we understand your challenges of getting access to 
+                    <p> Farmers are our friends, they produce what we eat at our homes and use at our industries, we understand thier challenge of getting access to 
                         implements used in the farm. Should this continue? The answer is NO. This is why we are trying all our efforts to make sure we serve them better in the following ways:</p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> Get access to tractors and other implement at ease </p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> Get access to agents who will help them in the neccessary operations </p>
-                    <p    > <span> <img src="images/bullet.png" alt="" /> </span> Get access to markets and marketers as well as transporters of farm produce without spending a single kobo </p>
+                    <p    > <span> <img src="images/bullet.png" alt="" /> </span> Get access to markets and marketers as well as transporters of farm produce without stress</p>
                     <br/>
                     <p  className="font-weight-bold"> <span><img src="images/bullet.png" alt="" /> </span> Are you a farmer looking for durable & reliable tractors and farm equipments that helps you finish jobs in hours instead of weeks. </p>
                     <Link to="/farmer-register">
-                      <button className="btn btn-success btn-large morebtn">Get tractors »</button>
+                      <button className="btn btn-success btn-large morebtn">Get access to Machines and Market »</button>
                     </Link> 
             </div>  
             <div className="col-sm-12 col-lg-12 col-xl-5">
-                <img className="m-4" src="/images/farmy.png" alt="" />
+                <img className="m-4 what-we-offer-image" src="/images/farmy.png" alt="" />
         </div>
             {/* <div className="col-1"></div>              */}
         </div>
@@ -101,19 +101,19 @@ const Rows = () => {
                         with farmers. So that, they can invest more and earn more.  We are set to serve them better in the following ways:</p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> Link thier fleets with farmers at ease and under total security of their properties. </p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> With our Internet of a Thing (IOT) technology, their Fleets are being monitored real time. 
-                                                                            This helps secure them and reduce drastically money spent on maintenance </p>
+                                                                            This helps secure them and reduce drastically money spent on maintenance. </p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> Help them reduce cost on full-time employee as we link them with Agents who work in evaluation of farm lands
-                                                                                    and also make working with farmers easier and effective </p>
+                                                                                    and also make working with farmers easier and effective. </p>
                                                                                     <br/>
                      <p  className="font-weight-bold" > <span> <img src="images/bullet.png" alt="" /> </span> Do you own a tractor or any implement? We help you make extra cash with
                       your farm equipment and provide a number of tools to enhance your business and operations.</p>
                     <Link to="/owner-register">
-                      <button className="btn btn-success btn-large morebtn">Get Customers »</button>
+                      <button className="btn btn-success btn-large morebtn">Get access to Customers and Technologies»</button>
                     </Link> 
             </div>  
             {/* <div className="col-1"></div>              */}
             <div className="col-sm-12 col-lg-12 col-xl-5">
-                    <img className="m-4" src="/images/tracty.png" alt="" />
+                    <img className="m-4 what-we-offer-image" src="/images/tracty.png" alt="" />
             </div>
         </div>
     </div>
@@ -122,7 +122,7 @@ const Rows = () => {
             <div className="col-sm-12 col-md-12 col-lg-12 col-xl-6 m-4">
                     <img className="ml-5 farmer01" src="/images/03.png" alt="" />
                     <p className="h3 mt-5 font-weight-bold">For Youths (Agents) </p>
-                    <p> Agents are our peers. they are farmers assistants. Their interest in farming now paidoff as they now secure general economic contributing jobs and they 
+                    <p> Agents are our peers. they are farmers assistants. Their interest in farming now paidoff as they secure general economic contributing jobs and they 
                         gather enough experience in the agricultural sector. Youth clamoring for employment can now enjoy this fantabulous and wonderful initiative. 
                                     We are ready to serve them better in the following ways:</p>
                     <p> <span> <img src="images/bullet.png" alt="" /> </span> Help nearby farmers secure implements and get paid </p>
@@ -134,12 +134,12 @@ const Rows = () => {
                    <p className="font-weight-bold"> <span> <img src="images/bullet.png" alt="" /> </span> Are you looking for a life-time opportunities in Agritech business? 
                        We will train you and add you to our own network of booking agents to help reach farmers in need of tractor service.</p> 
                     <Link to="/agent-register">
-                      <button className="btn btn-success btn-large morebtn">Make Money »</button>
+                      <button className="btn btn-success btn-large morebtn">Get access to Cash and Experience »</button>
                     </Link> 
             </div>  
             {/* <div className="col-1"></div>              */}
             <div className="col-sm-12 col-lg-12 col-xl-5">
-                    <img className="m-4" src="/images/youth.png" alt="" />
+                    <img className="m-4 what-we-offer-image" src="/images/youth.png" alt="" />
             </div>
         </div>
     </div>

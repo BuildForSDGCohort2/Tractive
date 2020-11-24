@@ -4,13 +4,15 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
-import Footer from "../components/Footer"
-
+import Footer from "../components/Footer";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 import "../components/Profile.css";
+toast.configure()
 
 export default class ProfileOwner extends Component {
-      constructor() {
-        super();
+      constructor(props) {
+        super(props);
 
         this.state = {
            title: "",
@@ -26,12 +28,80 @@ export default class ProfileOwner extends Component {
             firmAddress: "",
             role: "",
             password: "", 
+            image: null,
             isLoading: true,
+            loadingUser: false,
+            message: null, 
+            imageLoading: false,
             deleted: false,
             error: false,
+            msg: null,
+            redirect: false,
+            showMessage: false,
         };
       }
+      handleUpload=e=>{
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'zeeson1')
+        this.setState({imageLoading:true})
+        axios.post('https://api.cloudinary.com/v1_1/zeeson-info-tech-and-innovations/image/upload',data)
+        .then(res=>{
+          this.setState({
+            image:res.data.secure_url,
+            imageLoading:false
+          })
+        })
+       }
+    
+       updateUser = async (e) => {
+        const accessString = localStorage.getItem('JWT');
+        if (accessString === null) {
+          this.setState({
+            loadingUser: false,
+            error: true,
+          });
+        }
+        const {
+          title, fullName, gender, email,  phone, address, town, state,  country, firmName, firmAddress, role,  password, image,
+    } = this.state;
+        e.preventDefault();
+        try {
+          const response = await axios.put(
+            '/owners/updateUser',
+            {
+              title, fullName, gender, email,  phone, address, town, state,  country, firmName, firmAddress, role,  password, image,
+            },
+            {
+              headers: { Authorization: `JWT ${accessString}` },
+            },
+          );
+          console.log(response.data);
+          this.setState({
+            showMessage: toast.success("Image updated successfully", {
+              autoClose: 4000,
+          }),
+            updated: true,
+            error: false,
+          });
+        } catch (error) {
+          console.log(error.response.data);
+          this.setState({
+            loadingUser: false,
+            error: true,
+          });
+        }
+      };
+      async componentDidUpdate(){
+        if(this.state.showMessage === true) {
+          this.setState({
+            showMessage: toast.success( `Welcome! ${this.state.title} ${this.state.fullName}`, {
 
+            }),
+          })
+        }
+      }
       async componentDidMount() {
         const accessString = localStorage.getItem('JWT');
         const {
@@ -51,12 +121,10 @@ export default class ProfileOwner extends Component {
               params: {
                 email,
               },
-              headers:{
-                "Authorization": `Bearer ${accessString}`
-            },
-              // headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWT ${accessString}` },
             });
             this.setState({
+              showMessage: true,
               title: response.data.title,
               fullName: response.data.fullName,
               gender: response.data.gender,
@@ -70,6 +138,7 @@ export default class ProfileOwner extends Component {
               firmAddress: response.data.firmAddress,
               role: response.data.crops,
               password: response.data.password,
+              image: response.data.image,
               isLoading: false,
               error: false,
             });
@@ -120,8 +189,8 @@ export default class ProfileOwner extends Component {
       logout = (e) => {
         e.preventDefault();
         localStorage.removeItem('JWT');
+        window.location = "/login"
       };
-
 
   render() {
     const {
@@ -137,6 +206,7 @@ export default class ProfileOwner extends Component {
       firmName,
       firmAddress,
       role,
+      image,
       password, 
       isLoading,
       deleted,
@@ -168,7 +238,7 @@ export default class ProfileOwner extends Component {
 
     return (
       <div className="mt-5" >
-          <h1 className='text-center mb-5 text-success'>Welcome</h1> 
+          {/* <h1 className='text-center mb-5 text-success'>Welcome</h1>  */}
           <div className="row mb-4">
             <div className="">
                {/* <h1 className='text-center text-success'>Welcome</h1>  */}
@@ -178,7 +248,7 @@ export default class ProfileOwner extends Component {
                className="text-success font-weight-bold" to="/agents">Contact nearby Agents
              </NavLink>  */}
               <p onClick={this.logout} className="mr-3 text-success">
-                <NavLink className="mr-3 text-success" to="/login-farmer">
+                <NavLink className="mr-3 text-success" to="/login-owner">
                     Logout
                 </NavLink>
               </p>
@@ -208,20 +278,20 @@ export default class ProfileOwner extends Component {
 
           <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
-                 <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
-               <form>
+            <img className="img-thumbnail profile_image" src={image ? image : userImg} alt="user"/><br/>
+            <form onSubmit={this.updateUser}>
                  <div>
-                  <label className="mr-4">Upload profile picture</label>
+                  <label className="mr-4">Update profile picture</label>
                 <div>
                 <input 
                 className="ml-5"
                     type="file" 
-                    name="" 
-                    onChange={this.onChangeImage}
+                    name="image"
+                    onChange={this.handleUpload}
                     />
                 </div>
                  </div>
-              
+                 <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Upload</button>
                </form>
             </div>
             <div>

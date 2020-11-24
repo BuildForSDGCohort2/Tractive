@@ -36,9 +36,9 @@ passport.use(
               });
             }
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
-                const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password, password2   } = req.body
+                const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password, image, password2   } = req.body
               Farmer.create({
-                email, title, address, town, state, farmSize, farmAddress, crops, fullName, gender, phone,  country,
+                email, title, address, town, state, farmSize, farmAddress, crops, fullName, gender, phone,  country, image,
                 password: hashedPassword,
                 email: req.body.email,
               }).then(user => {

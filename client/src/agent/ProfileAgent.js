@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
+import FlashMessage from 'react-flash-message';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
 import Footer from "../components/Footer";
 import "../components/Profile.css";
-
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
+import "../components/Profile.css";
+toast.configure()
 
 export default class ProfileAgent extends Component {
-      constructor() {
-        super();
+      constructor(props) {
+        super(props);
 
         this.state = {
            title: "",
@@ -26,12 +30,80 @@ export default class ProfileAgent extends Component {
             employmentStatus: "", 
             cvLink: "", 
             password: "", 
+            image: null,
             isLoading: true,
+            loadingUser: false,
             deleted: false,
             error: false,
+            imageUrl: null,
+            uploading: false,
+            showMessage: false
         };
       }
+      handleUpload=e=>{
+        const files = e.target.files
+        const data = new FormData()
+        data.append('file', files[0])
+        data.append('upload_preset', 'zeeson1')
+        this.setState({imageLoading:true})
+        axios.post('https://api.cloudinary.com/v1_1/zeeson-info-tech-and-innovations/image/upload',data)
+        .then(res=>{
+          this.setState({
+            image:res.data.secure_url,
+            imageLoading:false
+          })
+        })
+       }
+    
+       updateUser = async (e) => {
+        const accessString = localStorage.getItem('JWT');
+        if (accessString === null) {
+          this.setState({
+            loadingUser: false,
+            error: true,
+            showMessage: true,
+          });
+        }
+        const {
+          title, fullName, gender,  email,   phone, education, employmentStatus, cvLink, address, town, state,country,  password, image,
+    } = this.state;
+        e.preventDefault();
+        try {
+          const response = await axios.put(
+            '/agents/updateUser',
+            {
+              title, fullName, gender,  email,   phone, education, employmentStatus, cvLink, address, town, state,country,  password, image,
+            },
+            {
+              headers: { Authorization: `JWT ${accessString}` },
+            },
+          );
+          console.log(response.data);
+          this.setState({
+            showMessage: toast.success("Image updated successfully", {
+              autoClose: 4000,
+          }),
+            updated: true,
+            error: false,
+            showMessage: true,
+          });
+        } catch (error) {
+          console.log(error.response.data);
+          this.setState({
+            loadingUser: false,
+            error: true,
+          });
+        }
+      };
+      async componentDidUpdate(){
+        if(this.state.showMessage === true) {
+          this.setState({
+            showMessage: toast.success( `Welcome! ${this.state.title} ${this.state.fullName}`, {
 
+            }),
+          })
+        }
+      }
       async componentDidMount() {
         const accessString = localStorage.getItem('JWT');
         const {
@@ -54,6 +126,7 @@ export default class ProfileAgent extends Component {
               headers: { Authorization: `JWT ${accessString}` },
             });
             this.setState({
+              showMessage: true,
               title: response.data.title,
               fullName: response.data.fullName,
               gender: response.data.gender,
@@ -67,6 +140,7 @@ export default class ProfileAgent extends Component {
               employmentStatus: response.data.employmentStatus, 
               cvLink: response.data.cvLink, 
               password: response.data.password,
+              image: response.data.image,
               isLoading: false,
               error: false,
             });
@@ -119,17 +193,22 @@ export default class ProfileAgent extends Component {
         localStorage.removeItem('JWT');
       };
 
+      handleFileDrop = (files) => {
+        this.setState({
+          imageUrl: null,
+          image: files[0],
+        });
+      }
+    
+    
 
   render() {
     const {
       title,
       fullName,
-      gender,
       email,
       phone,
       education,
-      employmentStatus, 
-      cvLink, 
       address,
       town,
       state,
@@ -138,8 +217,11 @@ export default class ProfileAgent extends Component {
       isLoading,
       deleted,
       error,
+      image,
+      imageUrl,
+      uploading,
+      showMessage,
     } = this.state;
-
     if (error) {
       return (
         <div>
@@ -167,7 +249,7 @@ export default class ProfileAgent extends Component {
 
     return (
       <div className="mt-5" >
-      <h1 className='text-center mb-5 text-success'>Welcome</h1> 
+      {/* <h1 className='text-center mb-5 text-success'>Welcome</h1>  */}
       <div className="row mb-4">
         <div className="">
            {/* <h1 className='text-center text-success'>Welcome</h1>  */}
@@ -177,7 +259,7 @@ export default class ProfileAgent extends Component {
            className="text-success font-weight-bold" to="/agents">Contact nearby Agents
          </NavLink>  */}
           <p onClick={this.logout} className="mr-3 text-success">
-            <NavLink className="mr-3 text-success" to="/login-farmer">
+            <NavLink className="mr-3 text-success" to="/login-agent">
                 Logout
             </NavLink>
           </p>
@@ -204,21 +286,29 @@ export default class ProfileAgent extends Component {
 
       <div className="d-flex mb-5 justify-content-around profile-div">
         <div>
-             <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
-           <form>
-             <div>
-              <label className="mr-4">Upload profile picture</label>
-            <div>
-            <input 
-            className="ml-5"
-                type="file" 
-                name="" 
-                onChange={this.onChangeImage}
-                />
-            </div>
-             </div>
-          
-           </form>
+        <img className="img-thumbnail profile_image" src={image ? image :  userImg} alt="user"/><br/>
+        <form onSubmit={this.updateUser}>
+                 <div>
+                  <label className="mr-4">Update profile picture</label>
+                <div>
+                <input 
+                className="ml-5"
+                    type="file" 
+                    name="image"
+                    onChange={this.handleUpload}
+                    />
+                </div>
+                 </div>
+                 <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Upload</button>
+               </form>
+               { showMessage &&  
+                        <div >
+                            <FlashMessage duration={5000}>
+                                <strong className="text-success h4">Image Uploaded successfully</strong>
+                            </FlashMessage>
+                   </div>
+                }
+                    
         </div>
         <div>
            <p className="h2 font-weight-bold"> <span className="mr-3">{title}</span> {fullName}</p> 

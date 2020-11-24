@@ -70,8 +70,11 @@ const farmersModel  = new Schema({
         type:String,
         trim: true,
         required: [true, "Password is required"]
-    }
-    
+    },
+    image:{
+        type:String,
+        default:"https://res.cloudinary.com/zeeson-info-tech-and-innovations/image/upload/v1605744370/user1_fp1fwm.png"
+       },
 })
 
 

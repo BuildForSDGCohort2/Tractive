@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import M from 'materialize-css'
 import FlashMessage from 'react-flash-message';
 import { MDBContainer, MDBAlert } from 'mdbreact';
 // import Button from 'react-bootstrap/Button';
@@ -47,18 +48,28 @@ export default class Login extends Component {
           });
         } else {
           try {
-            const response = await axios.post('/agents/signin', {
+            await axios.post('/agents/signin', {
               email,
               password,
-            });
-            localStorage.setItem('JWT', response.data.token);
-            window.location = `/profile-agent/${email}`
-            this.setState({
-              loggedIn: true,
-              showError: false,
-              showNullError: false,
-              showMessage: false
-            });
+            })
+            .then(response=> {
+              console.log(response.data.message)
+              if(response.data.error){
+               M.toast({html: 'Error sending message',classes:"#c62828 red darken-3"})
+              } if(response.data.message){
+               M.toast({html: response.data.message,classes:"#43a047 green darken-1"})
+               M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
+               window.location = `/profile-agent/${email}`
+              }
+              localStorage.setItem('JWT', response.data.token);
+              this.setState({
+                loggedIn: true,
+                showError: false,
+                showNullError: false,
+                showMessage: false
+              })
+           })
+           
           } catch (error) {
             console.error(error.response.data);
             if (

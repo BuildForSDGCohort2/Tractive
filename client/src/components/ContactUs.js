@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
+import M from 'materialize-css'
 import { NavLink } from "react-router-dom";
-import FlashMessage from 'react-flash-message';
 import axios from "axios";
 import "./ContactUs.css";
 // import Navbar from './Navbar';
 import Footer from "./Footer"
+import {ToastsContainer, ToastsStore, ToastsContainerPosition} from 'react-toasts';
+
 
 export default class ContactUs extends Component {
     constructor(props) {
@@ -56,10 +58,32 @@ export default class ContactUs extends Component {
        console.log(contact)
 
        axios.post("/contact-us", contact)
-       .then(res => console.log(res.data));
-       this.setState({ showMessage: true })
-    //    window.flash('Message has been sent successfully!', 'success')
-    //    window.location.reload(false)
+    //    .then(res =>  console.log(res.data.message))
+       .then(res=> {
+           if(res.data.error){
+               this.setState({
+                showMessage: ToastsStore.warning(`${res.data.error}`),
+                name: "",
+                email: "",
+                subject: "",
+                message: "", 
+               })
+           }
+        this.setState({ 
+            showMessage: ToastsStore.success(`${res.data.message}`, 5000, "toast"),
+            name: "",
+            email: "",
+            subject: "",
+            message: "", 
+     })
+        //    console.log(res.data.message)
+        //    if(res.data.error){
+        //     M.toast({html: 'Error sending message', classes:"#c62828 red darken-3"})
+        //    } if(res.data.message){
+        //     M.toast({html: res.data.message, classes:"#43a047 green darken-1"})
+        //     M.toast({html: "invalid email", classes:"#c62828 red darken-3"})
+        //    }
+        })
        }
       
   render() {
@@ -82,12 +106,12 @@ export default class ContactUs extends Component {
                 <p className="h3 text-success">Get results. contact us today:</p>
                 <p className="h5 text-success">Your comfort matters to us .</p>
             </div>
-            <div className="container mt-5">
+            <div className="container mt-5 mb-5">
                 <div className="row">
                 <div className="col-1"> </div>
                     <div className="col-sm-12 col-md-12 col-lg-5 mr-5 contact">
                         <p className="h5 mt-5 mb-4 ml-4">Fill out the form below to get started:</p>
-                    <form className="m-4" id="contact-form" onSubmit={this.contactUs} method="POST">
+                    <form className="m-4" id="contact-form" onSubmit={this.contactUs}   method="POST">
                         <div className="form-group">
                             <input type="text" required className="form-control" onChange={this.handleNameChange} value={this.state.name} placeholder="Name" />
                         </div>
@@ -100,23 +124,21 @@ export default class ContactUs extends Component {
                         <div className="form-group">
                             <textarea required className="form-control" rows="4" onChange={this.handleMessageChnage} value={this.state.message} placeholder="Enter your message"></textarea>
                         </div>
-                        <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Contact us</button>
+                        
+                        <div>
+                            <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5"  onClick={() => showMessage} >Contact us</button>     
+                            <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore} />
+                        </div> 
+                        
                     </form>
-                    { showMessage &&  
-                        <div >
-                            <FlashMessage duration={10000}>
-                                <strong className="text-success h4">Message sent successfully, Thanks!</strong>
-                            </FlashMessage>
-                        </div>
-                        }
                      </div>
             
                     <div className="col-sm-12 col-md-12 col-lg-5 contact">
                         <div className="m-4">
                         <p className="h4 mb-3 mt-5">General Enquiries</p>
                         <p className=""> Have a Question, Enquiry, or Suggestion, Kindly get in touch</p>
-                        <p className="text-success font-weight-bold">info@tractive.com</p>
-                        <p className="text-success font-weight-bold">+2348098858875</p>
+                        <p className="text-success font-weight-bold">info@tractivngine.com</p>
+                        <p className="text-success font-weight-bold">+2348038156896</p>
                         <div>
                             <br/>
                            <p className="h5">Our Location</p> 

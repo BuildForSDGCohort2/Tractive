@@ -4,14 +4,15 @@ import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
-import Footer from "../components/Footer"
-
+import Footer from "../components/Footer";
+import {toast} from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 import "../components/Profile.css";
+toast.configure()
 
 export default class ProfileFarmer extends Component {
-      constructor() {
-        super();
-
+      constructor(props) {
+        super(props) 
         this.state = {
            title: "",
             fullName: "",
@@ -28,10 +29,84 @@ export default class ProfileFarmer extends Component {
             password: "", 
             image: null,
             isLoading: true,
+            message: null, 
+            imageLoading: false,
+            loadingUser: false,
             deleted: false,
             error: false,
-        };
+            msg: null,
+            redirect: false,
+            updated: false,
+            showMessage: false,
+        }   
       }
+    
+
+  handleUpload=e=>{
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'zeeson1')
+    this.setState({imageLoading:true})
+    axios.post('https://api.cloudinary.com/v1_1/zeeson-info-tech-and-innovations/image/upload',data)
+    .then(res=>{
+      this.setState({
+        image:res.data.secure_url,
+        imageLoading:false
+      })
+    })
+   }
+
+   updateUser = async (e) => {
+    const accessString = localStorage.getItem('JWT');
+    if (accessString === null) {
+      this.setState({
+        loadingUser: false,
+        error: true,
+      });
+    }
+    const {
+      title, fullName, gender,  email, phone, address,town,state,country,farmSize,farmAddress,crops, password,image,
+    } = this.state;
+    e.preventDefault();
+    try {
+      const response = await axios.put(
+        '/farmers/updateUser',
+        {
+          title, fullName, gender,  email, phone, address,town,state,country,farmSize,farmAddress,crops, password,image,
+        },
+        {
+          headers: { Authorization: `JWT ${accessString}` },
+        },
+      );
+      console.log(response.data);
+      this.setState({
+        showMessage: toast.success("Image updated successfully", {
+          autoClose: 4000,
+      }),
+        updated: true,
+        error: false,
+      });
+    } catch (error) {
+      console.log(error.response.data);
+      this.setState({
+        loadingUser: false,
+        error: true,
+      });
+    }
+  };
+
+    async componentDidUpdate(){
+      if(this.state.showMessage === true) {
+        this.setState({
+          showMessage: toast.success( `Welcome! ${this.state.title} ${this.state.fullName}`, {
+            // position: toast.POSITION.TOP_LEFT,
+            // autoClose: 10000,
+          }),
+
+        })
+      }
+    }
 
       async componentDidMount() {
         const accessString = localStorage.getItem('JWT');
@@ -52,12 +127,10 @@ export default class ProfileFarmer extends Component {
               params: {
                 email,
               },
-            //   headers:{
-            //     "Authorization": `Bearer ${accessString}`
-            // },
               headers: { Authorization: `JWT ${accessString}` },
             });
             this.setState({
+              showMessage: true,
               title: response.data.title,
               fullName: response.data.fullName,
               gender: response.data.gender,
@@ -71,6 +144,7 @@ export default class ProfileFarmer extends Component {
               farmAddress: response.data.farmSize,
               crops: response.data.crops,
               password: response.data.password,
+              image: response.data.image,
               isLoading: false,
               error: false,
             });
@@ -82,25 +156,6 @@ export default class ProfileFarmer extends Component {
           } 
         } 
       }
-//    image handler
-onChangeHandler=event=>{
-  this.setState({
-    image: event.target.files[0],
-    loaded: 0,
-  })
-}
-
-//   click sumbit handler
-onClickHandler = () => {
-  const data = new FormData()
-  data.append('file', this.state.selectedFile)
-  axios.post("/fleets/upload", data, { 
-     // receive two    parameter endpoint url ,form data
- })
-.then(res => { // then print response status
-   console.log(res.statusText)
-})
-}
 
       deleteUser = async (e) => {
         const accessString = localStorage.getItem('JWT');
@@ -140,6 +195,7 @@ onClickHandler = () => {
       logout = (e) => {
         e.preventDefault();
         localStorage.removeItem('JWT');
+        window.location = "/login-farmer"
       };
 
 
@@ -158,11 +214,14 @@ onClickHandler = () => {
       farmAddress,
       crops,
       password, 
+      image,
+      msg,
       isLoading,
       deleted,
       error,
+      showMessage,
     } = this.state;
-
+  // const data = this.state.profiles
     if (error) {
       return (
         <div>
@@ -188,8 +247,8 @@ onClickHandler = () => {
 
     return (
         <div className="mt-5" >
-          <h1 className='text-center mb-5 text-success'>Welcome</h1> 
-          <div className="row mb-4">
+          {/* <h1 className='text-center mb-5 text-success'>Welcome</h1>  */}
+          <div className="row mt-5 mb-4">
             <div className="">
                {/* <h1 className='text-center text-success'>Welcome</h1>  */}
             </div>
@@ -225,20 +284,31 @@ onClickHandler = () => {
 
           <div className="d-flex mb-5 justify-content-around profile-div">
             <div>
-                 <img className="img-thumbnail profile_image" src={userImg} alt="user"/><br/>
-               <form>
+                  {/* {
+                data.length ? data.map(profile=>{
+                  return( */}
+                    <div> 
+                      <img className="img-thumbnail profile_image" src={image ? image : userImg} alt="user"/><br/>
+                  {/* <p>id: {profile.id}</p> */}
+                </div>
+                    {/* )
+                })
+                : null
+              } */}
+              <br/>
+               <form onSubmit={this.updateUser}>
                  <div>
-                  <label className="mr-4">Upload profile picture</label>
+                  <label className="mr-4">Update profile picture</label>
                 <div>
                 <input 
                 className="ml-5"
                     type="file" 
-                    name="" 
-                    onChange={this.onChangeHandler}
+                    name="image"
+                    onChange={this.handleUpload}
                     />
                 </div>
                  </div>
-                 <button onClick={this.onClickHandler} type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Uplod</button>
+                 <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Upload</button>
                </form>
             </div>
             <div>

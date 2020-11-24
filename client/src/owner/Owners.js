@@ -81,7 +81,7 @@ render() {
                 <Card style={style} key={owner._id.toString()} className="mt-3">
                     <CardImg
                     alt="..."
-                    src={"/images/userC.png" }
+                    src={owner.image ? owner.image : "/images/userC.png" }
                     top
                     ></CardImg>
                     <CardBody>
