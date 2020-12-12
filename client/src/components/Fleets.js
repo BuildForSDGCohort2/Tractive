@@ -62,8 +62,9 @@ render() {
   return (
     <>
     <div className="container mt-5">
-        <p className="h2 text-success text-center mb-4">Search for fleets in matter of seconds</p>
-    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleets such as tractor, sprayer etc."/>
+        <p className="h1 text-success text-center mb-4">Welcome to the <span className="Display-3"> Market Place </span> </p>
+        <p className="h2 text-success text-center mb-4">Search for fleets or produce in a matter of seconds</p>
+    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search for fleets or produce such as Tractor or Onions "/>
         <div className="row d-flex justify-content-between ">
 
         {data.length > 0 ? 
