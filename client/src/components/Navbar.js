@@ -46,7 +46,7 @@ export default class MainNavbar extends Component {
                 </li>
               <li className="nav-item">
                     <NavLink
-                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleets">Fleets
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleets">Market Place
                         <span class="sr-only">(current)</span>
                     </NavLink>
                 </li>
