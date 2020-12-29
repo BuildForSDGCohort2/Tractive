@@ -56,7 +56,7 @@ export default class ProfileOwner extends Component {
        }
     
        updateUser = async (e) => {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTO');
         if (accessString === null) {
           this.setState({
             loadingUser: false,
@@ -74,7 +74,7 @@ export default class ProfileOwner extends Component {
               title, fullName, gender, email,  phone, address, town, state,  country, firmName, firmAddress, role,  password, image,
             },
             {
-              headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWTO ${accessString}` },
             },
           );
           console.log(response.data);
@@ -103,7 +103,7 @@ export default class ProfileOwner extends Component {
         }
       }
       async componentDidMount() {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTO');
         const {
           match: {
             params: { email },
@@ -121,7 +121,7 @@ export default class ProfileOwner extends Component {
               params: {
                 email,
               },
-              headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWTO ${accessString}` },
             });
             this.setState({
               showMessage: true,
@@ -152,7 +152,7 @@ export default class ProfileOwner extends Component {
       }
 
       deleteUser = async (e) => {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTO');
         const {
           match: {
             params: { email },
@@ -174,7 +174,7 @@ export default class ProfileOwner extends Component {
             headers: { Authorization: `JWT ${accessString}` },
           });
           console.log(response.data);
-          localStorage.removeItem('JWT');
+          localStorage.clear();
           this.setState({
             deleted: true,
           });
@@ -188,7 +188,7 @@ export default class ProfileOwner extends Component {
     
       logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('JWT');
+        localStorage.clear();
         window.location = "/login"
       };
 
@@ -247,25 +247,27 @@ export default class ProfileOwner extends Component {
             {/* <NavLink
                className="text-success font-weight-bold" to="/agents">Contact nearby Agents
              </NavLink>  */}
-              <p onClick={this.logout} className="mr-3 text-success">
+              {/* <p onClick={this.logout} className="mr-3 text-success">
                 <NavLink className="mr-3 text-success" to="/login-owner">
                     Logout
                 </NavLink>
-              </p>
-  
-              <NavLink to={`/updateProfile/${email}`}>
+              </p> */}
+              <NavLink
+               className="h5 btn btn-success  text-white font-weight-bold" to= {localStorage.user?"/fleets":"/protect-route"}>Fleets
+             </NavLink> 
+             
+             <NavLink
+               className="h5 btn btn-success ml-4 text-white font-weight-bold" to="/post-fleet">Post Fleets
+             </NavLink> 
+              {/* <NavLink to={`/updateProfile/${email}`}>
                 <p className="ml-3 text-success">Update Profile</p>
-              </NavLink>
-              <NavLink to={`/updatePassword/${email}`}
+              </NavLink> */}
+              {/* <NavLink to={`/updatePassword/${email}`}
               >
                 <p className="ml-3 text-success">Update Password</p>
-              </NavLink>
+              </NavLink> */}
             </div>
             <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
-            <NavLink
-               className="h5 btn btn-success  text-white font-weight-bold" to="/post-fleet">Post Fleets
-             </NavLink> 
-             {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 
              <NavLink
                className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Nearby Agents

@@ -27,7 +27,6 @@ export default class Farmers extends Component {
             farmers: [], 
             searchedValue: ''
         }
-       
     }
 
     onSearch(event) {
@@ -39,23 +38,65 @@ export default class Farmers extends Component {
       };
     
     getFarmers = () => {
-        axios.get('/farmers', {
-            headers:{
-                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
-            }
-            
-        })
-          .then((response) => {
-            const data = response.data;
-            // alert(response.data)
-            this.setState({ farmers: data });
-            console.log('Data has been received!!');
-          })
-          .catch((error) => {
-            // alert('Error retrieving data!!!');
-            // alert(error)
-            console.log(error)
-          });
+        const agent = localStorage.getItem("JWTA");
+        const farmer = localStorage.getItem("JWTF");
+        const owner = localStorage.getItem("JWTO");
+        if(agent){
+            axios.get('/farmers', {
+                headers:{
+                    "Authorization": `Bearer ${agent}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ farmers: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+        } if(farmer) {
+            axios.get('/farmers', {
+                headers:{
+                    "Authorization": `Bearer ${farmer}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ farmers: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+        } if(owner){
+            axios.get('/farmers', {
+                headers:{
+                    "Authorization": `Bearer ${owner}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ farmers: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+        }
+        
       }
 
     render() {  
@@ -78,7 +119,7 @@ export default class Farmers extends Component {
                 
                 <Card style={style} key={farmer._id.toString()} className="mt-2 mr-1 mb-3">
                     <CardImg
-                    alt="..."
+                    alt="farmer-image"
                     src={farmer.image?farmer.image:"/images/userC.png" }
                     top
                     ></CardImg>
@@ -104,7 +145,6 @@ export default class Farmers extends Component {
                 </Card>
             )}                       
          ) : null} 
-
 
         </div>
 

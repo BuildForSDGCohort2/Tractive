@@ -2,10 +2,6 @@ const express = require("express");
 const router = express.Router();
 const checkToken = require("../middlewares/verifyToken")
 
-// const { 
-//     farmerLogin, farmerApplication, getFarmers, farmerLogout
-// } = require("../controllers/farmersController"); 
-
 const {
     farmerLogin, farmerApplication, forgotPassword, resetPassword, updatePassword, updatePasswordViaEmail, getFarmers, findUser, deleteUser, updateProfile, farmerLogout
 } = require("../controllers/farmersControllers")

@@ -61,7 +61,14 @@ export default class Login extends Component {
                M.toast({html: "invalid email",classes:"#c62828 red darken-3"})
                window.location = `/profile-agent/${email}`
               }
-              localStorage.setItem('JWT', response.data.token);
+            
+              localStorage.setItem('JWTA',  response.data.token);
+              localStorage.setItem("image", response.data.user.image);
+              localStorage.setItem("name", response.data.user.fullName);
+              localStorage.setItem("user", JSON.stringify(response.data.user));   
+              localStorage.setItem("email", response.data.user.email); 
+             
+
               this.setState({
                 loggedIn: true,
                 showError: false,

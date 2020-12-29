@@ -66,15 +66,15 @@ export default class ContactUs extends Component {
                 name: "",
                 email: "",
                 subject: "",
-                message: "", 
+                message: "",
                })
            }
-        this.setState({ 
+        this.setState({
             showMessage: ToastsStore.success(`${res.data.message}`, 5000, "toast"),
             name: "",
             email: "",
             subject: "",
-            message: "", 
+            message: "",
      })
         //    console.log(res.data.message)
         //    if(res.data.error){
@@ -85,7 +85,7 @@ export default class ContactUs extends Component {
         //    }
         })
        }
-      
+
   render() {
       const {
           showMessage
@@ -97,7 +97,7 @@ export default class ContactUs extends Component {
                 <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-white font-weight-bold mt-5">
                 <h1 className="mt-5 display-3"> Do you have anything for us?</h1>
-                    <h3 className="display-2 text-success mt-5">Contact Us</h3> 
+                    <h3 className="display-2 text-success mt-5">Contact Us</h3>
                 </div>
                 </div>
             </div>
@@ -124,15 +124,15 @@ export default class ContactUs extends Component {
                         <div className="form-group">
                             <textarea required className="form-control" rows="4" onChange={this.handleMessageChnage} value={this.state.message} placeholder="Enter your message"></textarea>
                         </div>
-                        
+
                         <div>
-                            <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5"  onClick={() => showMessage} >Contact us</button>     
+                            <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5"  onClick={() => showMessage} >Contact us</button>
                             <ToastsContainer position={ToastsContainerPosition.TOP_RIGHT} lightBackground store={ToastsStore} />
-                        </div> 
-                        
+                        </div>
+
                     </form>
                      </div>
-            
+
                     <div className="col-sm-12 col-md-12 col-lg-5 contact">
                         <div className="m-4">
                         <p className="h4 mb-3 mt-5">General Enquiries</p>
@@ -141,17 +141,17 @@ export default class ContactUs extends Component {
                         <p className="text-success font-weight-bold">+2348038156896</p>
                         <div>
                             <br/>
-                           <p className="h5">Our Location</p> 
-                           <p className="mb-1">65 Herbert Macaulay Way, Yaba 101212, Lagos.</p>
-                           <NavLink 
+                           <p className="h5">Our Location</p>
+                           <p className="mb-1">144, Ado Bayero Way, Kano.</p>
+                           <NavLink
                                 className="text-success font-weight-bold" activeClassName="is-active" to="">GET DIRECTION
-                            </NavLink> 
+                            </NavLink>
                              <br/>
                             <p className="h5 mt-5">Our Newsletter</p>
                             <p className="mb-1">Exclusive offers and discounts</p>
-                            <NavLink 
+                            <NavLink
                                 className="text-success font-weight-bold" activeClassName="is-active" to="/contact-us">SIGN UP HERE
-                             </NavLink> 
+                             </NavLink>
                         </div>
                     </div>
                    </div>

@@ -86,7 +86,7 @@ const Owner = require("../models/ownersModel");
   );
   
   const opts = {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWTO'),
     secretOrKey: jwtSecret.secret,
   };
  

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import Button from 'react-bootstrap/Button';
 import { NavLink, Redirect } from "react-router-dom";
 import axios from 'axios';
-import FlashMessage from 'react-flash-message';
 import PropTypes from 'prop-types';
 import userImg from '../assets/user1.png';
 import Footer from "../components/Footer";
@@ -56,7 +55,7 @@ export default class ProfileAgent extends Component {
        }
     
        updateUser = async (e) => {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTA');
         if (accessString === null) {
           this.setState({
             loadingUser: false,
@@ -75,7 +74,7 @@ export default class ProfileAgent extends Component {
               title, fullName, gender,  email,   phone, education, employmentStatus, cvLink, address, town, state,country,  password, image,
             },
             {
-              headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWTA ${accessString}` },
             },
           );
           console.log(response.data);
@@ -105,7 +104,7 @@ export default class ProfileAgent extends Component {
         }
       }
       async componentDidMount() {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTA');
         const {
           match: {
             params: { email },
@@ -123,7 +122,7 @@ export default class ProfileAgent extends Component {
               params: {
                 email,
               },
-              headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWTA ${accessString}` },
             });
             this.setState({
               showMessage: true,
@@ -154,7 +153,7 @@ export default class ProfileAgent extends Component {
       }
 
       deleteUser = async (e) => {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTA');
         const {
           match: {
             params: { email },
@@ -173,10 +172,10 @@ export default class ProfileAgent extends Component {
             params: {
               email,
             },
-            headers: { Authorization: `JWT ${accessString}` },
+            headers: { Authorization: `JWTA ${accessString}` },
           });
           console.log(response.data);
-          localStorage.removeItem('JWT');
+          localStorage.removeItem('JWTA');
           this.setState({
             deleted: true,
           });
@@ -190,7 +189,8 @@ export default class ProfileAgent extends Component {
     
       logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('JWT');
+        localStorage.clear();
+        // localStorage.removeItem('JWT');
       };
 
       handleFileDrop = (files) => {
@@ -258,28 +258,30 @@ export default class ProfileAgent extends Component {
         {/* <NavLink
            className="text-success font-weight-bold" to="/agents">Contact nearby Agents
          </NavLink>  */}
-          <p onClick={this.logout} className="mr-3 text-success">
+          {/* <p onClick={this.logout} className="mr-3 text-success">
             <NavLink className="mr-3 text-success" to="/login-agent">
                 Logout
             </NavLink>
-          </p>
-
-          <NavLink to={`/updateProfile/${email}`}>
+          </p> */}
+          <NavLink
+               className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/agents">Nearby Agents
+          </NavLink> 
+          {/* <NavLink to={`/updateProfile/${email}`}>
             <p className="ml-3 text-success">Update Profile</p>
           </NavLink>
           <NavLink to={`/updatePassword/${email}`}
           >
             <p className="ml-3 text-success">Update Password</p>
-          </NavLink>
+          </NavLink> */}
         </div>
         <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
         <NavLink
-           className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">Fleets
+           className="h5 btn btn-success  text-white font-weight-bold" to={localStorage.user?"/fleets":"/protect-route"}>Fleets
          </NavLink> 
          {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 
          <NavLink
-           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
+           className="h5 ml-4 btn btn-success  text-white font-weight-bold" to={localStorage.user?"/farmers":"/protect-route"}>Nearby Farmers
          </NavLink> 
         </div>
       </div>
@@ -301,13 +303,7 @@ export default class ProfileAgent extends Component {
                  </div>
                  <button type="submit" className="btn btn-lg btn-success contactbtn mb-5 mr-5">Upload</button>
                </form>
-               { showMessage &&  
-                        <div >
-                            <FlashMessage duration={5000}>
-                                <strong className="text-success h4">Image Uploaded successfully</strong>
-                            </FlashMessage>
-                   </div>
-                }
+
                     
         </div>
         <div>

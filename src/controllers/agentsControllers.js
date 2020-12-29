@@ -107,9 +107,11 @@ const agentLogin = async (req, res, next) => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
                 expiresIn: '1h' 
               });
+              const {id, title, fullName, email, image} = user
               res.status(200).json({
                 auth: true,
                 token,
+                user:{id, title, fullName, email, image },
                 message: `You are successfully logged in`,
               });
             });

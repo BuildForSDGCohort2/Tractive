@@ -21,7 +21,7 @@ export default class Fleets extends Component {
         this.state = {
             fleets: [],
             searchedValue: ''
-        };
+        }
     }
 
     onSearch(event) {
@@ -32,23 +32,65 @@ export default class Fleets extends Component {
       };
     
     getFleets = () => {
-        axios.get('/fleets', {
-            headers:{
-                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
-            }
-            
-        })
-          .then((response) => {
-            const data = response.data;
-            this.setState({ fleets: data });
-            console.log('Data has been received!!');
-          })
-          .then(res => {
-            console.log(res);
-        })
-          .catch((error) => {
-            console.log(error)
-          });
+        const agent = localStorage.getItem("JWTA");
+        const farmer = localStorage.getItem("JWTF");
+        const owner = localStorage.getItem("JWTO");
+        if(agent){
+            axios.get('/fleets', {
+                headers:{
+                    "Authorization": `Bearer ${agent}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ fleets: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                alert(error)
+                console.log(error)
+              });
+        } if(farmer) {
+            axios.get('/fleets', {
+                headers:{
+                    "Authorization": `Bearer ${farmer}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ fleets: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                alert(error)
+                console.log(error)
+              });
+        } if(owner){
+            axios.get('/fleets', {
+                headers:{
+                    "Authorization": `Bearer ${owner}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ fleets: data });
+                console.log('Data has been received!!');
+              })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                alert(error)
+                console.log(error)
+              });
+        }
+       
       }
 
 render() {  
@@ -58,21 +100,19 @@ render() {
                 return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
             }
          ); 
-
   return (
     <>
     <div className="container mt-5">
         <p className="h2 text-success text-center mb-4">Search for fleets in matter of seconds</p>
     <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleets such as tractor, sprayer etc."/>
         <div className="row d-flex justify-content-between ">
-
         {data.length > 0 ? 
                     data.map((fleet, i) => {                        
-                        return (
+            return (
 
                 <Card style={style} key={fleet._id.toString()} className="mt-3">
                     <CardImg
-                    alt="..."
+                    alt="fleet-Image"
                     src={fleet.image?fleet.image:"/images/tractyJoin.png" }
                     top
                     ></CardImg>
@@ -87,6 +127,7 @@ render() {
                     <NavLink to={"/fleet/"+fleet._id}>
                     <Button
                         color="success"
+                        onClick={(e) => e.preventDefault()}
                     >
                         Contact the Owner
                         </Button>
@@ -95,7 +136,6 @@ render() {
                 </Card>
             )}                       
          ) : null} 
-
 
         </div>
 

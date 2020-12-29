@@ -58,7 +58,7 @@ export default class ProfileFarmer extends Component {
    }
 
    updateUser = async (e) => {
-    const accessString = localStorage.getItem('JWT');
+    const accessString = localStorage.getItem('JWTF');
     if (accessString === null) {
       this.setState({
         loadingUser: false,
@@ -76,7 +76,7 @@ export default class ProfileFarmer extends Component {
           title, fullName, gender,  email, phone, address,town,state,country,farmSize,farmAddress,crops, password,image,
         },
         {
-          headers: { Authorization: `JWT ${accessString}` },
+          headers: { Authorization: `JWTF ${accessString}` },
         },
       );
       console.log(response.data);
@@ -109,7 +109,7 @@ export default class ProfileFarmer extends Component {
     }
 
       async componentDidMount() {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTF');
         const {
           match: {
             params: { email },
@@ -127,7 +127,7 @@ export default class ProfileFarmer extends Component {
               params: {
                 email,
               },
-              headers: { Authorization: `JWT ${accessString}` },
+              headers: { Authorization: `JWTF ${accessString}` },
             });
             this.setState({
               showMessage: true,
@@ -158,7 +158,7 @@ export default class ProfileFarmer extends Component {
       }
 
       deleteUser = async (e) => {
-        const accessString = localStorage.getItem('JWT');
+        const accessString = localStorage.getItem('JWTF');
         const {
           match: {
             params: { email },
@@ -177,10 +177,10 @@ export default class ProfileFarmer extends Component {
             params: {
               email,
             },
-            headers: { Authorization: `JWT ${accessString}` },
+            headers: { Authorization: `JWTF ${accessString}` },
           });
           console.log(response.data);
-          localStorage.removeItem('JWT');
+          localStorage.clear()
           this.setState({
             deleted: true,
           });
@@ -194,7 +194,7 @@ export default class ProfileFarmer extends Component {
     
       logout = (e) => {
         e.preventDefault();
-        localStorage.removeItem('JWT');
+        localStorage.clear();
         window.location = "/login-farmer"
       };
 
@@ -256,23 +256,25 @@ export default class ProfileFarmer extends Component {
             {/* <NavLink
                className="text-success font-weight-bold" to="/agents">Contact nearby Agents
              </NavLink>  */}
-              <p onClick={this.logout} className="mr-3 text-success">
+              {/* <p onClick={this.logout} className="mr-3 text-success">
                 <NavLink className="mr-3 text-success" to="/login-farmer">
                     Logout
                 </NavLink>
-              </p>
-  
-              <NavLink to={`/updateProfile/${email}`}>
+              </p> */}
+              <NavLink
+                className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/farmers">Nearby Farmers
+              </NavLink> 
+              {/* <NavLink to={`/updateProfile/${email}`}>
                 <p className="ml-3 text-success">Update Profile</p>
               </NavLink>
               <NavLink to={`/updatePassword/${email}`}
               >
                 <p className="ml-3 text-success">Update Password</p>
-              </NavLink>
+              </NavLink> */}
             </div>
             <div className="col-sm-12 col-lg-6 d-flex justify-content-center align-items-center">
             <NavLink
-               className="h5 btn btn-success  text-white font-weight-bold" to="/fleets">Fleets
+               className="h5 btn btn-success  text-white font-weight-bold" to= {localStorage.user?"/fleets":"/protect-route"}>Fleets
              </NavLink> 
              {/* <p className="text-dark">Get stream of fleets as fast as possible</p> */}
 

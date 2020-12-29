@@ -15,7 +15,7 @@ export default class AboutUs extends Component {
                 <div className="row">
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-white font-weight-bold mt-5">
                 <h1 className="mt-5 display-3">Kindly glance through what we do and how we do it</h1>
-                    <h3 className="display-2 text-success mt-5">About Us</h3> 
+                    <h3 className="display-2 text-success mt-5">About Us</h3>
                 </div>
                 </div>
             </div>
@@ -31,11 +31,14 @@ export default class AboutUs extends Component {
                     <p> <span> <img src="images/bullet.png" alt="" /> </span>Connecting farmers to tractors and Implements</p>
                     <p className="mt-4"> <span> <img src="images/bullet.png" alt="" /> </span>Helping fleet owners get clients </p>
                     <p  className="mt-4"  > <span> <img src="images/bullet.png" alt="" /> </span> Providing jobs for our youths </p>
+                    <p  className="mt-4"  > <span> <img src="images/bullet.png" alt="" /> </span> Providing storage facility for farmers </p>
+                    <p  className="mt-4"  > <span> <img src="images/bullet.png" alt="" /> </span> Using IoT technology to track fleets and make farm operation easier </p>
                     <br/>
+
                      <NavLink to="/join-us">
                       <button className="btn btn-success btn-large morebtn">Get started »</button>
-                    </NavLink> 
-            </div>  
+                    </NavLink>
+            </div>
             <div className="col-sm-12 col-lg-12 col-xl-6">
                 <img className="m-4" src="/images/trac.png" alt="" />
          </div>
@@ -49,7 +52,7 @@ export default class AboutUs extends Component {
                 <p className="h5 mb-3 user-testimony"> <span> <img src="images/quote.png" alt="" /> </span> I was amazed at the amount of work they have done </p>
                    <p className="font-weight-bold"> Bola Ahmed</p>
                    <p className=""> Bluesense</p>
-                    
+
                 </div>
                 <div className="col-sm-12 col-lg-3 mt-5 justify-content-center">
                    <img
@@ -59,9 +62,9 @@ export default class AboutUs extends Component {
                     />
                 </div>
                 <div className="col-3"></div>
-            </div>          
+            </div>
         </Carousel.Item>
-       
+
         <Carousel.Item>
         <div className="row testimony">
                 <div className="col-3"></div>
@@ -69,7 +72,7 @@ export default class AboutUs extends Component {
                 <p className="h5 mb-3 user-testimony"> <span> <img src="images/quote.png" alt="" /> </span> I was amazed at the amount of work they have done </p>
                    <p className="font-weight-bold mb-4"> Bola Ahmed</p>
                    <p className=""> Bluesense</p>
-                    
+
                 </div>
                 <div className="col-sm-12 col-lg-3  mt-5 justify-content-center">
                    {/* <p className="mb-3"> We connect farmers looking for tractors with tractor owners looking for work</p> */}
@@ -82,7 +85,7 @@ export default class AboutUs extends Component {
                 <div className="col-3"></div>
             </div>
         </Carousel.Item>
-        
+
         <Carousel.Item>
         <div className="row testimony">
                 <div className="col-3"></div>
@@ -90,7 +93,7 @@ export default class AboutUs extends Component {
                    <p className="h5 mb-3 user-testimony"> <span> <img src="images/quote.png" alt="" /> </span> I was amazed at the amount of work they have done </p>
                    <p className="font-weight-bold mb-4"> Bola Ahmed</p>
                    <p className=""> Bluesense</p>
-                    
+
                 </div>
                 <div className="col-sm-12 col-lg-3 mt-5 justify-content-center">
                    {/* <p className="mb-3"> We connect farmers looking for tractors with tractor owners looking for work</p> */}
@@ -102,11 +105,11 @@ export default class AboutUs extends Component {
                 </div>
                 <div className="col-3"></div>
             </div>
-        
+
         </Carousel.Item>
       </Carousel>
       <br/>
-     
+
       <div className="mt-5">
             <img className="mt-5" src="/images/line1.png" alt="" />
             <p className="h2 font-weight-bold">Meet The Team</p>
@@ -123,18 +126,18 @@ export default class AboutUs extends Component {
                         alt="First slide"
                     />
                 </div>
-                
+
                  <div className="col-2"></div>
                  <div className="col-sm-12 col-lg-3 ml-3 justify-content-center">
                    <p className="h4 mb-3 user-testimony font-weight-bold"> Saliman Ibrahim Zainab</p>
                    <p className="mb-4"> Co-Founder & CEO</p>
-                   <p className=""> A motivated Agricutural Engineer with passion to revolutionalized Agricutural sectore of sub-saharan Africa and beyound through Technology and Innovations</p>
+                   <p className=""> A motivated Agricutural Engineer with passion to revolutionalized Agricutural sector of sub-saharan Africa and beyound through Technology and Innovations</p>
                    <p className=""> Our target is to make sure that everyone in the Agricultrual secotor are happier</p>
-                    
+
                 </div>
-            </div>        
+            </div>
         </Carousel.Item>
-    
+
         <Carousel.Item>
         <div className="row team">
             <div className="col-2"></div>
@@ -147,28 +150,28 @@ export default class AboutUs extends Component {
                         alt="First slide"
                     />
                 </div>
-                
+
                  <div className="col-2"></div>
                  <div className="col-sm-12 col-lg-3 ml-3  justify-content-center">
                    <p className="h4 mb-3 user-testimony font-weight-bold  "> Adebisi Johnson</p>
                    <p className="mb-4"> Co-Founder & Design Lead</p>
                    <p className=""> A research-driven product designer and business analyst that is determined to solve the problem of agriculture in africa.</p>
                    <p className=""> Our goal is not to sell as many tractors as possible, but to bring tractors to as many hectares of land as possible.</p>
-                    
+
                 </div>
-            </div>        
+            </div>
         </Carousel.Item>
-    
-      </Carousel> 
+
+      </Carousel>
       </div>
       <div>
-          
+
     </div>
     <div>
-        
+
     </div>
     <Footer />
-</div> 
+</div>
 
     );
   }

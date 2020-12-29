@@ -58,3 +58,7 @@
 .material-icons:hover{
   cursor: pointer;
 }
+
+.justifying-text{
+  text-align: justify !important;
+}

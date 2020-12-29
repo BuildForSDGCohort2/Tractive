@@ -36,28 +36,79 @@ export default class Owners extends Component {
       };
     
     getOwners = () => {
-        axios.get('/owners', {
-            headers:{
-                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
-            }
-            
-        })
-          .then((response) => {
-            const data = response.data;
-            // alert(response.data)
-            this.setState({ owners: data });
-            console.log('Data has been received!!');
-          })
-          .then(res => {
-            // localStorage.setItem('authorization', res.token);
-            console.log(res);
-        })
-          .catch((error) => {
-            // alert('Error retrieving data!!!');
-            // alert(error)
-            console.log(error)
-          });
-      }
+        const agent = localStorage.getItem("JWTA");
+        const farmer = localStorage.getItem("JWTF");
+        const owner = localStorage.getItem("JWTO");
+        if(agent){
+            axios.get('/owners', {
+                headers:{
+                    "Authorization": `Bearer ${agent}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ owners: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                // localStorage.setItem('authorization', res.token);
+                console.log(res);
+            })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+        } else if(farmer){
+            axios.get('/owners', {
+                headers:{
+                    "Authorization": `Bearer ${farmer}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ owners: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                // localStorage.setItem('authorization', res.token);
+                console.log(res);
+            })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+          
+        } else if(owner) {
+            axios.get('/owners', {
+                headers:{
+                    "Authorization": `Bearer ${owner}`
+                }
+                
+            })
+              .then((response) => {
+                const data = response.data;
+                // alert(response.data)
+                this.setState({ owners: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                // localStorage.setItem('authorization', res.token);
+                console.log(res);
+            })
+              .catch((error) => {
+                // alert('Error retrieving data!!!');
+                // alert(error)
+                console.log(error)
+              });
+        }
+    }
+        
 
 render() {  
     // const data = this.state.fleets; 

@@ -45,8 +45,12 @@ export default class Login extends Component {
               email,
               password,
             })
-            localStorage.setItem('JWT', response.data.token);
             window.location = `/profile-farmer/${email}`
+            localStorage.setItem('JWTF',  response.data.token);
+            localStorage.setItem("image", response.data.user.image);
+            localStorage.setItem("name", response.data.user.fullName);
+            localStorage.setItem("user", JSON.stringify(response.data.user));   
+            localStorage.setItem("email", response.data.user.email); 
             this.setState({
               showMessage: ToastsStore.warning("You are successfully logged in", 5000, "toast"),
               loggedIn: true,

@@ -1,10 +1,10 @@
-GET http://localhost:2020/contact-us HTTP/1.1
+POST /farmers/signin/
+Host: localhost:2020
 Content-Type: application/json
 
 {
-        "name":"ola",  
-        "email":"ola@ola.com",
-        "subject":"message 1",
-        "message":"message"
-   
+
+        "email":"olabrazanislam@gmail.com",
+        "password":"123456"
+
 }

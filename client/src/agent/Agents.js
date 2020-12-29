@@ -37,23 +37,63 @@ export default class Agents extends Component {
         this.getAgents();
       };
     
-    getAgents = () => {
-        axios.get('/agents', {
-            headers:{
-                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
-            }
-        })
-          .then((response) => {
-            const data = response.data;
-            // alert(response.data)
-            this.setState({ agents: data });
-            console.log('Data has been received!!');
-          })
-          .catch((error) => {
-            // alert('Error retrieving data!!!');
-            // alert(error)
-            console.log(error)
-          });
+      getAgents = () => {
+        const agent = localStorage.getItem("JWTA");
+        const farmer = localStorage.getItem("JWTF");
+        const owner = localStorage.getItem("JWTO");
+        if(agent) {
+            axios.get('/agents', {
+                headers:{
+                    "Authorization": `Bearer ${agent}`
+                }   
+            })
+              .then((response) => {
+                const data = response.data;
+                this.setState({ agents: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                console.log(res);
+            })
+              .catch((error) => {
+                console.log(error)
+              });
+        } if (farmer){
+            axios.get('/agents', {
+                headers:{
+                    "Authorization": `Bearer ${farmer}`
+                }   
+            })
+              .then((response) => {
+                const data = response.data;
+                this.setState({ agents: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                console.log(res);
+            })
+              .catch((error) => {
+                console.log(error)
+              });
+        } if (owner){
+            axios.get('/agents', {
+                headers:{
+                    "Authorization": `Bearer ${owner}`
+                }   
+            })
+              .then((response) => {
+                const data = response.data;
+                this.setState({ agents: data });
+                console.log('Data has been received!!');
+              })
+              .then(res => {
+                console.log(res);
+            })
+              .catch((error) => {
+                console.log(error)
+              });
+        }
+       
       }
 
     render() {  

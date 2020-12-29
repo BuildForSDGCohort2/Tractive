@@ -7,7 +7,6 @@ const Farmer = require("../models/farmerModel");
 
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const { title } = require("process");
 const BCRYPT_SALT_ROUNDS = 12;
 
 
@@ -26,7 +25,7 @@ const getFarmers = async (req, res, next) => {
                // authorizedData,
                data,
            );
-           console.log('SUCCESS: Connected to fleets');
+           console.log('SUCCESS: Connected to farmers');
        }
    })
 });
@@ -108,10 +107,12 @@ const farmerLogin = async (req, res, next) => {
             }).then(user => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
                 expiresIn: 60 * 60,
-              });
+              })
+              const {id, title, fullName, email, image} = user
               res.status(200).json({
                 auth: true,
                 token,
+                user:{id, title, fullName, email, image },
                 message: `You are successfully logged in`,
               });
             });
@@ -134,8 +135,8 @@ const findUser = async (req, res, next) => {
           email: req.query.email,
       }).then((userInfo) =>  {
         if (userInfo != null) {
-          console.log('user found in db from findUsers');
-          res.status(200).send({
+          console.log('user found in db ');
+          res.status(200).json({
             auth: true,
             title: userInfo.title,
             fullName: userInfo.fullName,
@@ -155,12 +156,12 @@ const findUser = async (req, res, next) => {
           });
         } else {
           console.error('no user exists with that email');
-          res.status(401).send('no user exists with that email');
+          res.status(401).json('no user exists with that email');
         }
       });
     } else {
       console.error('jwt id and email do not match');
-      res.status(403).send('email and jwt token do not match');
+      res.status(403).json('email and jwt token do not match');
     }
   })(req, res, next);
 };

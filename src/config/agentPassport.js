@@ -1,6 +1,5 @@
-    
 const bcrypt = require("bcrypt");
-const jwtSecret = require("./jwtConfig"); 
+const jwtSecret = require("./jwtConfig");
 
 const BCRYPT_SALT_ROUNDS = 12;
 
@@ -8,10 +7,10 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const JWTstrategy = require('passport-jwt').Strategy;
 const ExtractJWT = require('passport-jwt').ExtractJwt;
-const Agent = require("../models/agentsModel"); 
-  
- 
-  // agent 
+const Agent = require("../models/agentsModel");
+
+
+  // agent
   passport.use(
     'registerAgent',
     new LocalStrategy(
@@ -24,7 +23,7 @@ const Agent = require("../models/agentsModel");
       (req, email, password, done) => {
         console.log(email);
         console.log(req.body.email);
-  
+
         try {
           Agent.findOne({
                 email: email
@@ -53,7 +52,7 @@ const Agent = require("../models/agentsModel");
       },
     ),
   );
-  
+
   passport.use(
     'loginAgent',
     new LocalStrategy(
@@ -85,13 +84,13 @@ const Agent = require("../models/agentsModel");
       },
     ),
   );
-  
-  
+
+
   const opts = {
-    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWT'),
+    jwtFromRequest: ExtractJWT.fromAuthHeaderWithScheme('JWTA'),
     secretOrKey: jwtSecret.secret,
   };
-  
+
   passport.use(
     'jwtAgent',
     new JWTstrategy(opts, (jwt_payload, done) => {
@@ -112,4 +111,3 @@ const Agent = require("../models/agentsModel");
       }
     }),
   );
-  

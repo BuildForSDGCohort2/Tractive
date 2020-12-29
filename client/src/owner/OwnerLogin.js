@@ -43,8 +43,14 @@ export default class Login extends Component {
               email,
               password,
             });
-            localStorage.setItem('JWT', response.data.token);
+            // localStorage.setItem('JWTO', response.data.token, response.data.user);
             window.location = `/profile-owner/${email}`
+            localStorage.setItem('JWTO',  response.data.token);
+            localStorage.setItem("image", response.data.user.image);
+            localStorage.setItem("name", response.data.user.fullName);
+            localStorage.setItem("user", JSON.stringify(response.data.user));   
+            localStorage.setItem("email", response.data.user.email); 
+            // localStorage.getItem(image);
             this.setState({
               loggedIn: true,
               showError: false,

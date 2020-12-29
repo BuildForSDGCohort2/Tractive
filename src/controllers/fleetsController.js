@@ -10,25 +10,24 @@ const path = require('path');
    
 
 // get all fleets 
-const getFleets = (req, res, next) => {
+const getFleets = async (req, res, next) => {
    Fleet.find()
-   .then((data) => {
+   .then(data => {
     jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
-        if(err){
-            //If error send Forbidden (403)
-            console.log('ERROR: Could not connect to the fleets route');
-            res.sendStatus(403);
-        } else {
-            //If token is successfully verified, we can send the autorized data 
-            res.status(200).json(
-                // message: '',
-                // authorizedData,
-                data,
-            );
-            console.log('SUCCESS: Connected to fleets');
-        }
-    })
-});
+      if(err){
+          console.log('ERROR: Could not connect to the fleets route');
+          res.sendStatus(403);
+      } else {
+          res.status(200).json({message: "Welcome to fleets garrage"});
+          console.log('SUCCESS: Connected to Fleets');
+      }
+  })
+  }); 
+//    .then((data) => {
+//        console.log(data)
+//        res.status(200).json({message: "Welcome to fleets garrage"})
+   
+// });
 };
 
 

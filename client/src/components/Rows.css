@@ -1,18 +1,20 @@
 .pro{
-background-image: url("/images/cycle.png");
+background: green;
  background-repeat: no-repeat;
- z-index: 2; 
+ z-index: 2;
  text-align: center;
 background-position: center;
   background-size:cover;
-  height: 250px; 
+  height: 280px;
 }
 
 .why{
-	height: 50px; 
+	height: 50px;
 	background-color: rgba(100, 168, 27, 0.9);
 }
-
+.card{
+  height: 250px !important;
+}
 .row1{
 	background: url("/images/row1.png");
   background-repeat: no-repeat;
@@ -26,17 +28,17 @@ background-position: center;
 	 padding: 20px 20px;
 	 background: white;
 	 margin-top: -100px;
-	margin-left: -70px; 
+	margin-left: -70px;
 }
 
 .row11{
-	margin-top: 450px; 
+	margin-top: 450px;
 	margin-left: 460px;
 }
 
 .farmer01{
 	margin-left: 400px;
-	margin-top: 30px; 
+	margin-top: 30px;
 }
 .row2{
 	background: #EFEEEE;
@@ -46,9 +48,9 @@ background-position: center;
 	background: url("/images/choose.png");
 	 background-repeat: no-repeat;
   	background-position: left;
-  	float: right; 
+  	float: right;
   	 height: 700px;
-  
+
 }
 
 .chose_col1{
@@ -66,13 +68,13 @@ background-position: center;
 
 .choose_border-col{
 	margin-top: 150px;
-	margin-left: -150px; 
+	margin-left: -150px;
 }
 .GetInTouch{
-	text-align: center; 
+	text-align: center;
 	 border: 3px solid rgba(100, 168, 27, 0.9);
 	 height: 300px;
-	 width: 20px; 
+	 width: 20px;
 	 background-color: rgba(100, 168, 27, 0.9);
 }
 
@@ -83,15 +85,15 @@ background-position: center;
         padding: 15px 30px;
         font-size: 22px;
         cursor: pointer;
-        font-weight: bold; 
+        font-weight: bold;
         line-height: 32px;
         margin-top: 30px;
 }
 
-.footer{ 
+.footer{
 	 border: 3px solid rgba(100, 168, 27, 0.9);
 	 height: 100%;
-	 width: 100%; 
+	 width: 100%;
 	 background-color: rgba(100, 168, 27, 0.9);
 }
 
@@ -107,7 +109,7 @@ max-width: 650px;
 margin: 0 auto;
 text-align: center;
 position: relative;
-z-index: 2; 
+z-index: 2;
 }
 
 
@@ -115,74 +117,74 @@ z-index: 2;
 height: 50px;
 background: #DEE9FF;
 border-color: transparent;
-border-radius: 20px 0 0 20px; 
-width: 350px; 
+border-radius: 20px 0 0 20px;
+width: 350px;
 }
 .home-newsletter .single .newsLetter:focus {
 box-shadow: none;
-border-color: #243c4f; 
+border-color: #243c4f;
 }
 .home-newsletter .single .btn {
-height: 50px; 
+height: 50px;
 border-radius: 0 20px 20px 0;
 background: #84E917;
 color: #fff;
-width: 200px; 
-margin-top: -4px; 
+width: 200px;
+margin-top: -4px;
 }
 
 .newsLetterEmail{
-	margin-left: -419px; 
+	margin-left: -419px;
 }
 
 
 @media (max-width: 979px) {
     .row11{
-		margin-top: 350px; 
+		margin-top: 350px;
 		margin-left: 70%;
-		display: hidden; 
+		display: hidden;
     }
 	.mission_col{
 	 border: 3px solid #84E917;
 		 padding: 20px 20px;
 		 background: white;
 		 margin-top: -100px;
-		margin-left: -20px; 
+		margin-left: -20px;
 	}
 	.choose_border-col{
 		margin-top: 150px;
-		margin-left: -0px; 
+		margin-left: -0px;
 	}
 
 .home-newsletter .single .newsLetter {
 height: 50px;
 background: #DEE9FF;
 border-color: transparent;
-border-radius: 20px 0 0 20px; 
-width: 250px; 
+border-radius: 20px 0 0 20px;
+width: 250px;
 }
 .home-newsletter .single .newsLetter:focus {
 box-shadow: none;
-border-color: #243c4f; 
+border-color: #243c4f;
 }
 .home-newsletter .single .btn {
-height: 50px; 
+height: 50px;
 border-radius: 0 20px 20px 0;
 background: #84E917;
 color: #fff;
-width: 100px; 
-margin-top: -4px; 
+width: 100px;
+margin-top: -4px;
 }
 
 	.newsLetterEmail{
-	margin-left: -219px; 
+	margin-left: -219px;
 }
 
 .what-we-offer-image{
 	width: 95%;
 }
 .row11{
-	margin-top: 450px; 
+	margin-top: 450px;
 	margin-left: 290px;
 }
 .row1{
