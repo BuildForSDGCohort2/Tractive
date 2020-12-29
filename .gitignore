@@ -135,4 +135,4 @@ tmp/
 .DS_Store
 
 # dotenv
-.env"node_modules" 
+.env
