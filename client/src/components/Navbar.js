@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-// navbar component
 import React, { useEffect, useState, Component } from 'react';
 import axios from "axios";
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -164,7 +162,7 @@ export default class MainNavbar extends Component  {
 =======
 // navbar component
 import React, { Component } from 'react';
-import axios from "axios"; 
+import axios from "axios";
 import { BrowserRouter as Router } from 'react-router-dom';
 import { NavLink, Redirect } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
@@ -177,7 +175,7 @@ export default class MainNavbar extends Component {
       loggedIn: false,
       }
     }
-    
+
     componentDidMount() {
       if (window.localStorage.getItem("JWT")) {
         this.setState({ loggedIn: true })
@@ -189,14 +187,14 @@ export default class MainNavbar extends Component {
       localStorage.removeItem('JWT');
       window.location = "/login"
     };
-  
+
   render() {
-    
+
       return (
-        
+
         <Navbar bg="success" expand="lg" >
         {/* <Navbar.Brand className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" href="/">Tractive</Navbar.Brand> */}
-        <NavLink className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" to="/"> 
+        <NavLink className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" to="/">
             Tractive
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -215,44 +213,44 @@ export default class MainNavbar extends Component {
                     </NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink 
+                    <NavLink
                         className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/contact-us">Contact Us
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-light font-weight-bold " to="/about">About Us
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-light font-weight-bold" to="/post-fleet">Post Fleet
-                    </NavLink>               
+                    </NavLink>
                 </li>
 
-           {localStorage.JWT ? 
+           {localStorage.JWT ?
             // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
                 <li onClick={this.logout}  className="nav-item">
                       <NavLink className="nav-link text-light font-weight-bold" to="/login">Logout
-                      </NavLink>               
+                      </NavLink>
                 </li>
             :
             <NavDropdown className="text-white"  title="Login" id="basic-nav-dropdown">
               <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/login-farmer">Farmer
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/login-owner">Fleet Owner
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/login-agent">Agent
-                    </NavLink>               
+                    </NavLink>
                 </li>
             </NavDropdown>
              }
 
              {
-                !localStorage.JWT && 
+                !localStorage.JWT &&
                 // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
                 // &&
                 // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
@@ -260,15 +258,15 @@ export default class MainNavbar extends Component {
                <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
                <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/farmer-register">Farmer
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/owner-register">Fleet Owner
-                    </NavLink>               
+                    </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink className="nav-link text-success font-weight-bold" to="/agent-register">Agent
-                    </NavLink>               
+                    </NavLink>
                 </li>
              </NavDropdown>
 
@@ -313,18 +311,18 @@ export default class MainNavbar extends Component {
 // // <nav className="navbar navbar-expand-lg navbar-light bg-success shadow mobile-color">
 // //     <div className="container">
 // //       <a className="navbar-brand font-weight-bolder text-light nav-text-head tractive-logo" href="/" >Tractive</a>
-// //       <button 
-// //           className="navbar-toggler " 
-// //           type="button" data-toggle="collapse" 
-// //           data-target="#navbarResponsive" 
-// //           aria-controls="navbarResponsive" 
-// //           aria-expanded="false" 
-// //           aria-label="Toggle navigation" 
+// //       <button
+// //           className="navbar-toggler "
+// //           type="button" data-toggle="collapse"
+// //           data-target="#navbarResponsive"
+// //           aria-controls="navbarResponsive"
+// //           aria-expanded="false"
+// //           aria-label="Toggle navigation"
 // //         >
 // //             <span className="navbar-toggler-icon bg-white"></span>
 // //           </button>
 // //       <div className="collapse navbar-collapse" id="navbarResponsive">
-        
+
 // //         <form className="form-inline ml-auto" onSubmit={this.onSubmit}>
 // //           <div>
 // //           <input className="form-control mr-sm-2" type="text"  placeholder="Search Fleets" />
@@ -340,27 +338,27 @@ export default class MainNavbar extends Component {
 // //                     </NavLink>
 // //                 </li>
 // //                 <li className="nav-item">
-// //                     <NavLink 
+// //                     <NavLink
 // //                         className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/contact-us">Contact Us
-// //                     </NavLink>               
+// //                     </NavLink>
 // //                 </li>
 // //                 <li className="nav-item">
 // //                     <Link className="nav-link text-light font-weight-bold " to="/about">About Us
-// //                     </Link>               
+// //                     </Link>
 // //                 </li>
 // //                 <li className="nav-item">
 // //                     <Link className="nav-link text-light font-weight-bold" to="/post-fleet">Post Fleet
-// //                     </Link>               
+// //                     </Link>
 // //                 </li>
 // //                 <li className="nav-item">
 // //                     <Link className="nav-link text-light font-weight-bold" to="/join-us">Join Us
-// //                     </Link>               
+// //                     </Link>
 // //                 </li>
 // //                 <li className="nav-item">
 // //                     <Link className="nav-link text-light font-weight-bold" to="/login">Login
-// //                     </Link>               
+// //                     </Link>
 // //                 </li>
-               
+
 // //         </ul>
 // //       </div>
 // //     </div>
