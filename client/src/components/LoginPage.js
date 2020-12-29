@@ -4,9 +4,51 @@ import { NavLink } from "react-router-dom";
 import "./JoinUsPage.css";
 // import Navbar from './Navbar';
 import Footer from "./Footer"
+import AuthenticatedRoute from "../App"
+import FlashMessage from 'react-flash-message';
 
 export default class LoginPage extends Component {
+    constructor(props) {
+        super(props);
+  
+      this.state = {
+        message: false,
+        }
+      }
+      
+      componentDidMount() {
+        if (AuthenticatedRoute) {
+          this.setState({ message: true })
+        //   window.location = '/join-us'
+        }
+      }
+
   render() {
+//     const {
+//         message
+//   } = this.state
+
+//   if (message) {
+//     return (
+//          <div className="mt-5">
+//                <div className="mt-5" >
+//             {/* <FlashMessage duration={10000}> */}
+//                 <strong className="text-danger h4">Please sign in or register, Thanks!</strong>
+//             {/* </FlashMessage> */}
+//             </div>
+//           <div className="mt-5">
+//               <NavLink
+//                 className="h5 btn btn-success  text-white font-weight-bold" to="/login">Login
+//               </NavLink> 
+          
+//               <NavLink
+//                 className="h5 ml-4 btn btn-success  text-white font-weight-bold" to="/join-us">Register
+//               </NavLink> 
+//           </div>
+//          </div>
+      
+//     );
+//   }
     return (
             <div className="">
             {/* <section className="hero_contact">

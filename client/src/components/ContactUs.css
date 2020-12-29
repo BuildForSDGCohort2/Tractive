@@ -29,18 +29,23 @@
         
 }
 
-<<<<<<< HEAD
-.contact-formHeader{
-	color: #84E917 !important;
+
+#toast-container{
+  top:30px !important;
+  right: 20px !important;
+  left: auto !important;
 }
 
-=======
+
+.material-icons:hover{
+  cursor: pointer;
+}
+
 /*.contact-formHeader{
 	text-align: left;
 	margin-left: 265px;
 }
 */
->>>>>>> e933f3de718a7da8ab4d312a376fea378cd64b65
 
 @media (max-width: 979px) {
 	/*.contact-formHeader{

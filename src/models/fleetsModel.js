@@ -20,10 +20,30 @@ const fleetsModel  = new Schema({
         trim: true,
         required: [true, "Purpose is required"]
     },
-    image:{
+    ownerNumber:{
+        type: String,
+        trim: true,
+        required: [true, "Number is required"]
+    },
+    ownerEmail:{
+        type: String,
+        trim: true,
+        required: [true, "Email is required"]
+        
+    },
+    ownerContact:{
+        type: String,
+        trim: true,
+        required: [true, "Contact is required"]
+    },
+    chargePerAcre:{
         type:String,
         trim: true
     },
+    image:{
+        type:String
+    },
+
     availability: {
         type:String,
         enum: ["Currently available", "One week time", "Two weeks - Four weeks time ", "Currently unavailable"],

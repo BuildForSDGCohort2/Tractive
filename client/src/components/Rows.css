@@ -20,6 +20,7 @@ background-position: center;
   background-size:cover;
   height: 800px;
 }
+
 .mission_col{
  border: 3px solid #84E917;
 	 padding: 20px 20px;
@@ -30,7 +31,7 @@ background-position: center;
 
 .row11{
 	margin-top: 450px; 
-	margin-left: 430px;
+	margin-left: 460px;
 }
 
 .farmer01{
@@ -176,4 +177,20 @@ margin-top: -4px;
 	.newsLetterEmail{
 	margin-left: -219px; 
 }
+
+.what-we-offer-image{
+	width: 95%;
+}
+.row11{
+	margin-top: 450px; 
+	margin-left: 290px;
+}
+.row1{
+	background: url("/images/row1.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size:cover;
+  height: 800px;
+}
+
 }

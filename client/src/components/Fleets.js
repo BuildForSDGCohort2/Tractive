@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios"; 
 import { Input } from 'reactstrap';
-
+import { NavLink} from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -21,26 +21,38 @@ export default class Fleets extends Component {
         this.state = {
             fleets: [],
             searchedValue: ''
-        }
+        };
     }
+
     onSearch(event) {
         this.setState({ searchedValue: event.target.value });
     }
+    componentDidMount = () => {
+        this.getFleets();
+      };
+    
+    getFleets = () => {
+        axios.get('/fleets', {
+            headers:{
+                "Authorization": `Bearer ${localStorage.getItem('JWT')}`
+            }
+            
+        })
+          .then((response) => {
+            const data = response.data;
+            this.setState({ fleets: data });
+            console.log('Data has been received!!');
+          })
+          .then(res => {
+            console.log(res);
+        })
+          .catch((error) => {
+            console.log(error)
+          });
+      }
 
-    componentDidMount() {
-        axios.get("http://localhost:2020/fleets")
-        .then(res => {
-            console.log(res)
-            this.setState({ 
-                // fleets: res.data,
-                // fleets: res.data[0].fleets,
-                fleets: res.data.map(fleet => fleet),
-                fleet: res.data[0]
-            })
-        });  
-    }
-
-    render() {  
+render() {  
+    // const data = this.state.fleets; 
         const data = this.state.fleets.filter(
             (fleet) => {
                 return fleet.name.toLowerCase().indexOf(this.state.searchedValue.toLowerCase()) !== -1;
@@ -50,8 +62,9 @@ export default class Fleets extends Component {
   return (
     <>
     <div className="container mt-5">
-        <p className="h2 text-success text-center mb-4">Search for fleets in matter of seconds</p>
-    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search fleets such as tractor, sprayer etc."/>
+        <p className="h1 text-success text-center mb-4">Welcome to the <span className="Display-3"> Market Place </span> </p>
+        <p className="h2 text-success text-center mb-4">Search for fleets or produce in a matter of seconds</p>
+    <Input style={search } className="mb-3" type="text" onChange={this.onSearch.bind(this)} value={this.state.searchedValue} placeholder="Search for fleets or produce such as Tractor or Onions "/>
         <div className="row d-flex justify-content-between ">
 
         {data.length > 0 ? 
@@ -61,7 +74,7 @@ export default class Fleets extends Component {
                 <Card style={style} key={fleet._id.toString()} className="mt-3">
                     <CardImg
                     alt="..."
-                    src={"/images/tractyJoin.png" }
+                    src={fleet.image?fleet.image:"/images/tractyJoin.png" }
                     top
                     ></CardImg>
                     <CardBody>
@@ -69,13 +82,16 @@ export default class Fleets extends Component {
                     <CardText>
                         {fleet.desc}
                     </CardText>
+                    <CardText>
+                        {fleet.availability}
+                    </CardText>
+                    <NavLink to={"/fleet/"+fleet._id}>
                     <Button
                         color="success"
-                        href="#pablo"
-                        onClick={(e) => e.preventDefault()}
                     >
                         Contact the Owner
-                    </Button>
+                        </Button>
+                    </NavLink>
                     </CardBody>
                 </Card>
             )}                       

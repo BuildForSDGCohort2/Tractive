@@ -36,9 +36,9 @@ const Agent = require("../models/agentsModel");
               });
             }
             bcrypt.hash(password, BCRYPT_SALT_ROUNDS).then(hashedPassword => {
-                const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password  } = req.body
+                const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, image, password  } = req.body
               Agent.create({
-                email, title, address, town, state, fullName, gender, phone,  country,  education, employmentStatus, cvLink,
+                email, title, address, town, state, fullName, gender, phone,  country,  education, employmentStatus, cvLink, image,
                 password: hashedPassword,
                 email: req.body.email,
               }).then(user => {

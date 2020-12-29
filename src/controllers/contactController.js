@@ -22,8 +22,8 @@ const postContact = (req, res) => {
 
   contactModel.create(contacts)
 //   console.log(contacts)
-    .then(contacts => res.json(contacts)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+    .then(() => res.status(200).json({message: "Message sent successfully. We will get back to you soon... Thanks"})) 
+    .catch(error => res.status(400).json({error: "Message not sent. Please try again or check your inputs"})); 
 };
 
   module.exports = {

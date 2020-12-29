@@ -1,29 +1,42 @@
 const passport = require("passport")
 const crypto = require('crypto');
 const bcrypt = require("bcrypt");
-// const bcrypt = require("bcrypt")
-// import User from '../sequelize';
-
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../config/jwtConfig"); 
 const Farmer = require("../models/farmerModel");
 
 require('dotenv').config();
 const nodemailer = require('nodemailer');
+const { title } = require("process");
 const BCRYPT_SALT_ROUNDS = 12;
 
 
 const getFarmers = async (req, res, next) => {
-    Farmer.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+  Farmer.find()
+  .then((data) => {
+   jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+       if(err){
+           //If error send Forbidden (403)
+           console.log('ERROR: Could not connect to the fleets route');
+           res.sendStatus(403);
+       } else {
+           //If token is successfully verified, we can send the autorized data 
+           res.status(200).json(
+               // message: '',
+               // authorizedData,
+               data,
+           );
+           console.log('SUCCESS: Connected to fleets');
+       }
+   })
+});
 };
 
 // register 
 const farmerApplication = async (req, res, next) => { 
     passport.authenticate('registerFarmer', (err, user, info) => {
       if (err) {
-        console.error(err);
+        res.status(403).json({err: "Error! Please try again or check you inputs"});
       }
       if (info !== undefined) {
         console.error(info.message);
@@ -34,10 +47,10 @@ const farmerApplication = async (req, res, next) => {
           console.log("user");
           console.log(user);
 
-          const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, password, password2   } = req.body
+          const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, image, password, password2   } = req.body
 
           const data = {
-            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country,
+            title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country, image,
             email: user.email,
           };
           console.log("data");
@@ -61,10 +74,13 @@ const farmerApplication = async (req, res, next) => {
                 email: data.email, 
                 phone: data.phone,  
                 country: data.country, 
+                image: data.image,
               })
               .then(() => {
                 console.log('user created in db');
-                res.status(200).send({ message: `${user.fullName}, successully registered`});
+                res.status(200).json({ message: `Dear ${title} ${user.fullName}, You are successully registered, Thanks`});
+                req.flash("success", "You are successfully logged In!");
+                res.locals.message = req.flash();
               });
           });
         });
@@ -93,10 +109,10 @@ const farmerLogin = async (req, res, next) => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
                 expiresIn: 60 * 60,
               });
-              res.status(200).send({
+              res.status(200).json({
                 auth: true,
                 token,
-                message: 'user found & logged in',
+                message: `You are successfully logged in`,
               });
             });
           });
@@ -116,7 +132,7 @@ const findUser = async (req, res, next) => {
     } else if (user.email === req.query.email) {
       Farmer.findOne({
           email: req.query.email,
-      }).then((userInfo) => {
+      }).then((userInfo) =>  {
         if (userInfo != null) {
           console.log('user found in db from findUsers');
           res.status(200).send({
@@ -134,6 +150,7 @@ const findUser = async (req, res, next) => {
             farmAddress: userInfo.farmSize,
             crops: userInfo.crops,
             password: userInfo.password,
+            image: userInfo.image,
             message: 'user found!',
           });
         } else {
@@ -170,8 +187,8 @@ const findUser = async (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: "ibrahim.saliman.zainab@gmail.com",
-              pass: "olalekan1",
+              user: `${process.env.EMAIL_ADDRESS}`,
+              pass: `${process.env.EMAIL_PASSWORD}`,
             },
           });
   
@@ -321,7 +338,7 @@ const findUser = async (req, res, next) => {
   };
   
 // update user
-  const updateUser = async (req, res, next) => {
+  const updateProfile = async (req, res, next) => {
       passport.authenticate('jwtFarmer', { session: false }, (err, user, info) => {
         if (err) {
           console.error(err);
@@ -336,10 +353,10 @@ const findUser = async (req, res, next) => {
             if (userInfo != null) {
               console.log('user found in db');
 
-              const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country,  } = req.body
+              const { title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone, image, country,  } = req.body
               userInfo
                 .update({
-                  title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone,  country,
+                  title, address, town, state, farmSize, farmAddress, crops, fullName, gender, email, phone, image, country,
                 })
                 .then(() => {
                   console.log('user updated');
@@ -354,8 +371,7 @@ const findUser = async (req, res, next) => {
       })(req, res, next);
    
   };
-  
-
+ 
 // logout with passport
 const farmerLogout = async (req, res) => {
     req.logout();
@@ -373,7 +389,7 @@ module.exports = {
     getFarmers, 
     findUser,
     deleteUser,
-    updateUser,
+    updateProfile,
     farmerLogout
 }; 
   

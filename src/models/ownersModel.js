@@ -7,17 +7,13 @@ const ownersModel  = new Schema({
         type:String, 
         enum: ["Mr.", "Mrs.", "Alh.", "Miss.", "Dr.",  "Prof.", "Chief", "Prince", "Others"],
         trim: true,
-        required: [true, "Fullname is required"]
+        // required: [true, "Fullname is required"]
     },
 
     fullName:{
         type:String, 
         trim: true,
         required: [true, "Fullname is required"]
-    },
-    username: {
-        type:String,
-        trim: true
     },
     gender:{
         type:String, 
@@ -59,7 +55,7 @@ const ownersModel  = new Schema({
         type:String,
         enum: ["Owner", "Manager", "CEO", "others"],
         trim: true,
-        required: [true, "Role is required"]
+        // required: [true, "Role is required"]
     },
     firmName: {
         type:String,
@@ -75,7 +71,11 @@ const ownersModel  = new Schema({
         type:String,
         trim: true,
         required: [true, "Password is required"]
-    }
+    }, 
+    image:{
+        type:String,
+        default:"https://res.cloudinary.com/zeeson-info-tech-and-innovations/image/upload/v1605744370/user1_fp1fwm.png"
+       },
     
 })
 

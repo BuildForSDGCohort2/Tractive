@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import axios from "axios"; 
 import { BrowserRouter as Router } from 'react-router-dom';
-import { NavLink } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Form, FormControl, Button } from 'react-bootstrap';
 
 export default class MainNavbar extends Component {
@@ -23,49 +23,95 @@ export default class MainNavbar extends Component {
     logout = (e) => {
       e.preventDefault();
       localStorage.removeItem('JWT');
+      window.location = "/login"
     };
-
   
   render() {
     
       return (
         
         <Navbar bg="success" expand="lg" >
-        <Navbar.Brand className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" href="/">Tractive</Navbar.Brand>
+        {/* <Navbar.Brand className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" href="/">Tractive</Navbar.Brand> */}
+        <NavLink className="navbar-brand font-weight-bolder text-light ml-5 mr-4 nav-text-head tractive-logo" to="/"> 
+            Tractive
+        </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link className="text-light font-weight-bold"  href="/">Home</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/fleets">Fleets</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/contact-us">Contact Us</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/about">About Us</Nav.Link>
-            <Nav.Link className="text-light font-weight-bold"  href="/post-fleet">Post Fleet</Nav.Link>
+        <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                    <NavLink
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/">Home
+                        <span class="sr-only">(current)</span>
+                    </NavLink>
+                </li>
+              <li className="nav-item">
+                    <NavLink
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/fleets">Market Place
+                        <span class="sr-only">(current)</span>
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink 
+                        className="nav-link text-light font-weight-bold" activeClassName="is-active" to="/contact-us">Contact Us
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-light font-weight-bold " to="/about">About Us
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-light font-weight-bold" to="/post-fleet">Post Fleet
+                    </NavLink>               
+                </li>
 
-            { this.state.loggedIn &&
-            <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
-            }
-
-            { !this.state.loggedIn &&
+           {localStorage.JWT ? 
+            // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+                <li onClick={this.logout}  className="nav-item">
+                      <NavLink className="nav-link text-light font-weight-bold" to="/login">Logout
+                      </NavLink>               
+                </li>
+            :
             <NavDropdown className="text-white"  title="Login" id="basic-nav-dropdown">
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-farmer">Farmer</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-owner">Fleet Owner</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/login-agent">Agent</NavDropdown.Item>
-              {/* <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
+              <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-farmer">Farmer
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-owner">Fleet Owner
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/login-agent">Agent
+                    </NavLink>               
+                </li>
             </NavDropdown>
-            
-            }
-              { !this.state.loggedIn &&
-              <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/farmer-register">Farmer</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold"  href="/owner-register">Fleet Owner</NavDropdown.Item>
-              <NavDropdown.Item className="text-success font-weight-bold" href="/agent-register">Agent</NavDropdown.Item>
-              {/* <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
-            </NavDropdown>
-          }
+             }
 
-          </Nav>
+             {
+                !localStorage.JWT && 
+                // <Nav.Link className="text-light font-weight-bold" onClick={this.logout}   href="/login">Logout</Nav.Link>
+                // &&
+                // <Nav.Link className="text-light font-weight-bold"  href="/update-profile">Update Profile</Nav.Link>
+                // :
+               <NavDropdown className="text-white" bg="success"  title="Join Us" id="basic-nav-dropdown">
+               <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/farmer-register">Farmer
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/owner-register">Fleet Owner
+                    </NavLink>               
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link text-success font-weight-bold" to="/agent-register">Agent
+                    </NavLink>               
+                </li>
+             </NavDropdown>
+
+             }
+        </ul>
+          {/* <Nav className="mr-auto">
+          </Nav> */}
           <Form inline>
             <FormControl type="text" placeholder="Search" className="mr-sm-2" />
            {/* <NavLink> */}

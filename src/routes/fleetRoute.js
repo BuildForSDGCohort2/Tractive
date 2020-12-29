@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { upload } = require("../utility/multer"); 
+const checkToken = require("../middlewares/verifyToken")
+
 
 const {
-    getFleets, postFleets, showFleet, editFleet, updateFleet, deleteFleet, getNewFleet   
+    getFleets, postFleets, showFleet, editFleet, updateFleet, deleteFleet,
 } = require("../controllers/fleetsController")
 
 // fleet routes
-router.get("/", getFleets);
-router.get("/new", getNewFleet);
-router.post("/", upload.single('image'), postFleets);
+router.get("/", checkToken, getFleets);
+router.post("/", postFleets);
 router.get("/:id", showFleet);
 router.get("/:id/edit", editFleet);
-router.post("/:id", updateFleet);
-router.delete("/:id/delete", deleteFleet);
+router.put("/:id", updateFleet);
+router.delete("/delete/:id", deleteFleet);
 
 module.exports = router; 

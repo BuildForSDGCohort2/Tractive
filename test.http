@@ -1,13 +1,10 @@
-GET http://localhost:2020/farmers/reset/1911f1b6859e27dd47959f216c8577aed6774993 HTTP/1.1
+GET http://localhost:2020/contact-us HTTP/1.1
 Content-Type: application/json
 
 {
-
-   "name": "Ibrahim",
-   "email": "testowner1@gmail.com", 
-   "subject": "testowner1@gmail.com", 
-   "message": "testowner1@gmail.com" 
+        "name":"ola",  
+        "email":"ola@ola.com",
+        "subject":"message 1",
+        "message":"message"
    
-  
-     
 }

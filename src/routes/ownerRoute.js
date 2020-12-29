@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express(); 
 const router = express.Router();
+const checkToken = require("../middlewares/verifyToken")
 
 const { forwardAuthenticated } = require('../config/auth');
 
@@ -33,7 +34,7 @@ const {
 
 
 // owners routes ownersControllers
-router.get('/', getOwners);
+router.get('/', checkToken, getOwners);
 router.post('/signup', ownerApplication);
 router.post('/signin', ownerLogin);
 router.get('/find-user', findUser);

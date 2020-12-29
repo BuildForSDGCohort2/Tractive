@@ -12,30 +12,45 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 
 const getOwners = async (req, res, next) => {
-    Owner.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+  Owner.find()
+  .then((data) => {
+   jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+       if(err){
+           //If error send Forbidden (403)
+           console.log('ERROR: Could not connect to the owners route');
+           res.sendStatus(403);
+       } else {
+           //If token is successfully verified, we can send the autorized data 
+           res.status(200).json(
+               // message: '',
+               // authorizedData,
+               data,
+           );
+           console.log('SUCCESS: Connected to owners');
+       }
+   })
+});
 };
 
 // register 
 const ownerApplication = async (req, res, next) => { 
     passport.authenticate('registerOwner', (err, user, info) => {
       if (err) {
-        console.error(err);
+        res.status(403).json({err: "Error! Please try again or check you inputs"});
       }
       if (info !== undefined) {
         console.error(info.message);
-        res.status(403).send(info.message);
+        res.status(403).json(info.message);
       } else {
         req.logIn(user, error => {
 
           console.log("owners");
           console.log(user);
 
-          const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress,  } = req.body
+          const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image,  } = req.body
 
           const data = {
-            title, address, town, state, role, fullName, gender, email, phone,  country, firmName, firmAddress, 
+            title, address, town, state, role, fullName, gender, email, phone,  country, firmName, firmAddress, image,
             email: user.email,
           };
           console.log("data");
@@ -59,10 +74,11 @@ const ownerApplication = async (req, res, next) => {
                 role: data.role, 
                 firmName: data.firmName,
                 firmAddress: data.firmAddress,
+                image: data.image,
               })
               .then(() => {
                 console.log('user created in db');
-                res.status(200).send({ message: `${data.fullName}, successully registered`});
+                res.status(200).send({ message: `Dear ${title} ${user.fullName}, You are successully registered, Thanks`});
               });
           });
         });
@@ -91,10 +107,10 @@ const ownerLogin = async (req, res, next) => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
                 expiresIn: 60 * 60,
               });
-              res.status(200).send({
+              res.status(200).json({
                 auth: true,
                 token,
-                message: 'user found & logged in',
+                message: `You are successfully logged in`,
               });
             });
           });
@@ -117,10 +133,10 @@ const findUser = async (req, res, next) => {
       }).then((userInfo) => {
         if (userInfo != null) {
           console.log('user found in db from findUsers');
-          const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password, } = userInfo
+          const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image, password, } = userInfo
           res.status(200).send({
             auth: true,
-            title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password, 
+            title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image, password, 
             message: 'user found!',
           });
         } else {
@@ -169,7 +185,7 @@ const findUser = async (req, res, next) => {
             text:
               'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
               + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-              + `http://localhost:2020/reset/${token}\n\n`
+              + `/reset/${token}\n\n`
               + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
           };
   
@@ -320,15 +336,15 @@ const findUser = async (req, res, next) => {
           console.error(info.message);
           res.status(403).send(info.message);
         } else {
-          Farmer.findOne({
+          Owner.findOne({
               email: req.body.email,
           }).then((userInfo) => {
             if (userInfo != null) {
               console.log('user found in db');
-              const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password,  } = req.body
+              const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image, password,  } = req.body
               userInfo
                 .update({
-                    title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, password, 
+                    title, address, town, state,  role, fullName, gender, email, phone,  country, firmName, firmAddress, image, password, 
                 })
                 .then(() => {
                   console.log('user updated');

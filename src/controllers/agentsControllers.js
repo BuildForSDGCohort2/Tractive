@@ -1,7 +1,7 @@
 const passport = require("passport")
 const crypto = require('crypto');
 const bcrypt = require("bcrypt");
-
+const config = require("../config/constant")
 const jwt = require("jsonwebtoken");
 const jwtSecret = require("../config/jwtConfig"); 
 const Agent = require("../models/agentsModel");
@@ -13,15 +13,28 @@ const BCRYPT_SALT_ROUNDS = 12;
 
 const getAgents = async (req, res, next) => {
     Agent.find()
-    .then(data => res.json(data)) 
-    .catch(error => res.status(400).json("Error: " + error)); 
+    .then(data => {
+      jwt.verify(req.token, jwtSecret.secret, data, (err, authorizedData) => {
+        if(err){
+            //If error send Forbidden (403)
+            console.log('ERROR: Could not connect to the agents route');
+            res.sendStatus(403);
+        } else {
+            //If token is successfully verified, we can send the autorized data 
+            res.json({
+                data,
+            });
+            console.log('SUCCESS: Connected to agents');
+        }
+    })
+    }); 
 };
 
 // register 
 const agentApplication = async (req, res, next) => { 
     passport.authenticate('registerAgent', (err, user, info) => {
       if (err) {
-        console.error(err);
+        res.status(403).json({err: "Error! Please try again or check you inputs"});
       }
       if (info !== undefined) {
         console.error(info.message);
@@ -32,10 +45,10 @@ const agentApplication = async (req, res, next) => {
           console.log("agents");
           console.log(user);
 
-          const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password,  } = req.body
+          const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password, image, } = req.body
 
           let data = {
-            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password,
+            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password, image,
             email: user.email,
           };
           console.log("data");
@@ -59,11 +72,12 @@ const agentApplication = async (req, res, next) => {
                 country: data.country,  
                 education: data.education, 
                 employmentStatus: data.employmentStatus, 
-                cvLink: data.cvLink
+                cvLink: data.cvLink,
+                image: data.image,
               })
               .then(() => {
                 console.log('user created in db');
-                res.status(200).send({ message: `${user.fullName}, successully registered`});
+                res.status(200).json({ message: `Dear ${title} ${user.fullName}, You are successully registered, Thanks`});
               });
           });
         });
@@ -76,6 +90,7 @@ const agentLogin = async (req, res, next) => {
       passport.authenticate('loginAgent', (err, users, info) => {
         if (err) {
           console.error(`error ${err}`);
+          res.status(401).json({err: "error login In"})
         }
         if (info !== undefined) {
           console.error(info.message);
@@ -90,12 +105,12 @@ const agentLogin = async (req, res, next) => {
                 email: req.body.email,
             }).then(user => {
               const token = jwt.sign({ id: user.id }, jwtSecret.secret, {
-                expiresIn: 60 * 60,
+                expiresIn: '1h' 
               });
-              res.status(200).send({
+              res.status(200).json({
                 auth: true,
                 token,
-                message: 'user found & logged in',
+                message: `You are successfully logged in`,
               });
             });
           });
@@ -118,10 +133,10 @@ const findUser = async (req, res, next) => {
       }).then((userInfo) => {
         if (userInfo != null) {
           console.log('user found in db from findUsers');
-          const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password, } = userInfo
+          const { title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password, image,} = userInfo
           res.status(200).send({
             auth: true,
-            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password,
+            title, address, town, state, fullName, gender, email, phone,  country,  education, employmentStatus, cvLink, password, image,
             message: 'user found!',
           });
         } else {
@@ -158,8 +173,12 @@ const findUser = async (req, res, next) => {
           const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-              user: `${process.env.EMAIL_ADDRESS}`,
-              pass: `${process.env.EMAIL_PASSWORD}`,
+              // user: `${process.env.EMAIL_ADDRESS}`,
+              // user: `${config.email}`,
+              user: config.email,
+              // pass: `${process.env.EMAIL_PASSWORD}`,
+              // pass: `${config.password}`,
+              pass: config.password,
             },
           });
   
@@ -326,10 +345,10 @@ const findUser = async (req, res, next) => {
           }).then((userInfo) => {
             if (userInfo != null) {
               console.log('user found in db');
-              const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password,  } = req.body
+              const { title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password, image, } = req.body
               userInfo
                 .update({
-                    title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password, 
+                    title, address, town, state,  role, fullName, gender, email, phone,  country, firmAddress, password, image,
                 })
                 .then(() => {
                   console.log('user updated');
@@ -345,8 +364,6 @@ const findUser = async (req, res, next) => {
    
   };
   
-
-
 module.exports = {
     agentLogin,
     agentApplication,
